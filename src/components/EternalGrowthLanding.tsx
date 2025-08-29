@@ -1,7 +1,7 @@
-import { useTypewriter } from '../hooks/useTypewriter';
-import { useGlitchEffect } from '../hooks/useGlitchEffect';
-import logoImage from '../assets/logo.jpeg';
-import './EternalGrowthLanding.css';
+import { useTypewriter } from "../hooks/useTypewriter";
+import { useGlitchEffect } from "../hooks/useGlitchEffect";
+import logoImage from "../assets/logo.jpeg";
+import "./EternalGrowthLanding.css";
 
 const EternalGrowthLanding = () => {
   const typewriterText = useTypewriter();
@@ -35,7 +35,7 @@ const EternalGrowthLanding = () => {
       {/* Main Content */}
       <div className="content-container">
         <div className="logo-container">
-          <h1 className={`logo ${isGlitching ? 'glitch' : ''}`}>
+          <h1 className={`logo ${isGlitching ? "glitch" : ""}`}>
             EternalGrowth
           </h1>
         </div>
