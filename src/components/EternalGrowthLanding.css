@@ -53,16 +53,17 @@
   width: 120vmin;
   height: auto;
   filter: brightness(1.5) contrast(1.2) hue-rotate(10deg);
-  animation: subtle-pulse 6s ease-in-out infinite alternate;
   object-fit: contain;
   /* Asegurar centrado perfecto */
   max-width: 90vw;
   max-height: 90vh;
+  animation: subtle-pulse-scale 6s ease-in-out infinite alternate;
 }
 
-@keyframes subtle-pulse {
-  0% { opacity: 0.12; transform: translate(-50%, -50%) scale(0.95); }
-  100% { opacity: 0.18; transform: translate(-50%, -50%) scale(1.05); }
+/* Mantener el logo centrado durante la animación sin mover su posición */
+@keyframes subtle-pulse-scale {
+  0% { opacity: 0.12; transform: scale(0.98); }
+  100% { opacity: 0.18; transform: scale(1.02); }
 }
 
 /* CRT Effects Layer */
