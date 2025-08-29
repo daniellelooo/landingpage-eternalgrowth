@@ -50,13 +50,13 @@
 }
 
 .background-logo img {
-  width: 120vmin;
+  width: 135vmin;
   height: auto;
   filter: brightness(1.5) contrast(1.2) hue-rotate(10deg);
   object-fit: contain;
   /* Asegurar centrado perfecto */
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 95vw;
+  max-height: 95vh;
   animation: subtle-pulse-scale 6s ease-in-out infinite alternate;
 }
 
