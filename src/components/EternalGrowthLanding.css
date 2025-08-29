@@ -1,0 +1,437 @@
+/* EternalGrowth Landing Page Sty@keyframes subtle-pulse {
+  0% { 
+    opacity: 0.25; 
+    transform: translate(-50%, -50%) scale(0.98); 
+  }
+  100% { 
+    opacity: 0.35; 
+    transform: translate(-50%, -50%) scale(1.02); 
+  }
+}*/
+/* Cyberpunk/CRT aesthetic with@keyframes logo-glow {
+  0% {
+    text-shadow: 
+      0 0 10px #8B5CF6,
+      0 0 20px #8B5CF6,
+      0 0 30px #8B5CF6,
+      0 0 40px #8B5CF6;
+  }
+  100% {
+    text-shadow: 
+      0 0 15px #C084FC,
+      0 0 25px #C084FC,
+      0 0 35px #C084FC,
+      0 0 45px #C084FC,
+      0 0 55px #C084FC;
+  }
+}e structure */
+
+.eternal-growth-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Background Logo - Centrado y prominente */
+.background-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.30;
+  pointer-events: none;
+}
+
+.background-logo img {
+  width: 120vmin;
+  height: auto;
+  filter: brightness(1.5) contrast(1.2) hue-rotate(10deg);
+  animation: subtle-pulse 6s ease-in-out infinite alternate;
+  object-fit: contain;
+  /* Asegurar centrado perfecto */
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+@keyframes subtle-pulse {
+  0% { opacity: 0.12; transform: translate(-50%, -50%) scale(0.95); }
+  100% { opacity: 0.18; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* CRT Effects Layer */
+.tv-static {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Scanlines Effect */
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(139, 92, 246, 0.04) 2px,
+    rgba(139, 92, 246, 0.04) 4px
+  );
+  animation: scanlines-move 0.1s linear infinite;
+}
+
+@keyframes scanlines-move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Horizontal Sweep */
+.horizontal-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.1) 50%,
+    transparent 100%
+  );
+  animation: horizontal-sweep 3s ease-in-out infinite;
+}
+
+@keyframes horizontal-sweep {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* CRT Glow Effect */
+.crt-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.05) 0%,
+    transparent 70%
+  );
+  animation: crt-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes crt-glow {
+  0% { 
+    filter: blur(1px);
+    opacity: 0.8;
+  }
+  100% { 
+    filter: blur(2px);
+    opacity: 0.4;
+  }
+}
+
+/* Noise Layer */
+.noise-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: screen;
+  animation: noise-flicker 3s infinite;
+}
+
+@keyframes noise-flicker {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.45; }
+}
+
+/* Main Content */
+.content-container {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Logo Styling */
+.logo-container {
+  position: relative;
+}
+
+.logo {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0;
+  color: #fff;
+  text-shadow: 
+    0 0 10px #8B5CF6,
+    0 0 20px #8B5CF6,
+    0 0 30px #8B5CF6,
+    0 0 40px #8B5CF6;
+  animation: logo-glow 3s ease-in-out infinite alternate;
+  transition: all 0.3s ease;
+  
+  /* === TIPOGRAFÍAS PARA PROBAR === */
+  /* Descomenta la que quieras usar y comenta la activa */
+  
+  /* ACTIVA - Moderna y geométrica */
+  font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
+  
+  /* FUTURISTAS */
+  /* font-family: 'Orbitron', sans-serif; */
+  /* font-family: 'Exo 2', sans-serif; */
+  /* font-family: 'Rajdhani', sans-serif; font-weight: 700; */
+  
+  /* MODERNAS Y LIMPIAS */
+  /* font-family: 'Inter', sans-serif; font-weight: 700; */
+  /* font-family: 'Poppins', sans-serif; font-weight: 700; */
+  /* font-family: 'Montserrat', sans-serif; font-weight: 800; */
+  
+  /* CLÁSICAS MEJORADAS */
+  /* font-family: 'Roboto', sans-serif; font-weight: 700; */
+  /* font-family: 'Open Sans', sans-serif; font-weight: 700; */
+  /* font-family: 'Lato', sans-serif; font-weight: 700; */
+  
+  /* IMPACTANTES */
+  /* font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: 0.1em; */
+  /* font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.15em; */
+  /* font-family: 'Anton', sans-serif; letter-spacing: 0.05em; */
+  /* font-family: 'Archivo Black', sans-serif; letter-spacing: 0.08em; */
+}
+}
+}
+
+@keyframes logo-glow {
+  0% {
+    text-shadow: 
+      0 0 8px #8B5CF6,
+      0 0 16px #8B5CF6,
+      0 0 24px #8B5CF6,
+      0 0 32px #8B5CF6;
+  }
+  100% {
+    text-shadow: 
+      0 0 12px #C084FC,
+      0 0 20px #C084FC,
+      0 0 28px #C084FC,
+      0 0 36px #C084FC,
+      0 0 44px #C084FC;
+  }
+}
+
+/* Glitch Effect */
+.logo.glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    text-shadow: 
+      0 0 10px #8B5CF6,
+      0 0 20px #8B5CF6,
+      0 0 30px #8B5CF6;
+  }
+  10% {
+    transform: translate(-2px, 2px);
+    text-shadow: 
+      0 0 10px #C084FC,
+      0 0 20px #C084FC,
+      0 0 30px #C084FC;
+  }
+  20% {
+    transform: translate(-1px, -1px);
+    text-shadow: 
+      0 0 10px #A855F7,
+      0 0 20px #A855F7,
+      0 0 30px #A855F7;
+  }
+  30% {
+    transform: translate(1px, 2px);
+    text-shadow: 
+      0 0 10px #7C3AED,
+      0 0 20px #7C3AED,
+      0 0 30px #7C3AED;
+  }
+  40% {
+    transform: translate(1px, -1px);
+    text-shadow: 
+      0 0 10px #8B5CF6,
+      0 0 20px #8B5CF6,
+      0 0 30px #8B5CF6;
+  }
+  50% {
+    transform: translate(-1px, 2px);
+    text-shadow: 
+      0 0 10px #C084FC,
+      0 0 20px #C084FC,
+      0 0 30px #C084FC;
+  }
+  60% {
+    transform: translate(-1px, 1px);
+    text-shadow: 
+      0 0 10px #A855F7,
+      0 0 20px #A855F7,
+      0 0 30px #A855F7;
+  }
+  70% {
+    transform: translate(0px, 1px);
+    text-shadow: 
+      0 0 10px #8B5CF6,
+      0 0 20px #8B5CF6,
+      0 0 30px #8B5CF6;
+  }
+  80% {
+    transform: translate(1px, 0px);
+    text-shadow: 
+      0 0 10px #C084FC,
+      0 0 20px #C084FC,
+      0 0 30px #C084FC;
+  }
+  90% {
+    transform: translate(1px, 2px);
+    text-shadow: 
+      0 0 10px #A855F7,
+      0 0 20px #A855F7,
+      0 0 30px #A855F7;
+  }
+}
+
+/* Typewriter Section */
+.message-container {
+  position: relative;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typewriter-wrapper {
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  
+  /* FRASES TIPO CÓDIGO - Estética futurista de programación */
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  
+  /* Efecto de terminal/consola */
+  text-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+}
+
+.typewriter-text {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 
+    0 0 8px rgba(139, 92, 246, 0.6),
+    0 0 3px rgba(139, 92, 246, 0.8);
+  animation: fade-in 2s ease-out 1s both;
+  
+  /* Efecto de código futurista */
+  background: linear-gradient(45deg, transparent 30%, rgba(139, 92, 246, 0.1) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: fade-in 2s ease-out 1s both, code-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes code-shimmer {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -200% 0; }
+}
+
+/* Cursor tipo terminal */
+.cursor {
+  color: #8B5CF6;
+  font-weight: 400;
+  margin-left: 3px;
+  animation: blink 1s infinite;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  text-shadow: 0 0 8px #8B5CF6;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-container {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+  
+  .background-logo img {
+    width: 90vmin;
+  }
+  
+  .logo {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* High DPI / Retina Display Optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo {
+    text-rendering: optimizeLegibility;
+  }
+  
+  .scanlines {
+    background-size: 100% 2px;
+  }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .scanlines {
+    animation: none;
+  }
+  
+  .horizontal-sweep {
+    animation: none;
+  }
+  
+  .crt-glow {
+    animation: none;
+  }
+}
