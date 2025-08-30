@@ -1,7 +1,7 @@
 {
-  "name": "prototipolandingpage",
+  "name": "eternalgrowth-landing",
   "version": "1.0.0",
-  "description": "",
+  "description": "Una landing page cyberpunk con efectos CRT y animaciones futuristas para EternalGrowth",
   "main": "index.js",
   "scripts": {
     "dev": "node node_modules/vite/bin/vite.js",
@@ -9,9 +9,28 @@
     "preview": "node node_modules/vite/bin/vite.js preview",
     "lint": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "cyberpunk",
+    "landing-page",
+    "crt-effects",
+    "animations",
+    "futuristic",
+    "wallpaper",
+    "eternalgrowth"
+  ],
+  "author": "EternalGrowth Team",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daniellelooo/landingpage-eternalgrowth.git"
+  },
+  "homepage": "https://github.com/daniellelooo/landingpage-eternalgrowth#readme",
+  "bugs": {
+    "url": "https://github.com/daniellelooo/landingpage-eternalgrowth/issues"
+  },
   "type": "module",
   "engines": { "node": ">=18" },
   "dependencies": {

@@ -1,0 +1,156 @@
+/* Wallpaper Background - Solo el fondo sin texto */
+
+.wallpaper-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Background Logo - Centrado y prominente */
+.wallpaper-background-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.wallpaper-background-logo img {
+  width: 150vmin;
+  height: auto;
+  filter: brightness(1.5) contrast(1.2) hue-rotate(10deg);
+  object-fit: contain;
+  max-width: 98vw;
+  max-height: 98vh;
+  animation: wallpaper-subtle-pulse-scale 6s ease-in-out infinite alternate;
+}
+
+@keyframes wallpaper-subtle-pulse-scale {
+  0% { opacity: 0.15; transform: scale(0.98); }
+  100% { opacity: 0.25; transform: scale(1.02); }
+}
+
+/* CRT Effects Layer */
+.wallpaper-tv-static {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Scanlines Effect */
+.wallpaper-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(139, 92, 246, 0.04) 2px,
+    rgba(139, 92, 246, 0.04) 4px
+  );
+  animation: wallpaper-scanlines-move 0.1s linear infinite;
+}
+
+@keyframes wallpaper-scanlines-move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Horizontal Sweep */
+.wallpaper-horizontal-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.1) 50%,
+    transparent 100%
+  );
+  animation: wallpaper-horizontal-sweep 3s ease-in-out infinite;
+}
+
+@keyframes wallpaper-horizontal-sweep {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* CRT Glow Effect */
+.wallpaper-crt-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.05) 0%,
+    transparent 70%
+  );
+  animation: wallpaper-crt-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes wallpaper-crt-glow {
+  0% { 
+    filter: blur(1px);
+    opacity: 0.8;
+  }
+  100% { 
+    filter: blur(2px);
+    opacity: 0.4;
+  }
+}
+
+/* Noise Layer */
+.wallpaper-noise-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: screen;
+  animation: wallpaper-noise-flicker 3s infinite;
+}
+
+@keyframes wallpaper-noise-flicker {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.45; }
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (max-width: 768px) {
+  .wallpaper-background-logo img {
+    width: 120vmin;
+  }
+}
+
+@media (min-width: 1920px) {
+  .wallpaper-background-logo img {
+    width: 160vmin;
+  }
+}
+
+/* For ultra-wide screens */
+@media (min-aspect-ratio: 21/9) {
+  .wallpaper-background-logo img {
+    width: 100vh;
+    height: 100vh;
+  }
+}
