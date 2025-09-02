@@ -27,6 +27,7 @@ EternalGrowth es una landing page moderna con estética cyberpunk que presenta:
 ## ✨ Características
 
 ### 🎯 Efectos Visuales
+
 - **Scanlines animadas** que simulan monitores CRT
 - **Horizontal sweep** con efectos de barrido
 - **Capa de ruido** para textura auténtica
@@ -35,6 +36,7 @@ EternalGrowth es una landing page moderna con estética cyberpunk que presenta:
 - **Animación de pulsación** en el logo de fondo
 
 ### 🔧 Características Técnicas
+
 - **Hooks personalizados** para typewriter y glitch effects
 - **Configuración modular** de frases
 - **CSS animations** optimizadas
@@ -42,6 +44,7 @@ EternalGrowth es una landing page moderna con estética cyberpunk que presenta:
 - **Componentes reutilizables**
 
 ### 🖼️ Modo Wallpaper
+
 - **Versión sin texto** para usar como fondo de pantalla
 - **HTML estático** independiente incluido
 - **Optimizado** para diferentes resoluciones
@@ -49,6 +52,7 @@ EternalGrowth es una landing page moderna con estética cyberpunk que presenta:
 ## 🚀 Instalación y Uso
 
 ### Prerequisitos
+
 - Node.js >= 18
 - npm o yarn
 
@@ -85,21 +89,27 @@ npm run lint         # Verifica tipos TypeScript
 ## 🎮 Modos de Uso
 
 ### 1. Landing Page Completa
+
 ```
 http://localhost:3000/
 ```
+
 Muestra la página completa con logo, texto typewriter y todos los efectos.
 
 ### 2. Modo Wallpaper
+
 ```
 http://localhost:3000/?mode=wallpaper
 ```
+
 Solo muestra el fondo con efectos, sin texto - perfecto para wallpapers.
 
 ### 3. HTML Estático
+
 ```
 wallpaper.html
 ```
+
 Archivo independiente que puedes abrir directamente en cualquier navegador.
 
 ## 📁 Estructura del Proyecto
@@ -132,6 +142,7 @@ PrototipoLandingPage/
 ## 🎨 Personalización
 
 ### Modificar Frases del Typewriter
+
 Edita el archivo `src/config/phrases.ts`:
 
 ```typescript
@@ -143,13 +154,17 @@ export const TYPEWRITER_PHRASES = [
 ```
 
 ### Ajustar Colores
+
 Los colores principales están en variables CSS:
+
 - Púrpura primario: `#8B5CF6`
 - Púrpura claro: `#C084FC`
 - Negro: `#000`
 
 ### Modificar Velocidad de Animaciones
+
 Ajusta los tiempos en los keyframes CSS:
+
 - Scanlines: `0.1s`
 - Horizontal sweep: `3s`
 - Typewriter: Configurable en el hook
@@ -165,6 +180,7 @@ Ajusta los tiempos en los keyframes CSS:
 ## 📱 Responsividad
 
 El diseño se adapta a:
+
 - 📱 **Móviles** (320px+)
 - 📟 **Tablets** (768px+)
 - 💻 **Desktop** (1024px+)
@@ -174,11 +190,13 @@ El diseño se adapta a:
 ## 🎯 Casos de Uso
 
 ### Para Desarrolladores
+
 - Landing page de proyectos tech
 - Portfolio con estética cyberpunk
 - Páginas de "Coming Soon"
 
 ### Para Wallpapers
+
 - Fondo de pantalla animado
 - Screensaver personalizado
 - Ambiente de trabajo futurista
