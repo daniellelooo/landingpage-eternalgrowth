@@ -425,7 +425,7 @@
 .medellin-clock {
   position: fixed;
   top: 18px;
-  right: 60px;
+  right: 50px;
   z-index: 30;
   background: rgba(18, 18, 18, 0.65);
   border: 1px solid rgba(139, 92, 246, 0.22);
@@ -465,7 +465,7 @@
 }
 
 @media (max-width: 640px) {
-  .medellin-clock { top: 12px; right: 50px; padding: 8px 10px; min-width: 96px; }
+  .medellin-clock { top: 12px; right: 20px; padding: 8px 10px; min-width: 96px; }
   .medellin-clock .clock-time { font-size: 1rem; }
   .medellin-clock .clock-date { font-size: 0.72rem; }
 }
@@ -540,7 +540,7 @@
 /* About Section */
 .about-section {
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background: linear-gradient(135deg, #120a1a 0%, #1a0e28 30%, #0f0a18 70%, #120a1a 100%);
   display: flex;
@@ -550,24 +550,14 @@
 }
 
 .about-container {
-  max-width: 1200px;
   width: 100%;
-  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
-.about-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 3rem;
-  letter-spacing: 0.1em;
-  text-shadow: 
-    0 0 20px #8B5CF6,
-    0 0 40px #8B5CF6,
-    0 0 60px #8B5CF6;
-  animation: title-glow 3s ease-in-out infinite alternate;
-}
+/* ...removed older duplicate about-content/text/paragraph definitions; using consolidated grid-based rules below ... */
 
 @keyframes title-glow {
   0% {
@@ -585,20 +575,57 @@
   }
 }
 
+/* Use a single-column layout for About: simpler and centered */
 .about-content {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 4rem;
-  align-items: start;
+  grid-template-columns: 1fr; /* single column */
+  gap: 2rem;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-items: center;
+  padding: 2.5rem 0 2rem 0;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center the content horizontally */
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  max-width: 1000px; /* constrain width for readability */
+  padding: 0 1rem;
 }
 
 .about-paragraph {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 1.5rem;
-  text-align: justify;
+  text-align: left; /* left-align text while keeping the block centered */
   font-weight: 300;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Desktop/title glow - ensure the heading has the neon glow and animation on larger screens */
+.about-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 12px #8B5CF6,
+    0 0 28px #8B5CF6,
+    0 0 48px #C084FC;
+  animation: title-glow 3s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 12;
 }
 
 .highlight {
@@ -608,15 +635,22 @@
 }
 
 .about-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 2rem;
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
+  /* hidden because we use a single-column About layout for now */
+  display: none;
 }
+
+/* Ensure about paragraphs are centered and constrained to a readable column */
+.about-section .about-paragraph {
+  display: block;
+  width: auto;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left !important;
+}
+
+/* Right-side aside styles */
+/* aside removed: related styles deleted */
 
 .stat-item {
   text-align: center;
@@ -648,8 +682,18 @@
 /* Responsive Design for About Section */
 @media (max-width: 768px) {
   .about-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.08em;
+    text-shadow:
+      0 0 20px #8B5CF6,
+      0 0 40px #8B5CF6,
+      0 0 60px #8B5CF6,
+      0 0 80px #C084FC;
+    animation: title-glow 3s ease-in-out infinite alternate;
   }
   
   .about-content {
@@ -850,211 +894,6 @@
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
-/* Diagnostic Section */
-.diagnostic-section {
-  position: relative;
-  width: 100vw;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0f0a18 0%, #1a0e28 30%, #120a1a 70%, #0f0a18 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-}
+/* Diagnostic section removed */
 
-.diagnostic-container {
-  max-width: 1200px;
-  width: 100%;
-  z-index: 5;
-}
-
-.diagnostic-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 1rem;
-  letter-spacing: 0.1em;
-  text-shadow: 
-    0 0 20px #8B5CF6,
-    0 0 40px #8B5CF6;
-  animation: title-glow 3s ease-in-out infinite alternate;
-}
-
-.diagnostic-subtitle {
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  margin-bottom: 3rem;
-  font-weight: 300;
-}
-
-.diagnostic-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
-}
-
-.diagnostic-intro h3 {
-  font-size: 2rem;
-  color: #C084FC;
-  margin-bottom: 1.5rem;
-  line-height: 1.3;
-}
-
-.diagnostic-intro p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2rem;
-}
-
-.diagnostic-benefits {
-  margin-bottom: 2rem;
-}
-
-.benefit-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.benefit-icon {
-  color: #8B5CF6;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.start-diagnostic-btn {
-  background: linear-gradient(135deg, #8B5CF6 0%, #C084FC 100%);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 1rem 2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
-}
-
-.start-diagnostic-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
-  filter: brightness(1.1);
-}
-
-.diagnostic-preview {
-  display: flex;
-  justify-content: center;
-}
-
-.preview-card {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: 12px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  width: 100%;
-  max-width: 400px;
-}
-
-.preview-card h4 {
-  color: #8B5CF6;
-  font-size: 1.3rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.preview-metrics {
-  margin-bottom: 2rem;
-}
-
-.metric {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.metric-label {
-  flex: 1;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-}
-
-.metric-bar {
-  flex: 2;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.metric-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #8B5CF6, #C084FC);
-  border-radius: 4px;
-  transition: width 2s ease-in-out;
-}
-
-.metric-score {
-  color: #C084FC;
-  font-weight: 600;
-  font-size: 0.9rem;
-  min-width: 50px;
-  text-align: right;
-}
-
-.overall-score {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: rgba(139, 92, 246, 0.1);
-  border-radius: 8px;
-  border: 1px solid rgba(139, 92, 246, 0.2);
-}
-
-.score-label {
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
-}
-
-.score-value {
-  color: #8B5CF6;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-shadow: 0 0 10px #8B5CF6;
-}
-
-/* Responsive Design for Diagnostic Section */
-@media (max-width: 768px) {
-  .diagnostic-title {
-    font-size: 2.5rem;
-  }
-  
-  .diagnostic-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .diagnostic-intro h3 {
-    font-size: 1.5rem;
-  }
-  
-  .sidebar {
-    width: 100vw;
-    left: -100vw;
-  }
-  
-  .sidebar-open {
-    left: 0;
-  }
-}
+/* Medellin clock positioning handled above with fixed right/top */

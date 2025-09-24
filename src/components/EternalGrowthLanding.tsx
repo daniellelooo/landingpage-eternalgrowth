@@ -33,24 +33,13 @@ const EternalGrowthLanding = () => {
     const handleScroll = () => {
       const heroSection = document.getElementById("hero");
       const aboutSection = document.getElementById("about");
-      const diagnosticSection = document.getElementById("diagnostic");
 
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       if (heroSection && scrollPosition < heroSection.offsetHeight) {
         setActiveSection("hero");
-      } else if (
-        aboutSection &&
-        diagnosticSection &&
-        scrollPosition >= aboutSection.offsetTop &&
-        scrollPosition < diagnosticSection.offsetTop
-      ) {
+      } else if (aboutSection && scrollPosition >= aboutSection.offsetTop) {
         setActiveSection("about");
-      } else if (
-        diagnosticSection &&
-        scrollPosition >= diagnosticSection.offsetTop
-      ) {
-        setActiveSection("diagnostic");
       }
     };
 
@@ -77,7 +66,7 @@ const EternalGrowthLanding = () => {
               className={`nav-item ${activeSection === "hero" ? "active" : ""}`}
               onClick={() => scrollToSection("hero")}
             >
-              <span className="nav-icon">🏠</span>
+              <span className="nav-icon"></span>
               <span>Inicio</span>
             </button>
           </li>
@@ -88,21 +77,11 @@ const EternalGrowthLanding = () => {
               }`}
               onClick={() => scrollToSection("about")}
             >
-              <span className="nav-icon">👥</span>
-              <span>Sobre Nosotros</span>
+              <span className="nav-icon"></span>
+              <span>¿Qué es EternalGrowth?</span>
             </button>
           </li>
-          <li>
-            <button
-              className={`nav-item ${
-                activeSection === "diagnostic" ? "active" : ""
-              }`}
-              onClick={() => scrollToSection("diagnostic")}
-            >
-              <span className="nav-icon">📊</span>
-              <span>Diagnóstico Digital</span>
-            </button>
-          </li>
+          {/* Diagnostic removed from sidebar until functionality is ready */}
         </ul>
       </nav>
 
@@ -182,130 +161,28 @@ const EternalGrowthLanding = () => {
       {/* About Section */}
       <section id="about" className="about-section">
         <div className="about-container">
-          <h2 className="about-title">SOBRE NOSOTROS</h2>
+          <h2 className="about-title">¿QUÉ ES ETERNALGROWTH?</h2>
           <div className="about-content">
             <div className="about-text">
               <p className="about-paragraph">
-                En <span className="highlight">EternalGrowth</span>, creemos que
-                el crecimiento personal es un viaje eterno que trasciende los
-                límites convencionales. Somos una comunidad dedicada a explorar
-                las fronteras del potencial humano.
-              </p>
-              <p className="about-paragraph">
-                Nuestro enfoque combina metodologías tradicionales con
-                tecnologías emergentes, creando experiencias transformadoras que
-                desafían la percepción de lo posible.
-              </p>
-              <p className="about-paragraph">
-                Unidos por la pasión de evolucionar constantemente, construimos
-                el futuro del desarrollo personal, una innovación a la vez.
+                <span className="highlight">EternalGrowht</span> es una startup
+                y movimiento de transformación digital que busca reducir la
+                brecha tecnológica en las micro y pequeñas empresas de Medellín.
+                Su enfoque va más allá de la simple venta de servicios, como la
+                creación de páginas web; en cambio, se posicionan como una
+                comunidad que ofrece soluciones prácticas y adaptables. Su
+                método se basa en la empatía, para comprender las necesidades
+                únicas de cada negocio, y en la practicidad, para entregar
+                herramientas que produzcan resultados tangibles y medibles.
               </p>
             </div>
-            <div className="about-stats">
-              <div className="stat-item">
-                <div className="stat-number">∞</div>
-                <div className="stat-label">Posibilidades</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">2025</div>
-                <div className="stat-label">Fundación</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">∆</div>
-                <div className="stat-label">Evolución</div>
-              </div>
-            </div>
+
+            {/* aside removed as requested */}
           </div>
         </div>
       </section>
 
-      {/* Digital Diagnostic Section */}
-      <section id="diagnostic" className="diagnostic-section">
-        <div className="diagnostic-container">
-          <h2 className="diagnostic-title">DIAGNÓSTICO DIGITAL GRATUITO</h2>
-          <p className="diagnostic-subtitle">
-            Descubre el estado de tu presencia digital en solo 3 minutos
-          </p>
-
-          <div className="diagnostic-content">
-            <div className="diagnostic-intro">
-              <h3>
-                ¿Tu negocio está perdiendo clientes por una presencia digital
-                deficiente?
-              </h3>
-              <p>
-                Nuestro <span className="highlight">Diagnóstico Digital</span>{" "}
-                analiza instantáneamente tu presencia online y te proporciona un
-                reporte personalizado con recomendaciones específicas para tu
-                negocio.
-              </p>
-              <div className="diagnostic-benefits">
-                <div className="benefit-item">
-                  <span className="benefit-icon">✓</span>
-                  <span>Análisis completo de tu sitio web</span>
-                </div>
-                <div className="benefit-item">
-                  <span className="benefit-icon">✓</span>
-                  <span>Evaluación de redes sociales</span>
-                </div>
-                <div className="benefit-item">
-                  <span className="benefit-icon">✓</span>
-                  <span>Revisión de Google My Business</span>
-                </div>
-                <div className="benefit-item">
-                  <span className="benefit-icon">✓</span>
-                  <span>Reporte PDF descargable</span>
-                </div>
-              </div>
-              <button className="start-diagnostic-btn">
-                Comenzar Diagnóstico →
-              </button>
-            </div>
-
-            <div className="diagnostic-preview">
-              <div className="preview-card">
-                <h4>Vista previa del reporte</h4>
-                <div className="preview-metrics">
-                  <div className="metric">
-                    <span className="metric-label">Sitio Web</span>
-                    <div className="metric-bar">
-                      <div
-                        className="metric-fill"
-                        style={{ width: "75%" }}
-                      ></div>
-                    </div>
-                    <span className="metric-score">75/100</span>
-                  </div>
-                  <div className="metric">
-                    <span className="metric-label">Redes Sociales</span>
-                    <div className="metric-bar">
-                      <div
-                        className="metric-fill"
-                        style={{ width: "60%" }}
-                      ></div>
-                    </div>
-                    <span className="metric-score">60/100</span>
-                  </div>
-                  <div className="metric">
-                    <span className="metric-label">SEO Local</span>
-                    <div className="metric-bar">
-                      <div
-                        className="metric-fill"
-                        style={{ width: "45%" }}
-                      ></div>
-                    </div>
-                    <span className="metric-score">45/100</span>
-                  </div>
-                </div>
-                <div className="overall-score">
-                  <span className="score-label">Puntuación General</span>
-                  <span className="score-value">60/100</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Diagnostic section removed until functionality is ready */}
     </div>
   );
 };
