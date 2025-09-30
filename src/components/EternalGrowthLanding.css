@@ -468,6 +468,14 @@
   .medellin-clock { top: 12px; right: 20px; padding: 8px 10px; min-width: 96px; }
   .medellin-clock .clock-time { font-size: 1rem; }
   .medellin-clock .clock-date { font-size: 0.72rem; }
+  .medellin-clock .clock-label { font-size: 0.65rem; }
+  .logo {
+    margin-bottom: 0 !important;
+  }
+  .typewriter-wrapper {
+    margin-bottom: 0 !important;
+  }
+  
 }
 
 /* Responsive Design */
