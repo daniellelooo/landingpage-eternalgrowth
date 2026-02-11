@@ -2,27 +2,27 @@ import { useState, useEffect } from "react";
 import { SectionId } from "../types";
 import { scrollToSection } from "../utils/helpers";
 import GlobalEffects from "./layout/GlobalEffects";
-import Sidebar from "./layout/Sidebar";
+import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
 import "./EternalGrowthLanding.css";
 
 const EternalGrowthLanding = () => {
   const [activeSection, setActiveSection] = useState<SectionId>("hero");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleNavigate = (sectionId: SectionId) => {
     scrollToSection(sectionId);
     setActiveSection(sectionId);
-    setIsSidebarOpen(false);
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const heroSection = document.getElementById("hero");
       const aboutSection = document.getElementById("about");
+      const benefitsSection = document.getElementById("beneficios");
       const servicesSection = document.getElementById("servicios");
       const scrollIndicator = document.querySelector(".scroll-indicator");
       const backgroundLogo = document.querySelector(".background-logo");
@@ -54,6 +54,13 @@ const EternalGrowthLanding = () => {
       ) {
         setActiveSection("about");
       } else if (
+        benefitsSection &&
+        scrollPosition >= benefitsSection.offsetTop &&
+        scrollPosition <
+          benefitsSection.offsetTop + benefitsSection.offsetHeight
+      ) {
+        setActiveSection("beneficios");
+      } else if (
         servicesSection &&
         scrollPosition >= servicesSection.offsetTop
       ) {
@@ -68,15 +75,10 @@ const EternalGrowthLanding = () => {
   return (
     <div className="eternal-growth-container">
       <GlobalEffects />
-      <Sidebar
-        isOpen={isSidebarOpen}
-        activeSection={activeSection}
-        onClose={() => setIsSidebarOpen(false)}
-        onNavigate={handleNavigate}
-        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-      />
+      <Header activeSection={activeSection} onNavigate={handleNavigate} />
       <Hero />
       <About />
+      <Benefits />
       <Services />
       <Footer />
     </div>

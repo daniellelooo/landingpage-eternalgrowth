@@ -7,7 +7,8 @@ export interface NavItem {
 export interface ServiceCard {
   title: string;
   description: string;
-  icon?: string;
+  icon?: JSX.Element;
+  details?: string[];
 }
 
 export interface SocialLink {
@@ -16,4 +17,4 @@ export interface SocialLink {
   icon: JSX.Element;
 }
 
-export type SectionId = "hero" | "about" | "servicios" | "contacto";
+export type SectionId = "hero" | "about" | "beneficios" | "servicios" | "contacto";

@@ -11,6 +11,7 @@ interface SidebarProps {
 const NAV_ITEMS: NavItem[] = [
   { id: "hero", label: "Inicio" },
   { id: "about", label: "¿Qué es EternalGrowth?" },
+  { id: "beneficios", label: "¿Por Qué Elegirnos?" },
   { id: "servicios", label: "Servicios / Soluciones" },
   { id: "contacto", label: "Contacto" },
 ];

@@ -1,8 +1,15 @@
 export const scrollToSection = (sectionId: string): void => {
   const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
+  
+  if (!element) {
+    console.warn(`Element with id "${sectionId}" not found`);
+    return;
   }
+
+  element.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 };
 
 export const getRandomDelay = (min: number, max: number): number => {

@@ -2,7 +2,7 @@ import { useTypewriter } from "../../../hooks/useTypewriter";
 import { useGlitchEffect } from "../../../hooks/useGlitchEffect";
 import { useState } from "react";
 import logoImage from "../../../assets/logo.jpeg";
-import MedellinClock from "../../MedellinClock";
+import { scrollToSection } from "../../../utils/helpers";
 
 const Hero = () => {
   const typewriterText = useTypewriter();
@@ -11,8 +11,6 @@ const Hero = () => {
 
   return (
     <section id="hero" className="hero-section">
-      <MedellinClock />
-
       {/* Background Logo */}
       <div className="background-logo">
         <img src={logoImage} alt="EternalGrowth" />
@@ -37,6 +35,25 @@ const Hero = () => {
             <span className="typewriter-text">{typewriterText}</span>
             <span className="cursor">|</span>
           </div>
+        </div>
+
+        <p className="hero-description">
+          Cerramos la brecha digital para micro y pequeñas empresas en Medellín
+        </p>
+
+        <div className="hero-cta-buttons">
+          <button
+            className="hero-cta-primary"
+            onClick={() => scrollToSection("servicios")}
+          >
+            Conoce Nuestros Servicios
+          </button>
+          <button
+            className="hero-cta-secondary"
+            onClick={() => scrollToSection("contacto")}
+          >
+            Contáctanos
+          </button>
         </div>
       </div>
 
