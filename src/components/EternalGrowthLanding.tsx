@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { SectionId } from "../types";
 import { scrollToSection } from "../utils/helpers";
-import GlobalEffects from "./layout/GlobalEffects";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Hero from "./sections/Hero";
@@ -26,6 +25,7 @@ const EternalGrowthLanding = () => {
       const servicesSection = document.getElementById("servicios");
       const scrollIndicator = document.querySelector(".scroll-indicator");
       const backgroundLogo = document.querySelector(".background-logo");
+      const globalEffects = document.querySelector(".global-effects");
 
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
@@ -66,6 +66,11 @@ const EternalGrowthLanding = () => {
       ) {
         setActiveSection("servicios");
       }
+
+      if (globalEffects && heroSection) {
+        const inHero = scrollPosition < heroSection.offsetHeight;
+        globalEffects.classList.toggle("paused", !inHero);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -74,7 +79,6 @@ const EternalGrowthLanding = () => {
 
   return (
     <div className="eternal-growth-container">
-      <GlobalEffects />
       <Header activeSection={activeSection} onNavigate={handleNavigate} />
       <Hero />
       <About />

@@ -1,16 +1,16 @@
 import { useTypewriter } from "../../../hooks/useTypewriter";
-import { useGlitchEffect } from "../../../hooks/useGlitchEffect";
 import { useState } from "react";
 import logoImage from "../../../assets/logo.jpeg";
 import { scrollToSection } from "../../../utils/helpers";
+import GlobalEffects from "../../layout/GlobalEffects";
 
 const Hero = () => {
   const typewriterText = useTypewriter();
-  const isGlitching = useGlitchEffect();
   const [isTitleHovered, setIsTitleHovered] = useState(false);
 
   return (
     <section id="hero" className="hero-section">
+      <GlobalEffects />
       {/* Background Logo */}
       <div className="background-logo">
         <img src={logoImage} alt="EternalGrowth" />
@@ -20,9 +20,7 @@ const Hero = () => {
       <div className="content-container">
         <div className="logo-container">
           <h1
-            className={`logo ${isGlitching ? "glitch" : ""} ${
-              isTitleHovered ? "hovered" : ""
-            }`}
+            className={`logo ${isTitleHovered ? "hovered" : ""}`}
             onMouseEnter={() => setIsTitleHovered(true)}
             onMouseLeave={() => setIsTitleHovered(false)}
           >

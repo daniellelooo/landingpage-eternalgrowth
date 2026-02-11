@@ -23,15 +23,22 @@
   font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Global Effects Layer - Fixed position for entire page */
+/* Global Effects Layer - Scoped to hero */
 .global-effects {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1000;
+  z-index: 2;
+}
+
+.global-effects.paused .scanlines,
+.global-effects.paused .horizontal-sweep,
+.global-effects.paused .crt-glow,
+.global-effects.paused .noise-layer {
+  animation-play-state: paused;
 }
 
 /* Hero Section */
@@ -44,6 +51,7 @@
   justify-content: center;
   background: linear-gradient(135deg, #1a0e28 0%, #120a1a 100%);
   padding-top: 50px; /* Space for fixed header (reduced) */
+  padding-bottom: 6rem; /* Keep space for scroll indicator */
   scroll-margin-top: 70px;
 }
 
@@ -67,7 +75,7 @@
   object-fit: contain;
   max-width: 98vw;
   max-height: 98vh;
-  animation: subtle-pulse-scale 8s ease-in-out infinite alternate;
+  animation: subtle-pulse-scale 16s ease-in-out infinite alternate;
 }
 
 /* Mantener el logo centrado durante la animación sin mover su posición */
@@ -101,8 +109,8 @@
     rgba(139, 92, 246, 0.02) 2px,
     rgba(139, 92, 246, 0.02) 4px
   );
-  animation: scanlines-move 0.1s linear infinite;
-  opacity: 0.6;
+  animation: scanlines-move 0.6s steps(2, end) infinite;
+  opacity: 0.45;
 }
 
 @keyframes scanlines-move {
@@ -123,7 +131,7 @@
     rgba(139, 92, 246, 0.1) 50%,
     transparent 100%
   );
-  animation: horizontal-sweep 3s ease-in-out infinite;
+  animation: horizontal-sweep 8s ease-in-out infinite;
 }
 
 @keyframes horizontal-sweep {
@@ -144,8 +152,8 @@
     rgba(139, 92, 246, 0.03) 0%,
     transparent 70%
   );
-  animation: crt-glow 3s ease-in-out infinite alternate;
-  opacity: 0.6;
+  animation: crt-glow 8s ease-in-out infinite alternate;
+  opacity: 0.45;
 }
 
 @keyframes crt-glow {
@@ -169,8 +177,17 @@
   pointer-events: none;
   z-index: 3;
   mix-blend-mode: screen;
-  animation: noise-flicker 4s infinite;
-  opacity: 0.25;
+  animation: noise-flicker 10s steps(2, end) infinite;
+  opacity: 0.2;
+}
+
+@media (max-width: 768px) {
+  .scanlines,
+  .horizontal-sweep,
+  .crt-glow,
+  .global-effects .noise-layer {
+    animation: none;
+  }
 }
 
 @keyframes noise-flicker {
@@ -505,13 +522,13 @@
 /* Scroll Indicator - Más sutil y desaparece al hacer scroll */
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
   z-index: 10;
   animation: scroll-bounce 2.5s ease-in-out infinite;
   opacity: 0.7;
@@ -651,7 +668,7 @@
 }
 
 .scroll-text {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.12em;
