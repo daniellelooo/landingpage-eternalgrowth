@@ -6,10 +6,8 @@ const ServiceCard = ({
   icon,
   details,
 }: ServiceCardType) => {
-  return (
-    <div className="service-card">
-      {icon && <div className="service-card-icon">{icon}</div>}
-      <h3 className="service-card-title">{title}</h3>
+  const detailsContent = (
+    <>
       <p className="service-card-description">{description}</p>
       {details && details.length > 0 && (
         <ul className="service-card-details">
@@ -18,6 +16,18 @@ const ServiceCard = ({
           ))}
         </ul>
       )}
+    </>
+  );
+
+  return (
+    <div className="service-card">
+      {icon && <div className="service-card-icon">{icon}</div>}
+      <h3 className="service-card-title">{title}</h3>
+      <div className="service-card-content">{detailsContent}</div>
+      <details className="card-details">
+        <summary className="card-summary">Mas informacion</summary>
+        <div className="card-details-content">{detailsContent}</div>
+      </details>
       <div className="service-card-glow"></div>
     </div>
   );

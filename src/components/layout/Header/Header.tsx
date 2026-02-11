@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavItem, SectionId } from "../../../types";
 import MedellinClock from "../../MedellinClock";
-import logoImage from "../../../assets/logo.jpeg";
+import logoImage from "../../../assets/logocorregido-removebg-preview.png";
 
 interface HeaderProps {
   activeSection: SectionId;
