@@ -93,17 +93,8 @@ const Contact = () => {
 
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="contact-grid">
-            <label className="contact-field contact-honeypot">
-              <span>Website</span>
-              <input
-                type="text"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-              />
-            </label>
             <label className="contact-field">
-              <span>Nombre completo</span>
+              <span>Nombre</span>
               <input
                 type="text"
                 name="nombre"
@@ -186,11 +177,11 @@ const Contact = () => {
           </label>
 
           <label className="contact-field contact-field-full">
-            <span>Descripcion de tu empresa</span>
+            <span>¿A que se dedica tu empresa?</span>
             <textarea
               name="descripcion_empresa"
               rows={4}
-              placeholder="Cuentanos sobre tu empresa, industria y objetivos"
+              placeholder="Cuéntanos a que se dedica tu empresa y que productos o servicios ofrece"
               required
             />
           </label>
