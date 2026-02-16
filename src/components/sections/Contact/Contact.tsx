@@ -51,8 +51,14 @@ const Contact = () => {
         body: JSON.stringify(payload),
       });
 
+      const responseData = await response.json().catch(() => null);
+
       if (!response.ok) {
-        throw new Error("request-failed");
+        const errorMessage =
+          typeof responseData?.error === "string"
+            ? responseData.error
+            : "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.";
+        throw new Error(errorMessage);
       }
 
       setSubmitStatus("success");
@@ -64,10 +70,14 @@ const Contact = () => {
       setServiceValue("");
       setContactMethod("email");
     } catch (error) {
+      const fallbackMessage =
+        "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.";
+      const errorMessage =
+        error instanceof Error && error.message
+          ? error.message
+          : fallbackMessage;
       setSubmitStatus("error");
-      setSubmitMessage(
-        "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.",
-      );
+      setSubmitMessage(errorMessage);
     }
   };
 
@@ -83,6 +93,15 @@ const Contact = () => {
 
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="contact-grid">
+            <label className="contact-field contact-honeypot">
+              <span>Website</span>
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </label>
             <label className="contact-field">
               <span>Nombre completo</span>
               <input
