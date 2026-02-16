@@ -35,6 +35,15 @@ const getLogoDataUri = () => {
   }
 };
 
+const getLogoUrl = () => {
+  const dataUri = getLogoDataUri();
+  if (dataUri) {
+    return dataUri;
+  }
+
+  return "https://www.eternalgrowth.xyz/logocorregido-removebg-preview.png";
+};
+
 export const buildOwnerEmail = (payload: ContactPayload) => {
   const telefonoCompleto = `${payload.telefono_pais ?? ""} ${payload.telefono ?? ""}`.trim();
 
@@ -51,17 +60,17 @@ export const buildOwnerEmail = (payload: ContactPayload) => {
 
 export const buildOwnerEmailHtml = (payload: ContactPayload) => {
   const telefonoCompleto = `${payload.telefono_pais ?? ""} ${payload.telefono ?? ""}`.trim();
-  const logoUrl = getLogoDataUri();
+  const logoUrl = getLogoUrl();
 
   return `
-    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:720px;margin:0 auto;background:#ffffff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);">
+    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;background-color:#f5f4fb !important;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026;">
         <tr>
-          <td style="padding:28px 36px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff;">
+          <td bgcolor="#2c1458" style="padding:28px 36px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff !important;">
             <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
               <tr>
                 <td style="vertical-align:middle;">
-                  ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;" />` : ""}
+                  ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;height:auto;" />` : ""}
                 </td>
                 <td style="text-align:right;font-size:12px;color:rgba(255,255,255,0.75);letter-spacing:0.12em;text-transform:uppercase;">Nuevo lead</td>
               </tr>
@@ -71,7 +80,7 @@ export const buildOwnerEmailHtml = (payload: ContactPayload) => {
           </td>
         </tr>
         <tr>
-          <td style="padding:28px 36px;">
+          <td style="padding:28px 36px;color:#1a1026;">
             <h2 style="margin:0 0 14px;font-size:16px;color:#6b21a8;">Resumen del cliente</h2>
             <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:#1a1026;border-collapse:collapse;">
               <tr><td style="padding:8px 0;width:36%;color:#5a5168;">Nombre</td><td style="padding:8px 0;font-weight:600;">${formatField(payload.nombre ?? "")}</td></tr>
@@ -85,7 +94,7 @@ export const buildOwnerEmailHtml = (payload: ContactPayload) => {
         </tr>
         <tr>
           <td style="padding:0 36px 20px;">
-            <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:14px;padding:16px;">
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d;">
               <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Descripcion del servicio</h3>
               <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d;">${formatField(payload.descripcion_servicio ?? "")}</p>
             </div>
@@ -93,7 +102,7 @@ export const buildOwnerEmailHtml = (payload: ContactPayload) => {
         </tr>
         <tr>
           <td style="padding:0 36px 32px;">
-            <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:14px;padding:16px;">
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d;">
               <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Descripcion de la empresa</h3>
               <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d;">${formatField(payload.descripcion_empresa ?? "")}</p>
             </div>
@@ -116,31 +125,31 @@ export const buildUserEmail = (payload: ContactPayload) => {
 };
 
 export const buildUserEmailHtml = (payload: ContactPayload) => {
-  const logoUrl = getLogoDataUri();
+  const logoUrl = getLogoUrl();
 
   return `
-    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:720px;margin:0 auto;background:#ffffff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);">
+    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;background-color:#f5f4fb !important;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026;">
         <tr>
-          <td style="padding:28px 36px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff;">
-            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;margin:0 0 18px;" />` : ""}
+          <td bgcolor="#2c1458" style="padding:28px 36px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff !important;">
+            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;height:auto;margin:0 0 18px;" />` : ""}
             <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff;">Hemos recibido tu solicitud</h1>
             <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.8);">Gracias por contactar a EternalGrowth.</p>
           </td>
         </tr>
         <tr>
-          <td style="padding:26px 36px;">
+          <td style="padding:26px 36px;color:#2d233d;">
             <p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:#2d233d;">
               Hola ${formatField(payload.nombre ?? "")}, hemos recibido tu informacion. Nuestro equipo revisara tu solicitud y se pondra en contacto contigo muy pronto.
             </p>
-            <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:14px;padding:16px;">
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d;">
               <p style="margin:0 0 6px;font-size:12px;color:#7a6f91;letter-spacing:0.08em;text-transform:uppercase;">Resumen</p>
               <p style="margin:0;font-size:14px;color:#2d233d;">Servicio: ${formatField(payload.servicio ?? "")}<br />Empresa: ${formatField(payload.empresa ?? "")}</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 36px 20px;">
+          <td style="padding:0 36px 20px;color:#2d233d;">
             <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Contacto</h3>
             <p style="margin:0;font-size:14px;line-height:1.6;color:#2d233d;">
               Email: eternalgrowth00@gmail.com<br />
@@ -149,7 +158,7 @@ export const buildUserEmailHtml = (payload: ContactPayload) => {
           </td>
         </tr>
         <tr>
-          <td style="padding:0 36px 32px;">
+          <td style="padding:0 36px 32px;color:#7a6f91;">
             <p style="margin:0;font-size:13px;color:#7a6f91;">
               Si necesitas agregar informacion, responde a este correo.
             </p>
