@@ -72,42 +72,53 @@ const buildOwnerEmailHtml = (payload: ContactPayload) => {
   const logoUrl = siteUrl ? `${siteUrl}/logo.jpeg` : "";
 
   return `
-    <div style="background:#120a1a;padding:32px 20px;font-family:Arial,sans-serif;color:#f5efff;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px;margin:0 auto;background:#1a0e28;border:1px solid rgba(139,92,246,0.35);border-radius:16px;overflow:hidden;">
+    <div style="background:#0d0816;padding:36px 20px;font-family:Arial,sans-serif;color:#f5efff;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:680px;margin:0 auto;background:#171024;border:1px solid rgba(139,92,246,0.25);border-radius:20px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.45);">
         <tr>
-          <td style="padding:24px 28px;background:linear-gradient(135deg,#2a1450,#1a0e28);">
-            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="140" style="display:block;margin:0 0 16px;max-width:140px;" />` : ""}
-            <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff;">Nuevo lead - EternalGrowth</h1>
-            <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.7);">Se recibio un nuevo formulario de contacto.</p>
+          <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1a0e28 55%,#120a1a 100%);">
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td style="vertical-align:middle;">
+                  ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;" />` : ""}
+                </td>
+                <td style="text-align:right;font-size:12px;color:rgba(255,255,255,0.65);">Nuevo lead</td>
+              </tr>
+            </table>
+            <h1 style="margin:18px 0 6px;font-size:22px;letter-spacing:1px;color:#ffffff;">Solicitud recibida</h1>
+            <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.7);">Revisa el resumen y continua el seguimiento comercial.</p>
           </td>
         </tr>
         <tr>
-          <td style="padding:24px 28px;">
-            <h2 style="margin:0 0 12px;font-size:16px;color:#c084fc;">Resumen del cliente</h2>
-            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:rgba(255,255,255,0.85);">
-              <tr><td style="padding:6px 0;width:40%;">Nombre</td><td style="padding:6px 0;">${formatField(payload.nombre ?? "")}</td></tr>
-              <tr><td style="padding:6px 0;">Email</td><td style="padding:6px 0;">${formatField(payload.email ?? "")}</td></tr>
-              <tr><td style="padding:6px 0;">Telefono</td><td style="padding:6px 0;">${formatField(telefonoCompleto)}</td></tr>
-              <tr><td style="padding:6px 0;">Empresa</td><td style="padding:6px 0;">${formatField(payload.empresa ?? "")}</td></tr>
-              <tr><td style="padding:6px 0;">Servicio</td><td style="padding:6px 0;">${formatField(payload.servicio ?? "")}</td></tr>
-              <tr><td style="padding:6px 0;">Metodo de contacto</td><td style="padding:6px 0;">${formatField(payload.contacto_preferido ?? "")}</td></tr>
+          <td style="padding:26px 32px;">
+            <h2 style="margin:0 0 14px;font-size:16px;color:#c084fc;">Resumen del cliente</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:rgba(255,255,255,0.85);border-collapse:collapse;">
+              <tr><td style="padding:8px 0;width:38%;color:rgba(255,255,255,0.6);">Nombre</td><td style="padding:8px 0;font-weight:600;">${formatField(payload.nombre ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Email</td><td style="padding:8px 0;">${formatField(payload.email ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Telefono</td><td style="padding:8px 0;">${formatField(telefonoCompleto)}</td></tr>
+              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Empresa</td><td style="padding:8px 0;">${formatField(payload.empresa ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Servicio</td><td style="padding:8px 0;">${formatField(payload.servicio ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Metodo preferido</td><td style="padding:8px 0;">${formatField(payload.contacto_preferido ?? "")}</td></tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 28px 24px;">
-            <h3 style="margin:0 0 8px;font-size:15px;color:#c084fc;">Descripcion del servicio</h3>
-            <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,0.85);">${formatField(payload.descripcion_servicio ?? "")}</p>
+          <td style="padding:0 32px 24px;">
+            <div style="background:#120a1a;border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:16px;">
+              <h3 style="margin:0 0 8px;font-size:14px;color:#c084fc;">Descripcion del servicio</h3>
+              <p style="margin:0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,0.85);">${formatField(payload.descripcion_servicio ?? "")}</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 28px 28px;">
-            <h3 style="margin:0 0 8px;font-size:15px;color:#c084fc;">Descripcion de la empresa</h3>
-            <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,0.85);">${formatField(payload.descripcion_empresa ?? "")}</p>
+          <td style="padding:0 32px 32px;">
+            <div style="background:#120a1a;border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:16px;">
+              <h3 style="margin:0 0 8px;font-size:14px;color:#c084fc;">Descripcion de la empresa</h3>
+              <p style="margin:0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,0.85);">${formatField(payload.descripcion_empresa ?? "")}</p>
+            </div>
           </td>
         </tr>
       </table>
-      <p style="max-width:640px;margin:16px auto 0;font-size:12px;color:rgba(255,255,255,0.55);text-align:center;">EternalGrowth - Transformacion digital para tu negocio.</p>
+      <p style="max-width:680px;margin:18px auto 0;font-size:12px;color:rgba(255,255,255,0.55);text-align:center;">EternalGrowth · Transformacion digital para tu negocio</p>
     </div>
   `;
 };
@@ -127,37 +138,44 @@ const buildUserEmailHtml = (payload: ContactPayload) => {
   const logoUrl = siteUrl ? `${siteUrl}/logo.jpeg` : "";
 
   return `
-    <div style="background:#120a1a;padding:32px 20px;font-family:Arial,sans-serif;color:#f5efff;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px;margin:0 auto;background:#1a0e28;border:1px solid rgba(139,92,246,0.35);border-radius:16px;overflow:hidden;">
+    <div style="background:#0d0816;padding:36px 20px;font-family:Arial,sans-serif;color:#f5efff;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:680px;margin:0 auto;background:#171024;border:1px solid rgba(139,92,246,0.25);border-radius:20px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.45);">
         <tr>
-          <td style="padding:24px 28px;background:linear-gradient(135deg,#2a1450,#1a0e28);">
-            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="140" style="display:block;margin:0 0 16px;max-width:140px;" />` : ""}
+          <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1a0e28 55%,#120a1a 100%);">
+            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;margin:0 0 18px;" />` : ""}
             <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff;">Hemos recibido tu solicitud</h1>
             <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.7);">Gracias por contactar a EternalGrowth.</p>
           </td>
         </tr>
         <tr>
-          <td style="padding:24px 28px;">
-            <p style="margin:0 0 16px;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.9);">
+          <td style="padding:24px 32px;">
+            <p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.9);">
               Hola ${formatField(payload.nombre ?? "")}, hemos recibido tu informacion. Nuestro equipo revisara tu solicitud y se pondra en contacto contigo muy pronto.
             </p>
-            <div style="background:rgba(12,8,20,0.8);border:1px solid rgba(139,92,246,0.35);border-radius:12px;padding:16px;">
-              <p style="margin:0 0 6px;font-size:13px;color:rgba(255,255,255,0.7);">Resumen</p>
+            <div style="background:#120a1a;border:1px solid rgba(139,92,246,0.25);border-radius:14px;padding:16px;">
+              <p style="margin:0 0 6px;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.08em;text-transform:uppercase;">Resumen</p>
               <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.95);">Servicio: ${formatField(payload.servicio ?? "")}<br />Empresa: ${formatField(payload.empresa ?? "")}</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 28px 24px;">
-            <h3 style="margin:0 0 8px;font-size:15px;color:#c084fc;">Contacto</h3>
-            <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.8);">
+          <td style="padding:0 32px 24px;">
+            <h3 style="margin:0 0 8px;font-size:14px;color:#c084fc;">Contacto</h3>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,0.8);">
               Email: eternalgrowth00@gmail.com<br />
               Instagram: @eternalgrowth__
             </p>
           </td>
         </tr>
+        <tr>
+          <td style="padding:0 32px 32px;">
+            <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.6);">
+              Si necesitas agregar informacion, responde a este correo.
+            </p>
+          </td>
+        </tr>
       </table>
-      <p style="max-width:640px;margin:16px auto 0;font-size:12px;color:rgba(255,255,255,0.55);text-align:center;">EternalGrowth - Transformacion digital para tu negocio.</p>
+      <p style="max-width:680px;margin:18px auto 0;font-size:12px;color:rgba(255,255,255,0.55);text-align:center;">EternalGrowth · Transformacion digital para tu negocio</p>
     </div>
   `;
 };
