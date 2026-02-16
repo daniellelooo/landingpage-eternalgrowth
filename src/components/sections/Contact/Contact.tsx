@@ -36,10 +36,11 @@ const Contact = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
     setSubmitStatus("loading");
     setSubmitMessage("");
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
     try {
@@ -51,31 +52,21 @@ const Contact = () => {
         body: JSON.stringify(payload),
       });
 
-      const responseData = await response.json().catch(() => null);
-
       if (!response.ok) {
-        const errorMessage =
-          typeof responseData?.error === "string"
-            ? responseData.error
-            : "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.";
-        throw new Error(errorMessage);
+        throw new Error("request-failed");
       }
 
       setSubmitStatus("success");
       setSubmitMessage(
         "Recibimos tu informacion. Te enviaremos un correo de confirmacion.",
       );
-      event.currentTarget.reset();
+      form.reset();
       setCountryCode("+57");
       setServiceValue("");
       setContactMethod("email");
     } catch (error) {
-      const fallbackMessage =
-        "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.";
       const errorMessage =
-        error instanceof Error && error.message
-          ? error.message
-          : fallbackMessage;
+        "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.";
       setSubmitStatus("error");
       setSubmitMessage(errorMessage);
     }
@@ -94,11 +85,11 @@ const Contact = () => {
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="contact-grid">
             <label className="contact-field">
-              <span>Nombre</span>
+              <span>Tu Nombre</span>
               <input
                 type="text"
                 name="nombre"
-                placeholder="Tu nombre"
+                placeholder="Juan Gomez"
                 autoComplete="name"
                 required
               />
