@@ -1177,6 +1177,21 @@
       display: block;
     }
 
+    .card-summary {
+      font-size: 0.82rem;
+      padding: 0.35rem 0.7rem;
+      border-width: 1px;
+      border-radius: 10px;
+      letter-spacing: 0.02em;
+      background: rgba(139, 92, 246, 0.08);
+      color: rgba(233, 213, 255, 0.9);
+      gap: 0.4rem;
+    }
+
+    .card-summary::before {
+      font-size: 0.75rem;
+    }
+
     .service-card-content {
       display: none;
     }
@@ -1760,6 +1775,16 @@
 
 .contact-field-full {
   width: 100%;
+}
+
+.contact-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .contact-phone {
