@@ -21,7 +21,11 @@ const ServiceCard = ({
 
   return (
     <div className="service-card">
-      {icon && <div className="service-card-icon">{icon}</div>}
+      {icon && (
+        <div className="service-card-icon-wrapper">
+          <div className="service-card-icon">{icon}</div>
+        </div>
+      )}
       <h3 className="service-card-title">{title}</h3>
       <div className="service-card-content">{detailsContent}</div>
       <details className="card-details">

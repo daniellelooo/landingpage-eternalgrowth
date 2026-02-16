@@ -50,28 +50,6 @@ const SERVICES: ServiceCardType[] = [
     ],
   },
   {
-    title: "Capacitación Digital",
-    description:
-      "Formación en tecnología y marketing digital para equipos y emprendedores.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-      </svg>
-    ),
-    details: [
-      "Talleres prácticos",
-      "Redes sociales",
-      "Google Workspace",
-      "Herramientas digitales",
-    ],
-  },
-  {
     title: "Consultoría",
     description:
       "Asesoría personalizada para la transformación digital de tu empresa.",
@@ -111,30 +89,6 @@ const SERVICES: ServiceCardType[] = [
       "Publicidad online",
       "Email marketing",
       "Content marketing",
-    ],
-  },
-  {
-    title: "Rebranding",
-    description:
-      "Renovación de la imagen y comunicación de tu marca para destacar en el mercado.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-        <line x1="9" y1="9" x2="9.01" y2="9" />
-        <line x1="15" y1="9" x2="15.01" y2="9" />
-      </svg>
-    ),
-    details: [
-      "Diseño de logo",
-      "Identidad visual",
-      "Manual de marca",
-      "Comunicación estratégica",
     ],
   },
 ];

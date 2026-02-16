@@ -7,6 +7,7 @@ import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
+import Contact from "./sections/Contact";
 import "./EternalGrowthLanding.css";
 
 const EternalGrowthLanding = () => {
@@ -14,7 +15,6 @@ const EternalGrowthLanding = () => {
 
   const handleNavigate = (sectionId: SectionId) => {
     scrollToSection(sectionId);
-    setActiveSection(sectionId);
   };
 
   useEffect(() => {
@@ -44,29 +44,6 @@ const EternalGrowthLanding = () => {
           `translate(-50%, calc(-50% + ${scrolled * parallaxSpeed}px))`;
       }
 
-      // Update active section
-      if (heroSection && scrollPosition < heroSection.offsetHeight) {
-        setActiveSection("hero");
-      } else if (
-        aboutSection &&
-        scrollPosition >= aboutSection.offsetTop &&
-        scrollPosition < aboutSection.offsetTop + aboutSection.offsetHeight
-      ) {
-        setActiveSection("about");
-      } else if (
-        benefitsSection &&
-        scrollPosition >= benefitsSection.offsetTop &&
-        scrollPosition <
-          benefitsSection.offsetTop + benefitsSection.offsetHeight
-      ) {
-        setActiveSection("beneficios");
-      } else if (
-        servicesSection &&
-        scrollPosition >= servicesSection.offsetTop
-      ) {
-        setActiveSection("servicios");
-      }
-
       if (globalEffects && heroSection) {
         const inHero = scrollPosition < heroSection.offsetHeight;
         globalEffects.classList.toggle("paused", !inHero);
@@ -74,7 +51,42 @@ const EternalGrowthLanding = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const sectionIds: SectionId[] = [
+      "hero",
+      "about",
+      "beneficios",
+      "servicios",
+      "contacto",
+    ];
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleSections.length > 0) {
+          setActiveSection(visibleSections[0].target.id as SectionId);
+        }
+      },
+      {
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -84,6 +96,7 @@ const EternalGrowthLanding = () => {
       <About />
       <Benefits />
       <Services />
+      <Contact />
       <Footer />
     </div>
   );
