@@ -63,8 +63,8 @@ export const buildOwnerEmailHtml = (payload: ContactPayload) => {
   const logoUrl = getLogoUrl();
 
   return `
-    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;background-color:#f5f4fb !important;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026;">
+    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;background-color:#f5f4fb !important;color-scheme:light;supported-color-schemes:light;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026 !important;color-scheme:light;supported-color-schemes:light;">
         <tr>
           <td bgcolor="#2c1458" style="padding:28px 36px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff !important;">
             <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
@@ -80,9 +80,9 @@ export const buildOwnerEmailHtml = (payload: ContactPayload) => {
           </td>
         </tr>
         <tr>
-          <td style="padding:28px 36px;color:#1a1026;">
+          <td style="padding:28px 36px;color:#1a1026 !important;background-color:#ffffff !important;">
             <h2 style="margin:0 0 14px;font-size:16px;color:#6b21a8;">Resumen del cliente</h2>
-            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:#1a1026;border-collapse:collapse;">
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:#1a1026 !important;border-collapse:collapse;">
               <tr><td style="padding:8px 0;width:36%;color:#5a5168;">Nombre</td><td style="padding:8px 0;font-weight:600;">${formatField(payload.nombre ?? "")}</td></tr>
               <tr><td style="padding:8px 0;color:#5a5168;">Email</td><td style="padding:8px 0;">${formatField(payload.email ?? "")}</td></tr>
               <tr><td style="padding:8px 0;color:#5a5168;">Telefono</td><td style="padding:8px 0;">${formatField(telefonoCompleto)}</td></tr>
@@ -94,17 +94,17 @@ export const buildOwnerEmailHtml = (payload: ContactPayload) => {
         </tr>
         <tr>
           <td style="padding:0 36px 20px;">
-            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d;">
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d !important;">
               <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Descripcion del servicio</h3>
-              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d;">${formatField(payload.descripcion_servicio ?? "")}</p>
+              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d !important;">${formatField(payload.descripcion_servicio ?? "")}</p>
             </div>
           </td>
         </tr>
         <tr>
           <td style="padding:0 36px 32px;">
-            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d;">
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d !important;">
               <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Descripcion de la empresa</h3>
-              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d;">${formatField(payload.descripcion_empresa ?? "")}</p>
+              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d !important;">${formatField(payload.descripcion_empresa ?? "")}</p>
             </div>
           </td>
         </tr>
@@ -120,7 +120,7 @@ export const buildUserEmail = (payload: ContactPayload) => {
     "Resumen:\n" +
     `Servicio de interes: ${payload.servicio ?? ""}\n` +
     `Empresa: ${payload.empresa ?? ""}\n\n` +
-    "Si necesitas agregar algo, responde este correo.\n\n" +
+    "Si necesitas agregar algo, escribenos a eternalgrowth00@gmail.com.\n\n" +
     "Equipo EternalGrowth";
 };
 
@@ -128,8 +128,8 @@ export const buildUserEmailHtml = (payload: ContactPayload) => {
   const logoUrl = getLogoUrl();
 
   return `
-    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;background-color:#f5f4fb !important;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026;">
+    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;background-color:#f5f4fb !important;color-scheme:light;supported-color-schemes:light;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026 !important;color-scheme:light;supported-color-schemes:light;">
         <tr>
           <td bgcolor="#2c1458" style="padding:28px 36px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff !important;">
             ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;height:auto;margin:0 0 18px;" />` : ""}
@@ -138,29 +138,29 @@ export const buildUserEmailHtml = (payload: ContactPayload) => {
           </td>
         </tr>
         <tr>
-          <td style="padding:26px 36px;color:#2d233d;">
-            <p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:#2d233d;">
+          <td style="padding:26px 36px;color:#2d233d !important;background-color:#ffffff !important;">
+            <p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:#2d233d !important;">
               Hola ${formatField(payload.nombre ?? "")}, hemos recibido tu informacion. Nuestro equipo revisara tu solicitud y se pondra en contacto contigo muy pronto.
             </p>
-            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d;">
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d !important;">
               <p style="margin:0 0 6px;font-size:12px;color:#7a6f91;letter-spacing:0.08em;text-transform:uppercase;">Resumen</p>
-              <p style="margin:0;font-size:14px;color:#2d233d;">Servicio: ${formatField(payload.servicio ?? "")}<br />Empresa: ${formatField(payload.empresa ?? "")}</p>
+              <p style="margin:0;font-size:14px;color:#2d233d !important;">Servicio: ${formatField(payload.servicio ?? "")}<br />Empresa: ${formatField(payload.empresa ?? "")}</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 36px 20px;color:#2d233d;">
-            <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Contacto</h3>
-            <p style="margin:0;font-size:14px;line-height:1.6;color:#2d233d;">
+          <td style="padding:0 36px 20px;color:#2d233d !important;background-color:#ffffff !important;">
+            <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Contactanos</h3>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#2d233d !important;">
               Email: eternalgrowth00@gmail.com<br />
               Instagram: @eternalgrowth__
             </p>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 36px 32px;color:#7a6f91;">
-            <p style="margin:0;font-size:13px;color:#7a6f91;">
-              Si necesitas agregar informacion, responde a este correo.
+          <td style="padding:0 36px 32px;color:#7a6f91 !important;background-color:#ffffff !important;">
+            <p style="margin:0;font-size:13px;color:#7a6f91 !important;">
+              Si necesitas agregar informacion, escribenos a eternalgrowth00@gmail.com.
             </p>
           </td>
         </tr>
