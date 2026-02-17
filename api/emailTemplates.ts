@@ -117,9 +117,9 @@ export const buildUserEmailHtml = (payload: ContactPayload) => {
         <tr>
           <td bgcolor="#2c1458" style="padding:28px 36px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">
             ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;height:auto;margin:0 0 10px;" />` : ""}
-            <div style="margin:0 0 18px;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:#ffffff;-webkit-text-fill-color:#ffffff !important;">EternalGrowth</div>
-            <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">Hemos recibido tu solicitud</h1>
-            <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.9);-webkit-text-fill-color:#ffffff !important;">Gracias por contactar a EternalGrowth.</p>
+            <div style="margin:0 0 18px;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">EternalGrowth</div>
+            <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;background:transparent !important;">Hemos recibido tu solicitud</h1>
+            <p style="margin:8px 0 0;font-size:14px;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">Gracias por contactar a EternalGrowth.</p>
           </td>
         </tr>
         <tr>
@@ -135,7 +135,7 @@ export const buildUserEmailHtml = (payload: ContactPayload) => {
         </tr>
         <tr>
           <td style="padding:0 36px 20px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;background-color:#ffffff !important;">
-            <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Contactanos</h3>
+            <h3 style="margin:0 0 8px;font-size:14px;color:#c4b5fd;-webkit-text-fill-color:#c4b5fd !important;">Contactanos</h3>
             <p style="margin:0;font-size:14px;line-height:1.6;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">
               Email: eternalgrowth00@gmail.com<br />
               Instagram: @eternalgrowth__
