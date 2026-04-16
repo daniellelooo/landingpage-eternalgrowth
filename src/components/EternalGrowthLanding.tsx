@@ -7,6 +7,7 @@ import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
+import News from "./sections/News";
 import Contact from "./sections/Contact";
 import "./EternalGrowthLanding.css";
 
@@ -20,9 +21,6 @@ const EternalGrowthLanding = () => {
   useEffect(() => {
     const handleScroll = () => {
       const heroSection = document.getElementById("hero");
-      const aboutSection = document.getElementById("about");
-      const benefitsSection = document.getElementById("beneficios");
-      const servicesSection = document.getElementById("servicios");
       const scrollIndicator = document.querySelector(".scroll-indicator");
       const backgroundLogo = document.querySelector(".background-logo");
       const globalEffects = document.querySelector(".global-effects");
@@ -57,6 +55,7 @@ const EternalGrowthLanding = () => {
       "about",
       "beneficios",
       "servicios",
+      "news",
       "contacto",
     ];
 
@@ -96,6 +95,7 @@ const EternalGrowthLanding = () => {
       <About />
       <Benefits />
       <Services />
+      <News />
       <Contact />
       <Footer />
     </div>

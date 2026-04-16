@@ -13,6 +13,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: "about", label: "Nosotros" },
   { id: "beneficios", label: "Beneficios" },
   { id: "servicios", label: "Servicios" },
+  { id: "news", label: "Eternal News" },
   { id: "contacto", label: "Contacto" },
 ];
 
