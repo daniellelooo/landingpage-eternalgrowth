@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomSelect from "../../common/Select";
+
+const NEWS_CTA_STORAGE_KEY = "eternalgrowth_news_cta";
 
 const COUNTRY_OPTIONS = [
   { label: "CO +57", value: "+57" },
@@ -31,8 +33,36 @@ const Contact = () => {
   const [countryCode, setCountryCode] = useState("+57");
   const [serviceValue, setServiceValue] = useState("");
   const [contactMethod, setContactMethod] = useState("email");
+  const [serviceDescription, setServiceDescription] = useState("");
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [submitMessage, setSubmitMessage] = useState("");
+
+  useEffect(() => {
+    const rawCta = window.localStorage.getItem(NEWS_CTA_STORAGE_KEY);
+
+    if (!rawCta) {
+      return;
+    }
+
+    try {
+      const parsedCta = JSON.parse(rawCta) as {
+        descripcion_servicio?: string;
+        servicio?: string;
+      };
+
+      if (parsedCta.descripcion_servicio) {
+        setServiceDescription(parsedCta.descripcion_servicio);
+      }
+
+      if (parsedCta.servicio) {
+        setServiceValue(parsedCta.servicio);
+      }
+    } catch {
+      // noop
+    }
+
+    window.localStorage.removeItem(NEWS_CTA_STORAGE_KEY);
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -64,6 +94,7 @@ const Contact = () => {
       setCountryCode("+57");
       setServiceValue("");
       setContactMethod("email");
+      setServiceDescription("");
     } catch (error) {
       const errorMessage =
         "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.";
@@ -163,6 +194,8 @@ const Contact = () => {
               name="descripcion_servicio"
               rows={4}
               placeholder="Describe el servicio o proyecto que necesitas"
+              value={serviceDescription}
+              onChange={(event) => setServiceDescription(event.target.value)}
               required
             />
           </label>

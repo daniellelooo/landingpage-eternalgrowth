@@ -13,7 +13,6 @@ const NAV_ITEMS: NavItem[] = [
   { id: "about", label: "Nosotros" },
   { id: "beneficios", label: "Beneficios" },
   { id: "servicios", label: "Servicios" },
-  { id: "news", label: "Eternal News" },
   { id: "contacto", label: "Contacto" },
 ];
 
@@ -47,9 +46,32 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
           ))}
         </nav>
 
-        {/* Clock */}
-        <div className="header-clock">
-          <MedellinClock />
+        <div className="header-quick-actions">
+          <button
+            type="button"
+            className={`header-news-icon ${activeSection === "news" ? "active" : ""}`}
+            onClick={() => onNavigate("news")}
+            aria-label="Ir a Sin filtro digital"
+            title="Sin filtro digital"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
+              <line x1="7" y1="8" x2="10" y2="8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <line x1="7" y1="11" x2="17" y2="11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <line x1="7" y1="14" x2="17" y2="14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <line x1="7" y1="17" x2="14" y2="17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <rect x="14.5" y="7.2" width="3.5" height="2.8" rx="0.4" fill="currentColor" />
+            </svg>
+          </button>
+
+          <div className="header-clock">
+            <MedellinClock />
+          </div>
         </div>
 
         {/* Mobile Menu Button */}

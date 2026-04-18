@@ -59,7 +59,7 @@ const NewsPage = () => {
       {showSubscribePrompt && (
         <div className="news-subscribe-overlay" role="dialog" aria-modal="true">
           <div className="news-subscribe-modal">
-            <span className="news-kicker">Eternal News</span>
+            <span className="news-kicker">Sin filtro digital</span>
             <h2>Recibe cada nueva noticia</h2>
             <p>
               Te avisamos cuando publiquemos analisis, alertas y senales utiles
@@ -75,7 +75,7 @@ const NewsPage = () => {
                   className="news-subscribe-primary"
                   onClick={() => setShowSubscribePrompt(false)}
                 >
-                  Entrar a Eternal News
+                  Entrar a Sin filtro digital
                 </button>
               </div>
             ) : (

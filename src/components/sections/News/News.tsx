@@ -15,6 +15,65 @@ type NewsItem = {
   alt: string;
 };
 
+type NewsCtaConfig = {
+  title: string;
+  description: string;
+  buttonLabel: string;
+  suggestedService: "Automatizacion" | "Consultoria" | "Marketing Digital" | "Otro";
+};
+
+const NEWS_CTA_BY_KEYWORD: Array<{ keyword: string; config: NewsCtaConfig }> = [
+  {
+    keyword: "ia",
+    config: {
+      title: "Quieres implementar IA en tu negocio?",
+      description:
+        "Te ayudamos a convertir esta tendencia en procesos reales de ventas, atencion y productividad.",
+      buttonLabel: "Hablar de IA aplicada",
+      suggestedService: "Automatizacion",
+    },
+  },
+  {
+    keyword: "automatizacion",
+    config: {
+      title: "Quieres automatizar procesos en tu negocio?",
+      description:
+        "Diseñamos flujos practicos para reducir tareas manuales y escalar tu operacion sin friccion.",
+      buttonLabel: "Quiero automatizar",
+      suggestedService: "Automatizacion",
+    },
+  },
+  {
+    keyword: "ciberseguridad",
+    config: {
+      title: "Quieres proteger mejor tu negocio?",
+      description:
+        "Te acompañamos a definir controles y buenas practicas para reducir riesgos digitales en tu empresa.",
+      buttonLabel: "Fortalecer seguridad",
+      suggestedService: "Consultoria",
+    },
+  },
+];
+
+const DEFAULT_NEWS_CTA: NewsCtaConfig = {
+  title: "Quieres aplicar esto en tu empresa?",
+  description:
+    "Traducimos esta señal en un plan de implementacion claro para tu contexto y tus objetivos.",
+  buttonLabel: "Hablar con un especialista",
+  suggestedService: "Consultoria",
+};
+
+const NEWS_CTA_STORAGE_KEY = "eternalgrowth_news_cta";
+
+const getNewsCtaConfig = (category: string): NewsCtaConfig => {
+  const normalizedCategory = category.toLowerCase();
+  const matched = NEWS_CTA_BY_KEYWORD.find(({ keyword }) =>
+    normalizedCategory.includes(keyword),
+  );
+
+  return matched?.config ?? DEFAULT_NEWS_CTA;
+};
+
 const NEWS_ITEMS: NewsItem[] = [
   {
     category: "IA para ventas",
@@ -125,7 +184,26 @@ const NEWS_ITEMS: NewsItem[] = [
 const News = () => {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
 
+  const handleCtaClick = (newsItem: NewsItem) => {
+    const ctaConfig = getNewsCtaConfig(newsItem.category);
+    const prefilledMessage =
+      `Vi la noticia \"${newsItem.title}\" y quiero implementarlo a mi negocio. ` +
+      `Me interesa avanzar en ${newsItem.category.toLowerCase()} con su apoyo.`;
+
+    window.localStorage.setItem(
+      NEWS_CTA_STORAGE_KEY,
+      JSON.stringify({
+        descripcion_servicio: prefilledMessage,
+        servicio: ctaConfig.suggestedService,
+      }),
+    );
+
+    window.location.href = "/#contacto";
+  };
+
   if (selectedNews) {
+    const ctaConfig = getNewsCtaConfig(selectedNews.category);
+
     return (
       <section id="news" className="news-section news-article-section">
         <article className="news-article">
@@ -134,7 +212,7 @@ const News = () => {
             className="news-back-button"
             onClick={() => setSelectedNews(null)}
           >
-            Volver a Eternal News
+            Volver a Sin filtro digital
           </button>
 
           <div className="news-article-hero">
@@ -186,6 +264,19 @@ const News = () => {
             >
               Fuente original: {selectedNews.source}
             </a>
+
+            <section className="news-article-cta" aria-label="Llamado a la accion">
+              <p className="news-article-cta-kicker">Siguiente paso</p>
+              <h3>{ctaConfig.title}</h3>
+              <p>{ctaConfig.description}</p>
+              <button
+                type="button"
+                className="news-article-cta-button"
+                onClick={() => handleCtaClick(selectedNews)}
+              >
+                {ctaConfig.buttonLabel}
+              </button>
+            </section>
           </div>
         </article>
       </section>
@@ -196,8 +287,8 @@ const News = () => {
     <section id="news" className="news-section">
       <div className="news-container">
         <div className="news-header">
-          <span className="news-kicker">Eternal News</span>
-          <h2 className="news-title">Noticias para decidir mejor</h2>
+          <span className="news-kicker">Sin filtro digital</span>
+          <h2 className="news-title">Sin filtro digital</h2>
           <p className="news-subtitle">
             Señales de negocios, tecnología e IA que una pequeña empresa puede
             convertir en acción esta semana.
