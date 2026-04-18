@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type NewsItem = {
+  slug: string;
   category: string;
   date: string;
   title: string;
@@ -76,6 +77,7 @@ const getNewsCtaConfig = (category: string): NewsCtaConfig => {
 
 const NEWS_ITEMS: NewsItem[] = [
   {
+    slug: "meta-ia-pequenos-negocios",
     category: "IA para ventas",
     date: "25 Mar 2026",
     title: "Meta enfoca una nueva iniciativa en pequeños negocios",
@@ -102,6 +104,7 @@ const NEWS_ITEMS: NewsItem[] = [
     alt: "Equipo de una pequeña empresa trabajando con tecnología",
   },
   {
+    slug: "gartner-ciberseguridad-ia",
     category: "Ciberseguridad",
     date: "5 Feb 2026",
     title: "Gartner alerta sobre nuevas reglas de seguridad con IA",
@@ -128,6 +131,7 @@ const NEWS_ITEMS: NewsItem[] = [
     alt: "Pantallas con código y controles de ciberseguridad",
   },
   {
+    slug: "pymes-adopcion-tecnologica-2026",
     category: "Inversión tech",
     date: "16 Dic 2025",
     title: "Más pymes planean acelerar su adopción tecnológica",
@@ -154,6 +158,7 @@ const NEWS_ITEMS: NewsItem[] = [
     alt: "Persona revisando indicadores digitales en un computador portátil",
   },
   {
+    slug: "visa-ia-pagos-negocios",
     category: "Pagos inteligentes",
     date: "13 Ene 2026",
     title: "Visa ve a pequeños negocios avanzando más rápido con IA",
@@ -181,8 +186,173 @@ const NEWS_ITEMS: NewsItem[] = [
   },
 ];
 
-const News = () => {
-  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+const NEWS_BASE_PATH = "/news";
+
+const getSlugFromPath = (pathname: string) => {
+  if (!pathname.startsWith(`${NEWS_BASE_PATH}/`)) {
+    return null;
+  }
+
+  const slug = pathname.slice(`${NEWS_BASE_PATH}/`.length).replace(/\/+$/, "");
+  return slug || null;
+};
+
+const getNewsBySlug = (slug: string) =>
+  NEWS_ITEMS.find((newsItem) => newsItem.slug === slug) ?? null;
+
+const upsertMetaTag = (
+  selector: string,
+  attribute: "name" | "property",
+  key: string,
+  content: string,
+) => {
+  let tag = document.head.querySelector<HTMLMetaElement>(selector);
+
+  if (!tag) {
+    tag = document.createElement("meta");
+    tag.setAttribute(attribute, key);
+    document.head.appendChild(tag);
+  }
+
+  tag.setAttribute("content", content);
+};
+
+const upsertCanonical = (href: string) => {
+  let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+
+  if (!link) {
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+
+  link.setAttribute("href", href);
+};
+
+const upsertJsonLd = (jsonLd: Record<string, unknown>) => {
+  const scriptId = "news-jsonld";
+  let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+  if (!script) {
+    script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = scriptId;
+    document.head.appendChild(script);
+  }
+
+  script.textContent = JSON.stringify(jsonLd);
+};
+
+const getIsoDateFromNewsDate = (rawDate: string) => {
+  const [dayRaw, monthRaw, yearRaw] = rawDate.split(" ");
+  const monthMap: Record<string, string> = {
+    ene: "01",
+    feb: "02",
+    mar: "03",
+    abr: "04",
+    may: "05",
+    jun: "06",
+    jul: "07",
+    ago: "08",
+    sep: "09",
+    oct: "10",
+    nov: "11",
+    dic: "12",
+  };
+  const month = monthMap[monthRaw.toLowerCase()] ?? "01";
+  const day = dayRaw.padStart(2, "0");
+  return `${yearRaw}-${month}-${day}`;
+};
+
+interface NewsProps {
+  initialSlug?: string;
+}
+
+const News = ({ initialSlug }: NewsProps) => {
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(
+    initialSlug ? getNewsBySlug(initialSlug) : null,
+  );
+
+  useEffect(() => {
+    setSelectedNews(initialSlug ? getNewsBySlug(initialSlug) : null);
+  }, [initialSlug]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const slug = getSlugFromPath(window.location.pathname);
+      setSelectedNews(slug ? getNewsBySlug(slug) : null);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  useEffect(() => {
+    const baseUrl = window.location.origin;
+    const defaultTitle = "Sin filtro digital | EternalGrowth";
+    const defaultDescription =
+      "Noticias de tecnologia, negocios e IA para tomar decisiones con contexto y accion.";
+    const pageUrl = selectedNews
+      ? `${baseUrl}${NEWS_BASE_PATH}/${selectedNews.slug}`
+      : `${baseUrl}${NEWS_BASE_PATH}`;
+    const title = selectedNews
+      ? `${selectedNews.title} | Sin filtro digital`
+      : defaultTitle;
+    const description = selectedNews?.deck ?? defaultDescription;
+    const image = selectedNews?.image ?? `${baseUrl}/logo.jpeg`;
+    const ogType = selectedNews ? "article" : "website";
+
+    document.title = title;
+    upsertCanonical(pageUrl);
+    upsertMetaTag('meta[name="description"]', "name", "description", description);
+    upsertMetaTag('meta[property="og:type"]', "property", "og:type", ogType);
+    upsertMetaTag('meta[property="og:title"]', "property", "og:title", title);
+    upsertMetaTag('meta[property="og:description"]', "property", "og:description", description);
+    upsertMetaTag('meta[property="og:url"]', "property", "og:url", pageUrl);
+    upsertMetaTag('meta[property="og:image"]', "property", "og:image", image);
+    upsertMetaTag('meta[property="twitter:title"]', "property", "twitter:title", title);
+    upsertMetaTag(
+      'meta[property="twitter:description"]',
+      "property",
+      "twitter:description",
+      description,
+    );
+    upsertMetaTag('meta[property="twitter:url"]', "property", "twitter:url", pageUrl);
+    upsertMetaTag('meta[property="twitter:image"]', "property", "twitter:image", image);
+
+    if (selectedNews) {
+      upsertJsonLd({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: selectedNews.title,
+        description: selectedNews.deck,
+        image: [selectedNews.image],
+        datePublished: getIsoDateFromNewsDate(selectedNews.date),
+        dateModified: getIsoDateFromNewsDate(selectedNews.date),
+        mainEntityOfPage: pageUrl,
+        author: {
+          "@type": "Organization",
+          name: "EternalGrowth",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "EternalGrowth",
+          logo: {
+            "@type": "ImageObject",
+            url: `${baseUrl}/logo.jpeg`,
+          },
+        },
+      });
+    } else {
+      upsertJsonLd({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Sin filtro digital",
+        description: defaultDescription,
+        url: pageUrl,
+      });
+    }
+  }, [selectedNews]);
 
   const handleCtaClick = (newsItem: NewsItem) => {
     const ctaConfig = getNewsCtaConfig(newsItem.category);
@@ -201,6 +371,18 @@ const News = () => {
     window.location.href = "/#contacto";
   };
 
+  const handleOpenNews = (newsItem: NewsItem) => {
+    setSelectedNews(newsItem);
+    window.history.pushState({}, "", `${NEWS_BASE_PATH}/${newsItem.slug}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBackToNewsList = () => {
+    setSelectedNews(null);
+    window.history.pushState({}, "", NEWS_BASE_PATH);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (selectedNews) {
     const ctaConfig = getNewsCtaConfig(selectedNews.category);
 
@@ -210,7 +392,7 @@ const News = () => {
           <button
             type="button"
             className="news-back-button"
-            onClick={() => setSelectedNews(null)}
+            onClick={handleBackToNewsList}
           >
             Volver a Sin filtro digital
           </button>
@@ -316,7 +498,7 @@ const News = () => {
                   <button
                     type="button"
                     className="news-link news-read-button"
-                    onClick={() => setSelectedNews(item)}
+                    onClick={() => handleOpenNews(item)}
                   >
                     Leer análisis Eternal
                   </button>

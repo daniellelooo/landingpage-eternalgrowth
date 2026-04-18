@@ -6,7 +6,11 @@ import News from "./News";
 
 type SubscriptionStatus = "idle" | "loading" | "success" | "error";
 
-const NewsPage = () => {
+interface NewsPageProps {
+  initialSlug?: string;
+}
+
+const NewsPage = ({ initialSlug }: NewsPageProps) => {
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(true);
   const [subscriberEmail, setSubscriberEmail] = useState("");
   const [subscriptionStatus, setSubscriptionStatus] =
@@ -118,7 +122,7 @@ const NewsPage = () => {
         </div>
       )}
 
-      <News />
+      <News initialSlug={initialSlug} />
       <Footer />
     </div>
   );

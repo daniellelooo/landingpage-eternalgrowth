@@ -10,6 +10,10 @@
     {
       "source": "/news/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/news/:slug",
+      "destination": "/index.html"
     }
   ],
   "headers": [
