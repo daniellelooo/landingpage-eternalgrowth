@@ -7,7 +7,6 @@ import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
-import News from "./sections/News";
 import Contact from "./sections/Contact";
 import "./EternalGrowthLanding.css";
 
@@ -15,6 +14,11 @@ const EternalGrowthLanding = () => {
   const [activeSection, setActiveSection] = useState<SectionId>("hero");
 
   const handleNavigate = (sectionId: SectionId) => {
+    if (sectionId === "news") {
+      window.location.href = "/news";
+      return;
+    }
+
     scrollToSection(sectionId);
   };
 
@@ -55,7 +59,6 @@ const EternalGrowthLanding = () => {
       "about",
       "beneficios",
       "servicios",
-      "news",
       "contacto",
     ];
 
@@ -82,6 +85,11 @@ const EternalGrowthLanding = () => {
     sections.forEach((section) => observer.observe(section));
     handleScroll();
 
+    if (window.location.hash) {
+      const sectionId = window.location.hash.slice(1);
+      window.setTimeout(() => scrollToSection(sectionId), 100);
+    }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
@@ -95,7 +103,6 @@ const EternalGrowthLanding = () => {
       <About />
       <Benefits />
       <Services />
-      <News />
       <Contact />
       <Footer />
     </div>
