@@ -7,6 +7,7 @@ import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
+import Packages from "./sections/Packages";
 import Contact from "./sections/Contact";
 import "./EternalGrowthLanding.css";
 
@@ -20,23 +21,18 @@ const EternalGrowthLanding = () => {
   useEffect(() => {
     const handleScroll = () => {
       const heroSection = document.getElementById("hero");
-      const aboutSection = document.getElementById("about");
-      const benefitsSection = document.getElementById("beneficios");
-      const servicesSection = document.getElementById("servicios");
       const scrollIndicator = document.querySelector(".scroll-indicator");
       const backgroundLogo = document.querySelector(".background-logo");
       const globalEffects = document.querySelector(".global-effects");
 
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
-      // Hide scroll indicator after first scroll
       if (scrollIndicator && window.scrollY > 100) {
         scrollIndicator.classList.add("hidden");
       } else if (scrollIndicator) {
         scrollIndicator.classList.remove("hidden");
       }
 
-      // Parallax effect on background logo
       if (backgroundLogo) {
         const scrolled = window.scrollY;
         const parallaxSpeed = 0.3;
@@ -57,6 +53,7 @@ const EternalGrowthLanding = () => {
       "about",
       "beneficios",
       "servicios",
+      "paquetes",
       "contacto",
     ];
 
@@ -96,6 +93,7 @@ const EternalGrowthLanding = () => {
       <About />
       <Benefits />
       <Services />
+      <Packages />
       <Contact />
       <Footer />
     </div>

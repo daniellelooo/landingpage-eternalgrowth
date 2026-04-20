@@ -17,4 +17,4 @@ export interface SocialLink {
   icon: JSX.Element;
 }
 
-export type SectionId = "hero" | "about" | "beneficios" | "servicios" | "contacto";
+export type SectionId = "hero" | "about" | "beneficios" | "servicios" | "paquetes" | "contacto";

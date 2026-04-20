@@ -13,9 +13,13 @@ const COUNTRY_OPTIONS = [
 
 const SERVICE_OPTIONS = [
   { label: "Desarrollo Web", value: "Desarrollo Web" },
-  { label: "Automatizacion", value: "Automatizacion" },
-  { label: "Consultoria", value: "Consultoria" },
+  { label: "Automatización con n8n", value: "Automatizacion" },
   { label: "Marketing Digital", value: "Marketing Digital" },
+  { label: "Consultoría y Diagnóstico", value: "Consultoria" },
+  { label: "Paquete Semilla", value: "Paquete Semilla" },
+  { label: "Paquete Escala", value: "Paquete Escala" },
+  { label: "Paquete Impulso", value: "Paquete Impulso" },
+  { label: "Paquete Universidad", value: "Paquete Universidad" },
   { label: "Otro", value: "Otro" },
 ];
 
@@ -76,9 +80,10 @@ const Contact = () => {
     <section id="contacto" className="contact-section">
       <div className="contact-container">
         <div className="contact-header">
-          <h2 className="contact-title">Hablemos de Tu Proyecto</h2>
+          <h2 className="contact-title">Agenda tu Diagnóstico Gratuito</h2>
           <p className="contact-subtitle">
-            Cuentanos lo que necesitas y prepararemos una propuesta a la medida.
+            30 minutos para entender tu negocio y mostrarte exactamente qué
+            necesitas. Sin compromiso, sin tecnicismos.
           </p>
         </div>
 
