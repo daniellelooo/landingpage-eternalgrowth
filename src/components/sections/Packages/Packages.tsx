@@ -1,5 +1,5 @@
 import { scrollToSection } from "../../../utils/helpers";
-import { ReactElement } from "react";
+import { ReactElement, useRef, useState, useEffect } from "react";
 
 interface Package {
   name: string;
@@ -103,6 +103,23 @@ const PACKAGES: Package[] = [
 ];
 
 const Packages = () => {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const handleScroll = () => {
+      const cardWidth = grid.firstElementChild
+        ? (grid.firstElementChild as HTMLElement).offsetWidth
+        : grid.scrollWidth / PACKAGES.length;
+      const index = Math.round(grid.scrollLeft / (cardWidth + 14));
+      setActiveIndex(Math.min(index, PACKAGES.length - 1));
+    };
+    grid.addEventListener("scroll", handleScroll, { passive: true });
+    return () => grid.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section id="paquetes" className="packages-section">
       <div className="packages-container">
@@ -112,7 +129,7 @@ const Packages = () => {
           puedas y escala cuando estés listo.
         </p>
 
-        <div className="packages-grid">
+        <div className="packages-grid" ref={gridRef}>
           {PACKAGES.map((pkg, index) => (
             <div
               key={index}
@@ -142,6 +159,16 @@ const Packages = () => {
                 Quiero este paquete
               </button>
             </div>
+          ))}
+        </div>
+
+        {/* Dots indicadores — solo visibles en mobile */}
+        <div className="packages-dots">
+          {PACKAGES.map((_, i) => (
+            <span
+              key={i}
+              className={`packages-dot${i === activeIndex ? " packages-dot--active" : ""}`}
+            />
           ))}
         </div>
 
