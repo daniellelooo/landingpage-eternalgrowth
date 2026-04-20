@@ -20,13 +20,7 @@ const SERVICE_OPTIONS = [
   { label: "Paquete Escala", value: "Paquete Escala" },
   { label: "Paquete Impulso", value: "Paquete Impulso" },
   { label: "Paquete Universidad", value: "Paquete Universidad" },
-  { label: "Otro", value: "Otro" },
-];
-
-const CONTACT_METHOD_OPTIONS = [
-  { label: "Email", value: "email" },
-  { label: "WhatsApp", value: "whatsapp" },
-  { label: "Llamada", value: "llamada" },
+  { label: "No sé, necesito orientación", value: "Orientacion" },
 ];
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
@@ -34,7 +28,6 @@ type SubmitStatus = "idle" | "loading" | "success" | "error";
 const Contact = () => {
   const [countryCode, setCountryCode] = useState("+57");
   const [serviceValue, setServiceValue] = useState("");
-  const [contactMethod, setContactMethod] = useState("email");
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [submitMessage, setSubmitMessage] = useState("");
 
@@ -50,29 +43,20 @@ const Contact = () => {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error("request-failed");
-      }
+      if (!response.ok) throw new Error("request-failed");
 
       setSubmitStatus("success");
-      setSubmitMessage(
-        "Recibimos tu informacion. Te enviaremos un correo de confirmacion.",
-      );
+      setSubmitMessage("¡Listo! Te escribiremos muy pronto para coordinar tu diagnóstico.");
       form.reset();
       setCountryCode("+57");
       setServiceValue("");
-      setContactMethod("email");
-    } catch (error) {
-      const errorMessage =
-        "No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.";
+    } catch {
       setSubmitStatus("error");
-      setSubmitMessage(errorMessage);
+      setSubmitMessage("No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.");
     }
   };
 
@@ -80,7 +64,9 @@ const Contact = () => {
     <section id="contacto" className="contact-section">
       <div className="contact-container">
         <div className="contact-header">
-          <h2 className="contact-title">Agenda tu Diagnóstico Gratuito</h2>
+          <h2 className="contact-title">
+            Agenda tu <span className="contact-title-accent">Diagnóstico Gratuito</span>
+          </h2>
           <p className="contact-subtitle">
             30 minutos para entender tu negocio y mostrarte exactamente qué
             necesitas. Sin compromiso, sin tecnicismos.
@@ -88,13 +74,16 @@ const Contact = () => {
         </div>
 
         <form className="contact-form" onSubmit={handleSubmit}>
+          {/* Honeypot */}
+          <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+
           <div className="contact-grid">
             <label className="contact-field">
-              <span>Tu Nombre</span>
+              <span>Tu nombre</span>
               <input
                 type="text"
                 name="nombre"
-                placeholder="Juan Gomez"
+                placeholder="Juan Gómez"
                 autoComplete="name"
                 required
               />
@@ -112,11 +101,11 @@ const Contact = () => {
             </label>
 
             <div className="contact-field">
-              <span>Telefono</span>
+              <span>WhatsApp / Teléfono</span>
               <div className="contact-phone">
                 <CustomSelect
                   name="telefono_pais"
-                  label="Codigo de pais"
+                  label="Código de país"
                   options={COUNTRY_OPTIONS}
                   value={countryCode}
                   onChange={setCountryCode}
@@ -132,52 +121,23 @@ const Contact = () => {
               </div>
             </div>
 
-            <label className="contact-field">
-              <span>Empresa</span>
-              <input
-                type="text"
-                name="empresa"
-                placeholder="Nombre de tu empresa"
-                autoComplete="organization"
-                required
-              />
-            </label>
-
             <CustomSelect
               name="servicio"
-              label="Servicio de interes"
+              label="¿Qué te interesa?"
               options={SERVICE_OPTIONS}
               value={serviceValue}
-              placeholder="Selecciona una opcion"
+              placeholder="Selecciona una opción"
               required
               onChange={setServiceValue}
-            />
-
-            <CustomSelect
-              name="contacto_preferido"
-              label="Metodo de contacto preferido"
-              options={CONTACT_METHOD_OPTIONS}
-              value={contactMethod}
-              onChange={setContactMethod}
             />
           </div>
 
           <label className="contact-field contact-field-full">
-            <span>Descripcion del servicio que deseas contratar</span>
+            <span>Cuéntanos brevemente sobre tu negocio</span>
             <textarea
-              name="descripcion_servicio"
+              name="mensaje"
               rows={4}
-              placeholder="Describe el servicio o proyecto que necesitas"
-              required
-            />
-          </label>
-
-          <label className="contact-field contact-field-full">
-            <span>¿A que se dedica tu empresa?</span>
-            <textarea
-              name="descripcion_empresa"
-              rows={4}
-              placeholder="Cuéntanos a que se dedica tu empresa y que productos o servicios ofrece"
+              placeholder="¿A qué se dedica tu negocio? ¿Qué problema quieres resolver?"
               required
             />
           </label>
@@ -188,16 +148,13 @@ const Contact = () => {
               className="hero-cta-primary contact-submit"
               disabled={submitStatus === "loading"}
             >
-              Enviar solicitud
+              {submitStatus === "loading" ? "Enviando..." : "Agendar diagnóstico gratuito"}
             </button>
             <p className="contact-hint">
-              Te enviaremos un correo de confirmacion al recibir tu solicitud.
+              Te confirmaremos por email en menos de 24 horas.
             </p>
             {submitMessage && (
-              <p
-                className={`contact-status contact-status-${submitStatus}`}
-                role="status"
-              >
+              <p className={`contact-status contact-status-${submitStatus}`} role="status">
                 {submitMessage}
               </p>
             )}

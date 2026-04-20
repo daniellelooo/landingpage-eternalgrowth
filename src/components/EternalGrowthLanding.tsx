@@ -4,7 +4,6 @@ import { scrollToSection } from "../utils/helpers";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Hero from "./sections/Hero";
-import About from "./sections/About";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
 import Packages from "./sections/Packages";
@@ -35,9 +34,8 @@ const EternalGrowthLanding = () => {
 
       if (backgroundLogo) {
         const scrolled = window.scrollY;
-        const parallaxSpeed = 0.3;
         (backgroundLogo as HTMLElement).style.transform =
-          `translate(-50%, calc(-50% + ${scrolled * parallaxSpeed}px))`;
+          `translate(-50%, calc(-50% + ${scrolled * 0.3}px))`;
       }
 
       if (globalEffects && heroSection) {
@@ -50,7 +48,6 @@ const EternalGrowthLanding = () => {
 
     const sectionIds: SectionId[] = [
       "hero",
-      "about",
       "beneficios",
       "servicios",
       "paquetes",
@@ -90,7 +87,6 @@ const EternalGrowthLanding = () => {
     <div className="eternal-growth-container">
       <Header activeSection={activeSection} onNavigate={handleNavigate} />
       <Hero />
-      <About />
       <Benefits />
       <Services />
       <Packages />

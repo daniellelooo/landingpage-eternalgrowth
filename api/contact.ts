@@ -6,11 +6,8 @@ type ContactPayload = {
   email?: string;
   telefono?: string;
   telefono_pais?: string;
-  empresa?: string;
   servicio?: string;
-  contacto_preferido?: string;
-  descripcion_servicio?: string;
-  descripcion_empresa?: string;
+  mensaje?: string;
   website?: string;
 };
 
@@ -21,285 +18,179 @@ const MAX_LENGTHS = {
   email: 200,
   telefono: 40,
   telefono_pais: 10,
-  empresa: 160,
   servicio: 80,
-  contacto_preferido: 20,
-  descripcion_servicio: 1000,
-  descripcion_empresa: 1000,
+  mensaje: 1200,
 };
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const normalizeField = (value: unknown) => {
-  if (typeof value !== "string") {
-    return "";
-  }
+const normalizeField = (value: unknown) =>
+  typeof value === "string" ? value.trim() : "";
 
-  return value.trim();
-};
-
-const isValidLength = (value: string, maxLength: number) =>
-  value.length > 0 && value.length <= maxLength;
+const isValidLength = (value: string, max: number) =>
+  value.length > 0 && value.length <= max;
 
 const escapeHtml = (value: string) =>
   value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
+    .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
-const formatField = (value: string) =>
-  value ? escapeHtml(value) : "-";
+const fmt = (value: string) => (value ? escapeHtml(value) : "-");
 
-const buildOwnerEmail = (payload: ContactPayload) => {
-  const telefonoCompleto = `${payload.telefono_pais ?? ""} ${payload.telefono ?? ""}`.trim();
-
-  return `Nuevo contacto desde EternalGrowth\n\n` +
-    `Nombre: ${payload.nombre ?? ""}\n` +
-    `Email: ${payload.email ?? ""}\n` +
-    `Telefono: ${telefonoCompleto}\n` +
-    `Empresa: ${payload.empresa ?? ""}\n` +
-    `Servicio de interes: ${payload.servicio ?? ""}\n` +
-    `Metodo de contacto: ${payload.contacto_preferido ?? ""}\n\n` +
-    `Descripcion del servicio:\n${payload.descripcion_servicio ?? ""}\n\n` +
-    `Descripcion de la empresa:\n${payload.descripcion_empresa ?? ""}`;
-};
-
-const buildOwnerEmailHtml = (payload: ContactPayload) => {
-  const telefonoCompleto = `${payload.telefono_pais ?? ""} ${payload.telefono ?? ""}`.trim();
+const buildOwnerEmailHtml = (p: ContactPayload) => {
+  const tel = `${p.telefono_pais ?? ""} ${p.telefono ?? ""}`.trim();
   const siteUrl = process.env.SITE_URL ?? "";
   const logoUrl = siteUrl ? `${siteUrl}/logo.jpeg` : "";
 
   return `
-    <div style="background:#0d0816;padding:36px 20px;font-family:Arial,sans-serif;color:#f5efff;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:680px;margin:0 auto;background:#171024;border:1px solid rgba(139,92,246,0.25);border-radius:20px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.45);">
-        <tr>
-          <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1a0e28 55%,#120a1a 100%);">
-            <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
-              <tr>
-                <td style="vertical-align:middle;">
-                  ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;" />` : ""}
-                </td>
-                <td style="text-align:right;font-size:12px;color:rgba(255,255,255,0.65);">Nuevo lead</td>
-              </tr>
-            </table>
-            <h1 style="margin:18px 0 6px;font-size:22px;letter-spacing:1px;color:#ffffff;">Solicitud recibida</h1>
-            <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.7);">Revisa el resumen y continua el seguimiento comercial.</p>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:26px 32px;">
-            <h2 style="margin:0 0 14px;font-size:16px;color:#c084fc;">Resumen del cliente</h2>
-            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:rgba(255,255,255,0.85);border-collapse:collapse;">
-              <tr><td style="padding:8px 0;width:38%;color:rgba(255,255,255,0.6);">Nombre</td><td style="padding:8px 0;font-weight:600;">${formatField(payload.nombre ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Email</td><td style="padding:8px 0;">${formatField(payload.email ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Telefono</td><td style="padding:8px 0;">${formatField(telefonoCompleto)}</td></tr>
-              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Empresa</td><td style="padding:8px 0;">${formatField(payload.empresa ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Servicio</td><td style="padding:8px 0;">${formatField(payload.servicio ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:rgba(255,255,255,0.6);">Metodo preferido</td><td style="padding:8px 0;">${formatField(payload.contacto_preferido ?? "")}</td></tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:0 32px 24px;">
-            <div style="background:#120a1a;border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:16px;">
-              <h3 style="margin:0 0 8px;font-size:14px;color:#c084fc;">Descripcion del servicio</h3>
-              <p style="margin:0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,0.85);">${formatField(payload.descripcion_servicio ?? "")}</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:0 32px 32px;">
-            <div style="background:#120a1a;border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:16px;">
-              <h3 style="margin:0 0 8px;font-size:14px;color:#c084fc;">Descripcion de la empresa</h3>
-              <p style="margin:0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,0.85);">${formatField(payload.descripcion_empresa ?? "")}</p>
-            </div>
-          </td>
-        </tr>
-      </table>
-      <p style="max-width:680px;margin:18px auto 0;font-size:12px;color:rgba(255,255,255,0.55);text-align:center;">EternalGrowth · Transformacion digital para tu negocio</p>
-    </div>
-  `;
+<div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"
+    style="max-width:680px;margin:0 auto;background:#fff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
+    <tr>
+      <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td>${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;" />` : ""}</td>
+            <td style="text-align:right;font-size:11px;color:rgba(255,255,255,0.65);letter-spacing:.12em;text-transform:uppercase;">Nuevo lead</td>
+          </tr>
+        </table>
+        <h1 style="margin:16px 0 4px;font-size:20px;color:#fff;">Solicitud de diagnóstico</h1>
+        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.75);">Nuevo interesado desde la landing page.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:24px 32px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%"
+          style="font-size:14px;color:#1a1026;border-collapse:collapse;">
+          <tr><td style="padding:7px 0;width:36%;color:#6b6278;">Nombre</td><td style="padding:7px 0;font-weight:600;">${fmt(p.nombre ?? "")}</td></tr>
+          <tr><td style="padding:7px 0;color:#6b6278;">Email</td><td style="padding:7px 0;">${fmt(p.email ?? "")}</td></tr>
+          <tr><td style="padding:7px 0;color:#6b6278;">Teléfono</td><td style="padding:7px 0;">${fmt(tel)}</td></tr>
+          <tr><td style="padding:7px 0;color:#6b6278;">Interés</td><td style="padding:7px 0;">${fmt(p.servicio ?? "")}</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:0 32px 28px;">
+        <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:12px;padding:16px;">
+          <p style="margin:0 0 6px;font-size:11px;color:#7a6f91;letter-spacing:.1em;text-transform:uppercase;">Mensaje</p>
+          <p style="margin:0;font-size:13.5px;line-height:1.65;color:#2d233d;">${fmt(p.mensaje ?? "")}</p>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <p style="max-width:680px;margin:14px auto 0;font-size:11px;color:#8b80a0;text-align:center;">EternalGrowth · Transformación digital para tu negocio</p>
+</div>`;
 };
 
-const buildUserEmail = (payload: ContactPayload) => {
-  return `Hola ${payload.nombre ?? ""},\n\n` +
-    `Gracias por contactarnos en EternalGrowth. Ya recibimos tu informacion y pronto nos pondremos en contacto contigo.\n\n` +
-    `Resumen:\n` +
-    `Servicio de interes: ${payload.servicio ?? ""}\n` +
-    `Empresa: ${payload.empresa ?? ""}\n\n` +
-    `Si necesitas agregar algo, responde este correo.\n\n` +
-    `Equipo EternalGrowth`;
-};
-
-const buildUserEmailHtml = (payload: ContactPayload) => {
+const buildUserEmailHtml = (p: ContactPayload) => {
   const siteUrl = process.env.SITE_URL ?? "";
   const logoUrl = siteUrl ? `${siteUrl}/logo.jpeg` : "";
 
   return `
-    <div style="background:#0d0816;padding:36px 20px;font-family:Arial,sans-serif;color:#f5efff;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:680px;margin:0 auto;background:#171024;border:1px solid rgba(139,92,246,0.25);border-radius:20px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.45);">
-        <tr>
-          <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1a0e28 55%,#120a1a 100%);">
-            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;margin:0 0 18px;" />` : ""}
-            <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff;">Hemos recibido tu solicitud</h1>
-            <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.7);">Gracias por contactar a EternalGrowth.</p>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:24px 32px;">
-            <p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.9);">
-              Hola ${formatField(payload.nombre ?? "")}, hemos recibido tu informacion. Nuestro equipo revisara tu solicitud y se pondra en contacto contigo muy pronto.
-            </p>
-            <div style="background:#120a1a;border:1px solid rgba(139,92,246,0.25);border-radius:14px;padding:16px;">
-              <p style="margin:0 0 6px;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.08em;text-transform:uppercase;">Resumen</p>
-              <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.95);">Servicio: ${formatField(payload.servicio ?? "")}<br />Empresa: ${formatField(payload.empresa ?? "")}</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:0 32px 24px;">
-            <h3 style="margin:0 0 8px;font-size:14px;color:#c084fc;">Contacto</h3>
-            <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,0.8);">
-              Email: eternalgrowth00@gmail.com<br />
-              Instagram: @eternalgrowth__
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:0 32px 32px;">
-            <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.6);">
-              Si necesitas agregar informacion, responde a este correo.
-            </p>
-          </td>
-        </tr>
-      </table>
-      <p style="max-width:680px;margin:18px auto 0;font-size:12px;color:rgba(255,255,255,0.55);text-align:center;">EternalGrowth · Transformacion digital para tu negocio</p>
-    </div>
-  `;
+<div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"
+    style="max-width:680px;margin:0 auto;background:#fff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
+    <tr>
+      <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
+        ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;margin-bottom:16px;" />` : ""}
+        <h1 style="margin:0;font-size:20px;color:#fff;">¡Recibimos tu solicitud!</h1>
+        <p style="margin:8px 0 0;font-size:13px;color:rgba(255,255,255,0.75);">Pronto te contactaremos para coordinar tu diagnóstico.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:26px 32px;">
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.75;color:#2d233d;">
+          Hola <strong>${fmt(p.nombre ?? "")}</strong>, gracias por escribirnos.
+          Revisaremos tu mensaje y te confirmaremos en menos de 24 horas para coordinar tu sesión de diagnóstico gratuito de 30 minutos.
+        </p>
+        <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:12px;padding:16px 20px;">
+          <p style="margin:0 0 4px;font-size:11px;color:#7a6f91;letter-spacing:.1em;text-transform:uppercase;">Tu interés</p>
+          <p style="margin:0;font-size:14px;font-weight:600;color:#2d233d;">${fmt(p.servicio ?? "")}</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:0 32px 28px;">
+        <p style="margin:0 0 8px;font-size:13px;color:#6b6278;">¿Tienes dudas? Escríbenos directamente:</p>
+        <p style="margin:0;font-size:13px;color:#2d233d;">
+          📧 eternalgrowth00@gmail.com<br />
+          📸 @eternalgrowth__
+        </p>
+      </td>
+    </tr>
+  </table>
+  <p style="max-width:680px;margin:14px auto 0;font-size:11px;color:#8b80a0;text-align:center;">EternalGrowth · Medellín, Colombia · 2026</p>
+</div>`;
 };
 
-export default async function handler(
-  request: VercelRequest,
-  response: VercelResponse,
-) {
-  if (request.method !== "POST") {
-    response.status(405).json({ error: "Metodo no permitido" });
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== "POST") {
+    res.status(405).json({ error: "Método no permitido" });
     return;
   }
 
   if (!process.env.RESEND_API_KEY) {
-    response.status(500).json({ error: "Falta RESEND_API_KEY" });
+    res.status(500).json({ error: "Falta RESEND_API_KEY" });
     return;
   }
 
-  const payload = request.body as ContactPayload;
-  const nombre = normalizeField(payload?.nombre);
-  const email = normalizeField(payload?.email);
-  const telefono = normalizeField(payload?.telefono);
-  const telefonoPais = normalizeField(payload?.telefono_pais);
-  const empresa = normalizeField(payload?.empresa);
-  const servicio = normalizeField(payload?.servicio);
-  const contactoPreferido = normalizeField(payload?.contacto_preferido);
-  const descripcionServicio = normalizeField(payload?.descripcion_servicio);
-  const descripcionEmpresa = normalizeField(payload?.descripcion_empresa);
-  const honeypot = normalizeField(payload?.website);
+  const body = req.body as ContactPayload;
+  const nombre = normalizeField(body?.nombre);
+  const email = normalizeField(body?.email);
+  const telefono = normalizeField(body?.telefono);
+  const telefonoPais = normalizeField(body?.telefono_pais);
+  const servicio = normalizeField(body?.servicio);
+  const mensaje = normalizeField(body?.mensaje);
+  const honeypot = normalizeField(body?.website);
 
   if (honeypot) {
-    response.status(200).json({ ok: true });
+    res.status(200).json({ ok: true });
     return;
   }
 
   if (
     !isValidLength(nombre, MAX_LENGTHS.nombre) ||
     !isValidLength(email, MAX_LENGTHS.email) ||
-    !isValidLength(empresa, MAX_LENGTHS.empresa) ||
     !isValidLength(servicio, MAX_LENGTHS.servicio) ||
-    !isValidLength(descripcionServicio, MAX_LENGTHS.descripcion_servicio) ||
-    !isValidLength(descripcionEmpresa, MAX_LENGTHS.descripcion_empresa)
+    !isValidLength(mensaje, MAX_LENGTHS.mensaje)
   ) {
-    response.status(400).json({ error: "Campos requeridos incompletos" });
+    res.status(400).json({ error: "Campos requeridos incompletos" });
     return;
   }
 
   if (!EMAIL_REGEX.test(email)) {
-    response.status(400).json({ error: "Email invalido" });
+    res.status(400).json({ error: "Email inválido" });
     return;
   }
 
-  if (telefono && telefono.length > MAX_LENGTHS.telefono) {
-    response.status(400).json({ error: "Telefono invalido" });
-    return;
-  }
-
-  if (telefonoPais && telefonoPais.length > MAX_LENGTHS.telefono_pais) {
-    response.status(400).json({ error: "Codigo de pais invalido" });
-    return;
-  }
-
-  if (contactoPreferido && contactoPreferido.length > MAX_LENGTHS.contacto_preferido) {
-    response.status(400).json({ error: "Metodo de contacto invalido" });
-    return;
-  }
-
-  const fromEmail = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
-  const toEmail = process.env.CONTACT_TO_EMAIL ?? "eternalgrowth00@gmail.com";
+  const payload: ContactPayload = { nombre, email, telefono, telefono_pais: telefonoPais, servicio, mensaje };
+  const from = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
+  const to = process.env.CONTACT_TO_EMAIL ?? "eternalgrowth00@gmail.com";
 
   try {
-    await resend.emails.send({
-      from: `EternalGrowth <${fromEmail}>`,
-      to: toEmail,
-      replyTo: email,
-      subject: `Nuevo lead: ${nombre}`.trim(),
-      text: buildOwnerEmail({
-        ...payload,
-        nombre,
-        email,
-        telefono,
-        telefono_pais: telefonoPais,
-        empresa,
-        servicio,
-        contacto_preferido: contactoPreferido,
-        descripcion_servicio: descripcionServicio,
-        descripcion_empresa: descripcionEmpresa,
+    await Promise.all([
+      resend.emails.send({
+        from: `EternalGrowth <${from}>`,
+        to,
+        replyTo: email,
+        subject: `Nuevo diagnóstico: ${nombre}`,
+        html: buildOwnerEmailHtml(payload),
+        text: `Nombre: ${nombre}\nEmail: ${email}\nTeléfono: ${telefonoPais} ${telefono}\nInterés: ${servicio}\n\n${mensaje}`,
       }),
-      html: buildOwnerEmailHtml({
-        ...payload,
-        nombre,
-        email,
-        telefono,
-        telefono_pais: telefonoPais,
-        empresa,
-        servicio,
-        contacto_preferido: contactoPreferido,
-        descripcion_servicio: descripcionServicio,
-        descripcion_empresa: descripcionEmpresa,
+      resend.emails.send({
+        from: `EternalGrowth <${from}>`,
+        to: email,
+        subject: "Recibimos tu solicitud — EternalGrowth",
+        html: buildUserEmailHtml(payload),
+        text: `Hola ${nombre}, recibimos tu solicitud y te escribiremos en menos de 24 horas.\n\nInterés: ${servicio}\n\nEquipo EternalGrowth`,
       }),
-    });
+    ]);
 
-    await resend.emails.send({
-      from: `EternalGrowth <${fromEmail}>`,
-      to: email,
-      subject: "Recibimos tu solicitud",
-      text: buildUserEmail({
-        ...payload,
-        nombre,
-        email,
-        empresa,
-        servicio,
-      }),
-      html: buildUserEmailHtml({
-        ...payload,
-        nombre,
-        email,
-        empresa,
-        servicio,
-      }),
-    });
-
-    response.status(200).json({ ok: true });
-  } catch (error) {
-    response.status(500).json({ error: "No se pudo enviar el correo" });
+    res.status(200).json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "No se pudo enviar el correo" });
   }
 }

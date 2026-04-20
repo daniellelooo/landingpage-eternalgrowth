@@ -4,19 +4,16 @@
  */
 
 export const TYPEWRITER_PHRASES = [
-  "Algo viene...",
-  "El futuro se acerca...",
-  "Preparándose...",
-  "Evolución en progreso...",
-  "Cargando dimensión...",
-  "Sintonizando frecuencia...",
-  "Acceso restringido...",
-  "Protocolo activado...",
-  "Realidad alterada...",
-  "Sistemas online...",
-  "Conexión establecida...",
-  "Iniciando secuencia...",
-  "Decodificando señal...",
+  "Tu web trabajando mientras duermes.",
+  "Clientes que llegan solos por Google.",
+  "WhatsApp que responde sin que estés.",
+  "Un sistema, no piezas sueltas.",
+  "Presencia digital que vende de verdad.",
+  "Automatiza. Crece. Descansa.",
+  "Tu negocio merece más que una página bonita.",
+  "Leads en tiempo real, 24/7.",
+  "De invisible a imparable.",
+  "Marketing que mide cada peso invertido.",
 ] as const;
 
 export const TYPING_CONFIG = {

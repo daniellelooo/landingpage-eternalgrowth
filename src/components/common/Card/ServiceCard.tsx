@@ -1,24 +1,6 @@
 import { ServiceCard as ServiceCardType } from "../../../types";
 
-const ServiceCard = ({
-  title,
-  description,
-  icon,
-  details,
-}: ServiceCardType) => {
-  const detailsContent = (
-    <>
-      <p className="service-card-description">{description}</p>
-      {details && details.length > 0 && (
-        <ul className="service-card-details">
-          {details.map((detail, index) => (
-            <li key={index}>{detail}</li>
-          ))}
-        </ul>
-      )}
-    </>
-  );
-
+const ServiceCard = ({ title, description, icon, details }: ServiceCardType) => {
   return (
     <div className="service-card">
       {icon && (
@@ -27,11 +9,14 @@ const ServiceCard = ({
         </div>
       )}
       <h3 className="service-card-title">{title}</h3>
-      <div className="service-card-content">{detailsContent}</div>
-      <details className="card-details">
-        <summary className="card-summary">Mas informacion</summary>
-        <div className="card-details-content">{detailsContent}</div>
-      </details>
+      <p className="service-card-description">{description}</p>
+      {details && details.length > 0 && (
+        <ul className="service-card-details">
+          {details.map((detail, index) => (
+            <li key={index}>{detail}</li>
+          ))}
+        </ul>
+      )}
       <div className="service-card-glow"></div>
     </div>
   );
