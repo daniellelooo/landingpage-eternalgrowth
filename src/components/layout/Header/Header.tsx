@@ -49,8 +49,8 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
         <div className="header-quick-actions">
           <button
             type="button"
-            className={`header-news-icon ${activeSection === "news" ? "active" : ""}`}
-            onClick={() => onNavigate("news")}
+            className={`header-news-icon ${activeSection === "blog" ? "active" : ""}`}
+            onClick={() => onNavigate("blog")}
             aria-label="Ir al Blog"
             title="Blog"
           >

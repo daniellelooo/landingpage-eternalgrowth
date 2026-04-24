@@ -18,7 +18,7 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
   const [subscriptionMessage, setSubscriptionMessage] = useState("");
 
   const handleNavigate = (sectionId: SectionId) => {
-    if (sectionId === "news") {
+    if (sectionId === "blog") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
@@ -58,7 +58,7 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
 
   return (
     <div className="eternal-growth-container news-page">
-      <Header activeSection="news" onNavigate={handleNavigate} />
+      <Header activeSection="blog" onNavigate={handleNavigate} />
 
       {showSubscribePrompt && (
         <div className="news-subscribe-overlay" role="dialog" aria-modal="true">

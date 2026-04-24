@@ -15,7 +15,7 @@ function buildNewsEmailHtml(p: {
 }) {
   const siteUrl = process.env.SITE_URL ?? "https://eternalgrowth.co";
   const logoUrl = `${siteUrl}/logo.jpeg`;
-  const articleUrl = `${siteUrl}/news/${p.slug}`;
+  const articleUrl = `${siteUrl}/blog/${p.slug}`;
   const title = escapeHtml(p.title);
   const deck = escapeHtml(p.deck);
   const category = escapeHtml(p.category);

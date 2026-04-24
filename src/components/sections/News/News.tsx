@@ -186,7 +186,7 @@ const NEWS_ITEMS: NewsItem[] = [
   },
 ];
 
-const NEWS_BASE_PATH = "/news";
+const NEWS_BASE_PATH = "/blog";
 
 const getSlugFromPath = (pathname: string) => {
   if (!pathname.startsWith(`${NEWS_BASE_PATH}/`)) {

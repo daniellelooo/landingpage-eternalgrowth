@@ -14,8 +14,8 @@ const EternalGrowthLanding = () => {
   const [activeSection, setActiveSection] = useState<SectionId>("hero");
 
   const handleNavigate = (sectionId: SectionId) => {
-    if (sectionId === "news") {
-      window.location.href = "/news";
+    if (sectionId === "blog") {
+      window.location.href = "/blog";
       return;
     }
 

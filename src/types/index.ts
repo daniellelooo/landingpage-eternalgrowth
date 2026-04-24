@@ -24,5 +24,5 @@ export type SectionId =
   | "about"
   | "beneficios"
   | "servicios"
-  | "news"
+  | "blog"
   | "contacto";

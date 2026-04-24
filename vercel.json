@@ -4,15 +4,15 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/news",
+      "source": "/blog",
       "destination": "/index.html"
     },
     {
-      "source": "/news/",
+      "source": "/blog/",
       "destination": "/index.html"
     },
     {
-      "source": "/news/:slug",
+      "source": "/blog/:slug",
       "destination": "/index.html"
     }
   ],
