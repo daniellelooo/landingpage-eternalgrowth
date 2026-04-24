@@ -14,6 +14,18 @@
     {
       "source": "/blog/:slug",
       "destination": "/index.html"
+    },
+    {
+      "source": "/eternalgrowth",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/eternalgrowth/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/((?!.*\\.).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [

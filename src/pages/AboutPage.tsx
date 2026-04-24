@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import logoImage from "../assets/logocorregido-removebg-preview.png";
 import "./AboutPage.css";
 
@@ -52,13 +51,11 @@ const VALUES = [
 ];
 
 const AboutPage = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="about-page">
       {/* Header */}
       <header className="about-page-header">
-        <button className="about-back-btn" onClick={() => navigate("/")}>
+        <button className="about-back-btn" onClick={() => { window.location.href = "/"; }}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
             <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />
@@ -133,7 +130,7 @@ const AboutPage = () => {
           <p className="about-cta-desc">
             Agenda un diagnóstico gratuito de 30 minutos y te mostramos exactamente qué necesita tu negocio.
           </p>
-          <button className="about-cta-btn" onClick={() => navigate("/#contacto")}>
+          <button className="about-cta-btn" onClick={() => { window.location.href = "/#contacto"; }}>
             Agenda tu diagnóstico gratuito
           </button>
         </div>

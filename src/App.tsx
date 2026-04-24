@@ -1,6 +1,9 @@
 import EternalGrowthLanding from "./components/EternalGrowthLanding";
 import AboutPage from "./pages/AboutPage";
 import NewsPage from "./components/sections/News/NewsPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
+const KNOWN_ROUTES = ["/", "/blog", "/blog/", "/eternalgrowth", "/eternalgrowth/"];
 
 function App() {
   const pathname = window.location.pathname;
@@ -16,6 +19,14 @@ function App() {
 
   if (pathname === "/eternalgrowth" || pathname === "/eternalgrowth/") {
     return <AboutPage />;
+  }
+
+  if (pathname === "/" || pathname === "") {
+    return <EternalGrowthLanding />;
+  }
+
+  if (!KNOWN_ROUTES.includes(pathname)) {
+    return <NotFoundPage />;
   }
 
   return <EternalGrowthLanding />;
