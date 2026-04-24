@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -7,6 +11,12 @@ const Footer = () => {
           <p className="footer-tagline">
             Transformación digital para tu negocio
           </p>
+          <button
+            className="footer-about-link"
+            onClick={() => navigate("/eternalgrowth")}
+          >
+            Nuestra historia →
+          </button>
         </div>
 
         <div className="footer-contact">
@@ -51,7 +61,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © 2025 EternalGrowth. Todos los derechos reservados.
+            © 2026 EternalGrowth. Todos los derechos reservados.
           </p>
         </div>
       </div>

@@ -4,16 +4,16 @@
  */
 
 export const TYPEWRITER_PHRASES = [
-  "Tu web es el local que no cierra",
-  "Tu competencia ya esta online",
-  "¿Y tu? Da el siguiente paso",
-  "Hoy es buen dia para crecer",
-  "Haz que te encuentren ya",
-  "Convierte visitas en clientes",
-  "Lo que vendes merece vitrina",
-  "Tu marca necesita visibilidad",
-  "Atrae, conecta, vende",
-  "Tu presencia digital empieza hoy",
+  "Tu web trabajando mientras duermes.",
+  "Clientes que llegan solos por Google.",
+  "WhatsApp que responde sin que estés.",
+  "Un sistema, no piezas sueltas.",
+  "Presencia digital que vende de verdad.",
+  "Automatiza. Crece. Descansa.",
+  "Tu negocio merece más que una página bonita.",
+  "Leads en tiempo real, 24/7.",
+  "De invisible a imparable.",
+  "Marketing que mide cada peso invertido.",
 ] as const;
 
 export const TYPING_CONFIG = {

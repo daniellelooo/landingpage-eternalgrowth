@@ -787,8 +787,8 @@
   color: #fff;
   margin-bottom: 1rem;
   text-align: center;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  
 }
 
 .benefits-subtitle {
@@ -870,7 +870,7 @@
 }
 
 .benefit-description {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
   font-size: 1.02rem;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.7;
@@ -934,8 +934,8 @@
   color: #fff;
   margin-bottom: 1rem;
   text-align: center;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  
   }
 
   .services-subtitle {
@@ -1149,14 +1149,36 @@
   /* Mobile */
   @media (max-width: 700px) {
     .services-list {
-      grid-template-columns: 1fr;
-      gap: 20px;
-      padding: 0 1rem;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 0.85rem;
+      padding-bottom: 0.5rem;
+      padding-right: 1.25rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      grid-template-columns: unset;
     }
+    .services-list::-webkit-scrollbar { display: none; }
     .service-card {
-      width: 100%;
+      flex: 0 0 82vw;
+      max-width: none;
+      scroll-snap-align: start;
       padding: 24px 20px;
-      min-height: 160px;
+      width: auto;
+      min-height: unset;
+    }
+    .services-section {
+      padding: 3rem 0 3rem 1.25rem;
+    }
+    .services-container {
+      padding-right: 0;
+    }
+    .services-title,
+    .services-subtitle,
+    .services-section .section-cta {
+      padding-right: 1.25rem;
     }
     .services-title {
       font-size: 1.8rem;
@@ -1172,26 +1194,9 @@
     .service-card-details li::before {
       content: "→";
     }
-
     .card-details {
       display: block;
     }
-
-    .card-summary {
-      font-size: 0.82rem;
-      padding: 0.35rem 0.7rem;
-      border-width: 1px;
-      border-radius: 10px;
-      letter-spacing: 0.02em;
-      background: rgba(139, 92, 246, 0.08);
-      color: rgba(233, 213, 255, 0.9);
-      gap: 0.4rem;
-    }
-
-    .card-summary::before {
-      font-size: 0.75rem;
-    }
-
     .service-card-content {
       display: none;
     }
@@ -1709,8 +1714,8 @@
   font-weight: 700;
   color: #fff;
   margin-bottom: 0.8rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  
 }
 
 .contact-subtitle {
@@ -1775,16 +1780,6 @@
 
 .contact-field-full {
   width: 100%;
-}
-
-.contact-honeypot {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .contact-phone {
@@ -2136,3 +2131,385 @@
 /* Diagnostic section removed */
 
 /* Medellin clock positioning handled above with fixed right/top */
+
+/* ─── Benefits: headline ─── */
+.benefits-headline {
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  font-weight: 600;
+  color: #C084FC;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ─── Section CTA ─── */
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* ─── Section fade transitions ─── */
+.benefits-section,
+.services-section,
+.packages-section,
+.contact-section {
+  position: relative;
+}
+.benefits-section::before,
+.services-section::before,
+.packages-section::before,
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Packages Section ─── */
+.packages-section {
+  width: 100vw;
+  background: linear-gradient(180deg, #0f0720 0%, #120a1a 60%, #160c20 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem 5rem;
+  border-top: 1px solid rgba(139, 92, 246, 0.08);
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.3s forwards;
+  scroll-margin-top: 70px;
+}
+
+.packages-container {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.packages-title {
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.01em;
+  
+  margin-bottom: 1rem;
+}
+
+.packages-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  margin-bottom: 3.5rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  padding-top: 1rem;
+}
+
+.package-card {
+  background: rgba(18, 10, 32, 0.75);
+  border-radius: 18px;
+  padding: 2rem 1.5rem 1.75rem;
+  border: 1.5px solid rgba(139, 92, 246, 0.18);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.package-card:nth-child(1) { animation-delay: 0.1s; }
+.package-card:nth-child(2) { animation-delay: 0.2s; }
+.package-card:nth-child(3) { animation-delay: 0.3s; }
+.package-card:nth-child(4) { animation-delay: 0.4s; }
+
+.package-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 12px 36px rgba(139, 92, 246, 0.18);
+}
+
+.package-card--highlighted {
+  border-color: rgba(168, 85, 247, 0.55);
+  background: rgba(35, 16, 62, 0.85);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.12);
+}
+
+.package-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #7C3AED, #A855F7);
+  color: #fff;
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.28rem 1.1rem;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ─── Package icon (same pattern as benefit-icon) ─── */
+.package-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.package-card:hover .package-icon-wrapper {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: scale(1.08);
+}
+
+.package-icon {
+  width: 26px;
+  height: 26px;
+  color: #A855F7;
+}
+
+.package-name {
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.02em;
+}
+
+.package-tag {
+  font-size: 0.82rem;
+  color: rgba(168, 85, 247, 0.85);
+  margin-bottom: 1.4rem;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.package-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  flex: 1;
+  border-top: 1px solid rgba(139, 92, 246, 0.12);
+  padding-top: 1rem;
+}
+
+.package-item {
+  display: flex;
+  gap: 0.55rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.83rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.55;
+  margin-bottom: 0.55rem;
+}
+
+.package-check {
+  color: #A855F7;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.package-note {
+  font-size: 0.77rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.package-cta {
+  width: 100%;
+  padding: 0.72rem 1rem;
+  background: linear-gradient(135deg, #7C3AED, #A855F7);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  letter-spacing: 0.02em;
+  margin-top: auto;
+}
+
+.package-cta:hover {
+  background: linear-gradient(135deg, #6D28D9, #9333EA);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+.packages-footer-note {
+  text-align: center;
+  margin-top: 3rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+
+.packages-footer-link {
+  background: none;
+  border: none;
+  color: #A855F7;
+  cursor: pointer;
+  font-size: inherit;
+  text-decoration: underline;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.packages-footer-link:hover {
+  color: #C084FC;
+}
+
+/* Packages responsive */
+@media (max-width: 1100px) {
+  .packages-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Scroll horizontal con snap en mobile */
+  .packages-grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0.85rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1.25rem; /* espacio al final del último card */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .packages-grid::-webkit-scrollbar { display: none; }
+
+  .package-card {
+    flex: 0 0 82vw;
+    max-width: none; /* sin límite: se adapta al viewport */
+    scroll-snap-align: start;
+  }
+
+  .packages-section {
+    padding: 3rem 0 3rem 1.25rem;
+  }
+
+  .packages-container {
+    padding-right: 0;
+  }
+
+  .packages-title,
+  .packages-subtitle,
+  .packages-footer-note {
+    padding-right: 1.25rem;
+  }
+}
+
+/* ─── Packages scroll dots ─── */
+.packages-dots {
+  display: none; /* solo en mobile */
+}
+
+@media (max-width: 640px) {
+  .packages-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .packages-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.25);
+    transition: background 0.25s ease, transform 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .packages-dot--active {
+    background: #A855F7;
+    transform: scale(1.35);
+  }
+}
+
+/* ─── Contraste de secciones ─── */
+.benefits-section {
+  background: linear-gradient(180deg, #120a1a 0%, #160d22 100%);
+}
+
+.services-section {
+  background: linear-gradient(180deg, #0e0819 0%, #130a1e 100%);
+}
+
+.packages-section {
+  background: linear-gradient(180deg, #0a0514 0%, #0f0720 100%);
+}
+
+.contact-section {
+  background: linear-gradient(180deg, #110920 0%, #0d0618 100%);
+}
+
+/* ─── Body text: Space Grotesk en vez de JetBrains Mono ─── */
+.benefit-description,
+.services-subtitle,
+.contact-subtitle,
+.packages-subtitle {
+  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* ─── Contact title accent ─── */
+.contact-title-accent {
+  color: #A855F7;
+}
+
+/* ─── Footer about link ─── */
+.footer-about-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  background: none;
+  border: none;
+  color: rgba(168, 85, 247, 0.85);
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: 0.88rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.footer-about-link:hover {
+  color: #C084FC;
+}

@@ -32,13 +32,16 @@
     "url": "https://github.com/daniellelooo/landingpage-eternalgrowth/issues"
   },
   "type": "module",
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-router-dom": "^7.14.1",
     "resend": "^4.0.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.3"

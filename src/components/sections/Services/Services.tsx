@@ -1,41 +1,30 @@
 import { ServiceCard as ServiceCardType } from "../../../types";
 import ServiceCard from "../../common/Card/ServiceCard.tsx";
+import { scrollToSection } from "../../../utils/helpers";
 
 const SERVICES: ServiceCardType[] = [
   {
     title: "Desarrollo Web",
-    description:
-      "Creación de páginas web modernas y funcionales para tu negocio.",
+    description: "Tu negocio merece más que una página bonita",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
         <line x1="8" y1="21" x2="16" y2="21" />
         <line x1="12" y1="17" x2="12" y2="21" />
       </svg>
     ),
     details: [
-      "Landing pages responsive",
-      "E-commerce",
-      "Sitios corporativos",
-      "SEO optimizado",
+      "Landing pages de alto impacto",
+      "Webs multipágina con catálogo de productos o servicios",
+      "E-commerce con redirección a WhatsApp o pasarela de pago",
+      "SEO técnico básico incluido en todo desarrollo",
     ],
   },
   {
-    title: "Automatización",
-    description:
-      "Implementación de herramientas para optimizar procesos y ahorrar tiempo.",
+    title: "Automatización con n8n",
+    description: "Tu negocio abierto 24/7 sin contratar a nadie",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="6" width="20" height="12" rx="2" />
         <path d="M12 12h.01" />
         <path d="M17 12h.01" />
@@ -43,52 +32,41 @@ const SERVICES: ServiceCardType[] = [
       </svg>
     ),
     details: [
-      "Integración de APIs",
-      "Chatbots inteligentes",
-      "Workflows automatizados",
-      "Reportes automáticos",
-    ],
-  },
-  {
-    title: "Consultoría",
-    description:
-      "Asesoría personalizada para la transformación digital de tu empresa.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-    ),
-    details: [
-      "Análisis digital",
-      "Estrategia tecnológica",
-      "Optimización de procesos",
-      "Acompañamiento continuo",
+      "Respuesta automática por WhatsApp",
+      "Confirmación y recordatorio de citas o reservas",
+      "Reactivación de clientes que no han vuelto",
+      "Notificación de nuevos leads en tiempo real",
     ],
   },
   {
     title: "Marketing Digital",
-    description:
-      "Estrategias de marketing digital para aumentar la visibilidad y atraer clientes.",
+    description: "Que te encuentren cuando están listos para comprar",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
     details: [
-      "Gestión de redes sociales",
-      "Publicidad online",
-      "Email marketing",
-      "Content marketing",
+      "Google My Business optimizado y activo",
+      "Campañas de Meta Ads segmentadas por nicho",
+      "Plan de contenido mensual para redes sociales",
+      "Email marketing con secuencias automatizadas",
+    ],
+  },
+  {
+    title: "Consultoría y Diagnóstico",
+    description: "Primero entendemos tu negocio, luego actuamos",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 8v4l3 3" />
+      </svg>
+    ),
+    details: [
+      "Diagnóstico digital gratuito de 30 minutos",
+      "Análisis de presencia online actual",
+      "Hoja de ruta estratégica de 3 a 6 meses",
+      "Acompañamiento mensual con el equipo",
     ],
   },
 ];
@@ -99,7 +77,8 @@ const Services = () => {
       <div className="services-container">
         <h2 className="services-title">Nuestros Servicios</h2>
         <p className="services-subtitle">
-          Soluciones completas para la transformación digital de tu empresa
+          Soluciones integradas de desarrollo, automatización y marketing digital
+          para que tu negocio crezca sin depender de ti las 24 horas.
         </p>
         <div className="services-list">
           {SERVICES.map((service, index) => (
@@ -111,6 +90,15 @@ const Services = () => {
               details={service.details}
             />
           ))}
+        </div>
+
+        <div className="section-cta">
+          <button
+            className="hero-cta-primary"
+            onClick={() => scrollToSection("contacto")}
+          >
+            Agenda tu diagnóstico gratuito
+          </button>
         </div>
       </div>
     </section>
