@@ -103,6 +103,16 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
               {item.label}
             </button>
           ))}
+          <button
+            type="button"
+            className={`nav-link ${activeSection === "blog" ? "active" : ""}`}
+            onClick={() => {
+              onNavigate("blog");
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            Blog
+          </button>
         </nav>
       )}
     </header>
