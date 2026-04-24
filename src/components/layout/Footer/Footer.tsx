@@ -1,8 +1,4 @@
-import { useNavigate } from "react-router-dom";
-
 const Footer = () => {
-  const navigate = useNavigate();
-
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -13,7 +9,7 @@ const Footer = () => {
           </p>
           <button
             className="footer-about-link"
-            onClick={() => navigate("/eternalgrowth")}
+            onClick={() => { window.location.href = "/eternalgrowth"; }}
           >
             Nuestra historia →
           </button>
