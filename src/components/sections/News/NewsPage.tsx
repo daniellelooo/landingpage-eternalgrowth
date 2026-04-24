@@ -10,8 +10,12 @@ interface NewsPageProps {
   initialSlug?: string;
 }
 
+const SUBSCRIBED_KEY = "eg_blog_subscribed";
+
 const NewsPage = ({ initialSlug }: NewsPageProps) => {
-  const [showSubscribePrompt, setShowSubscribePrompt] = useState(true);
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(
+    () => localStorage.getItem(SUBSCRIBED_KEY) === null
+  );
   const [subscriberEmail, setSubscriberEmail] = useState("");
   const [subscriptionStatus, setSubscriptionStatus] =
     useState<SubscriptionStatus>("idle");
@@ -48,6 +52,7 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
         throw new Error("request-failed");
       }
 
+      localStorage.setItem(SUBSCRIBED_KEY, "1");
       setSubscriptionStatus("success");
       setSubscriptionMessage("Muy pronto recibiras las nuevas publicaciones en tu correo.");
     } catch (error) {
@@ -106,7 +111,10 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
                 <button
                   type="button"
                   className="news-subscribe-secondary"
-                  onClick={() => setShowSubscribePrompt(false)}
+                  onClick={() => {
+                    localStorage.setItem(SUBSCRIBED_KEY, "dismissed");
+                    setShowSubscribePrompt(false);
+                  }}
                   disabled={subscriptionStatus === "loading"}
                 >
                   Ahora no

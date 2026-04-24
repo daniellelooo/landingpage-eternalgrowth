@@ -1489,6 +1489,13 @@
   justify-content: center;
 }
 
+.header-quick-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .nav-link {
   background: none;
   border: none;
