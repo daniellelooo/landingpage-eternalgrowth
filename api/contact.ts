@@ -15,11 +15,8 @@ const MAX_LENGTHS = {
   email: 200,
   telefono: 40,
   telefono_pais: 10,
-  empresa: 160,
   servicio: 80,
-  contacto_preferido: 20,
-  descripcion_servicio: 1000,
-  descripcion_empresa: 1000,
+  mensaje: 2000,
 };
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,23 +58,25 @@ export default async function handler(
     return;
   }
 
-  const payload = request.body as ContactPayload;
-  const isNewsletter = normalizeBoolean((payload as { newsletter?: unknown })?.newsletter);
-  const newsletterSource = normalizeField(
-    (payload as { newsletter_source?: unknown })?.newsletter_source,
-  );
+  const payload = request.body as ContactPayload & { newsletter?: unknown; newsletter_source?: unknown; mensaje?: unknown; website?: unknown };
+  const isNewsletter = normalizeBoolean(payload?.newsletter);
+  const newsletterSource = normalizeField(payload?.newsletter_source);
+  const honeypot = normalizeField(payload?.website);
   const nombre = normalizeField(payload?.nombre);
   const email = normalizeField(payload?.email);
   const telefono = normalizeField(payload?.telefono);
   const telefonoPais = normalizeField(payload?.telefono_pais);
-  const empresa = normalizeField(payload?.empresa);
   const servicio = normalizeField(payload?.servicio);
-  const contactoPreferido = normalizeField(payload?.contacto_preferido);
-  const descripcionServicio = normalizeField(payload?.descripcion_servicio);
-  const descripcionEmpresa = normalizeField(payload?.descripcion_empresa);
+  const mensaje = normalizeField(payload?.mensaje);
 
   if (!EMAIL_REGEX.test(email)) {
     response.status(400).json({ error: "Email invalido" });
+    return;
+  }
+
+  // Honeypot anti-spam
+  if (honeypot) {
+    response.status(200).json({ ok: true });
     return;
   }
 
@@ -110,26 +109,37 @@ export default async function handler(
         subject: "Nuevo suscriptor — Eternal News",
         text: `Nuevo suscriptor en Eternal News\n\nEmail: ${email}\nOrigen: ${sourceLabel}`,
         html: `
-<div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
-  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"
-    style="max-width:640px;margin:0 auto;background:#fff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
-    <tr>
-      <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
-        <img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;margin-bottom:16px;" />
-        <p style="margin:0 0 4px;font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:.14em;text-transform:uppercase;">Eternal News · Nuevo suscriptor</p>
-        <h1 style="margin:0;font-size:20px;color:#fff;">Alguien se unio al blog</h1>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding:24px 32px;">
-        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:#1a1026;border-collapse:collapse;">
-          <tr><td style="padding:7px 0;width:36%;color:#6b6278;">Email</td><td style="padding:7px 0;font-weight:600;">${safeEmail}</td></tr>
-          <tr><td style="padding:7px 0;color:#6b6278;">Origen</td><td style="padding:7px 0;">${escapeHtml(sourceLabel)}</td></tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-  <p style="max-width:640px;margin:14px auto 0;font-size:11px;color:#8b80a0;text-align:center;">EternalGrowth · Medellín, Colombia · 2026</p>
+<style>
+  @media (prefers-color-scheme:dark){
+    .eg-wrap{background-color:#f5f4fb !important;}
+    .eg-card{background-color:#ffffff !important;}
+    .eg-header{background-color:#2c1458 !important;}
+    .eg-header *{color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;}
+    .eg-body *{color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;}
+    .eg-label{color:#6b6278 !important;-webkit-text-fill-color:#6b6278 !important;}
+  }
+</style>
+<div class="eg-wrap" style="background:#f5f4fb;background-color:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center">
+    <table class="eg-card" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px;background:#ffffff;background-color:#ffffff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
+      <tr>
+        <td class="eg-header" bgcolor="#2c1458" style="padding:28px 32px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
+          <img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;margin-bottom:14px;" />
+          <p style="margin:0 0 4px;font-size:11px;color:#ffffff;-webkit-text-fill-color:#ffffff;letter-spacing:.14em;text-transform:uppercase;">Eternal News · Nuevo suscriptor</p>
+          <h1 style="margin:4px 0 0;font-size:20px;color:#ffffff;-webkit-text-fill-color:#ffffff;mso-color-alt:#ffffff;">Alguien se unió al blog</h1>
+        </td>
+      </tr>
+      <tr>
+        <td bgcolor="#ffffff" style="padding:24px 32px;background:#ffffff;background-color:#ffffff;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;border-collapse:collapse;">
+            <tr><td class="eg-label" style="padding:7px 0;width:36%;color:#6b6278;-webkit-text-fill-color:#6b6278;">Email</td><td style="padding:7px 0;font-weight:600;color:#1a1026;-webkit-text-fill-color:#1a1026;">${safeEmail}</td></tr>
+            <tr><td class="eg-label" style="padding:7px 0;color:#6b6278;-webkit-text-fill-color:#6b6278;">Origen</td><td style="padding:7px 0;color:#1a1026;-webkit-text-fill-color:#1a1026;">${escapeHtml(sourceLabel)}</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <p style="margin:14px auto 0;font-size:11px;color:#8b80a0;-webkit-text-fill-color:#8b80a0;text-align:center;">EternalGrowth · Medellín, Colombia · 2026</p>
+  </td></tr></table>
 </div>`,
       });
 
@@ -145,46 +155,60 @@ export default async function handler(
           `Lee las publicaciones en: ${blogUrl}\n\n` +
           "Equipo EternalGrowth",
         html: `
-<div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
-  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"
-    style="max-width:640px;margin:0 auto;background:#fff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
-    <tr>
-      <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
-        <img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;margin-bottom:20px;" />
-        <p style="margin:0 0 6px;font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:.14em;text-transform:uppercase;">Eternal News</p>
-        <h1 style="margin:0 0 8px;font-size:22px;color:#fff;line-height:1.3;">Ya eres parte del blog</h1>
-        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.7);">Te avisamos cada vez que publiquemos algo nuevo.</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding:28px 32px 20px;">
-        <p style="margin:0 0 20px;font-size:15px;line-height:1.75;color:#2d233d;">
-          Gracias por suscribirte. Desde aquí recibirás análisis, alertas y señales útiles sobre tecnología, IA y marketing digital para hacer crecer tu negocio.
-        </p>
-        <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:12px;padding:18px 20px;margin-bottom:24px;">
-          <p style="margin:0 0 6px;font-size:11px;color:#7a6f91;letter-spacing:.1em;text-transform:uppercase;">¿Qué recibirás?</p>
-          <ul style="margin:8px 0 0;padding-left:18px;font-size:14px;color:#2d233d;line-height:1.8;">
-            <li>Análisis de tendencias digitales</li>
-            <li>Alertas sobre IA y automatización</li>
-            <li>Señales útiles para pymes</li>
-          </ul>
-        </div>
-        <a href="${blogUrl}"
-          style="display:inline-block;padding:13px 30px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:600;letter-spacing:.02em;">
-          Ver el blog →
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding:16px 32px;border-top:1px solid #f0ebfa;">
-        <p style="margin:0;font-size:12px;color:#8a7f9a;line-height:1.6;">
-          ¿Tienes preguntas? Escríbenos a <a href="mailto:eternalgrowth00@gmail.com" style="color:#7c3aed;text-decoration:none;">eternalgrowth00@gmail.com</a><br />
-          Síguenos en Instagram: <a href="https://instagram.com/eternalgrowth__" style="color:#7c3aed;text-decoration:none;">@eternalgrowth__</a>
-        </p>
-      </td>
-    </tr>
-  </table>
-  <p style="max-width:640px;margin:14px auto 0;font-size:11px;color:#8b80a0;text-align:center;">EternalGrowth · Medellín, Colombia · 2026</p>
+<style>
+  @media (prefers-color-scheme:dark){
+    .eg-wrap{background-color:#f5f4fb !important;}
+    .eg-card{background-color:#ffffff !important;}
+    .eg-header{background-color:#2c1458 !important;}
+    .eg-header *{color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;}
+    .eg-body{background-color:#ffffff !important;}
+    .eg-body *{color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;}
+    .eg-box{background-color:#f6f2ff !important;}
+    .eg-box *{color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;}
+    .eg-footer-row{background-color:#ffffff !important;border-top:1px solid #f0ebfa !important;}
+    .eg-footer-row *{color:#8a7f9a !important;-webkit-text-fill-color:#8a7f9a !important;}
+  }
+</style>
+<div class="eg-wrap" style="background:#f5f4fb;background-color:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center">
+    <table class="eg-card" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px;background:#ffffff;background-color:#ffffff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
+      <tr>
+        <td class="eg-header" bgcolor="#2c1458" style="padding:28px 32px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
+          <img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;margin-bottom:18px;" />
+          <p style="margin:0 0 6px;font-size:11px;color:#ffffff;-webkit-text-fill-color:#ffffff;letter-spacing:.14em;text-transform:uppercase;">Eternal News</p>
+          <h1 style="margin:0 0 6px;font-size:22px;color:#ffffff;-webkit-text-fill-color:#ffffff;mso-color-alt:#ffffff;line-height:1.3;">Ya eres parte del blog</h1>
+          <p style="margin:0;font-size:13px;color:#e9ddff;-webkit-text-fill-color:#e9ddff;mso-color-alt:#e9ddff;">Te avisamos cada vez que publiquemos algo nuevo.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="eg-body" bgcolor="#ffffff" style="padding:28px 32px 20px;background:#ffffff;background-color:#ffffff;">
+          <p style="margin:0 0 20px;font-size:15px;line-height:1.75;color:#2d233d;-webkit-text-fill-color:#2d233d;">
+            Gracias por suscribirte. Desde aquí recibirás análisis, alertas y señales útiles sobre tecnología, IA y marketing digital para hacer crecer tu negocio.
+          </p>
+          <div class="eg-box" style="background:#f6f2ff;background-color:#f6f2ff;border:1px solid #e1d8f4;border-radius:12px;padding:18px 20px;margin-bottom:24px;">
+            <p style="margin:0 0 8px;font-size:11px;color:#7a6f91;-webkit-text-fill-color:#7a6f91;letter-spacing:.1em;text-transform:uppercase;">¿Qué recibirás?</p>
+            <ul style="margin:0;padding-left:18px;font-size:14px;color:#2d233d;-webkit-text-fill-color:#2d233d;line-height:1.8;">
+              <li>Análisis de tendencias digitales</li>
+              <li>Alertas sobre IA y automatización</li>
+              <li>Señales útiles para pymes</li>
+            </ul>
+          </div>
+          <a href="${blogUrl}" style="display:inline-block;padding:13px 30px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#ffffff;-webkit-text-fill-color:#ffffff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:600;letter-spacing:.02em;">
+            Ver el blog →
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="eg-footer-row" bgcolor="#ffffff" style="padding:16px 32px;background:#ffffff;background-color:#ffffff;border-top:1px solid #f0ebfa;">
+          <p style="margin:0;font-size:12px;color:#8a7f9a;-webkit-text-fill-color:#8a7f9a;line-height:1.6;">
+            ¿Tienes preguntas? Escríbenos a <a href="mailto:eternalgrowth00@gmail.com" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">eternalgrowth00@gmail.com</a><br />
+            Síguenos en Instagram: <a href="https://instagram.com/eternalgrowth__" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">@eternalgrowth__</a>
+          </p>
+        </td>
+      </tr>
+    </table>
+    <p style="margin:14px auto 0;font-size:11px;color:#8b80a0;-webkit-text-fill-color:#8b80a0;text-align:center;">EternalGrowth · Medellín, Colombia · 2026</p>
+  </td></tr></table>
 </div>`,
       });
 
@@ -199,27 +223,10 @@ export default async function handler(
   if (
     !isValidLength(nombre, MAX_LENGTHS.nombre) ||
     !isValidLength(email, MAX_LENGTHS.email) ||
-    !isValidLength(empresa, MAX_LENGTHS.empresa) ||
     !isValidLength(servicio, MAX_LENGTHS.servicio) ||
-    !isValidLength(descripcionServicio, MAX_LENGTHS.descripcion_servicio) ||
-    !isValidLength(descripcionEmpresa, MAX_LENGTHS.descripcion_empresa)
+    !isValidLength(mensaje, MAX_LENGTHS.mensaje)
   ) {
     response.status(400).json({ error: "Campos requeridos incompletos" });
-    return;
-  }
-
-  if (telefono && telefono.length > MAX_LENGTHS.telefono) {
-    response.status(400).json({ error: "Telefono invalido" });
-    return;
-  }
-
-  if (telefonoPais && telefonoPais.length > MAX_LENGTHS.telefono_pais) {
-    response.status(400).json({ error: "Codigo de pais invalido" });
-    return;
-  }
-
-  if (contactoPreferido && contactoPreferido.length > MAX_LENGTHS.contacto_preferido) {
-    response.status(400).json({ error: "Metodo de contacto invalido" });
     return;
   }
 
@@ -230,28 +237,20 @@ export default async function handler(
       replyTo: email,
       subject: `Nuevo lead: ${nombre}`.trim(),
       text: buildOwnerEmail({
-        ...payload,
         nombre,
         email,
         telefono,
         telefono_pais: telefonoPais,
-        empresa,
         servicio,
-        contacto_preferido: contactoPreferido,
-        descripcion_servicio: descripcionServicio,
-        descripcion_empresa: descripcionEmpresa,
+        descripcion_servicio: mensaje,
       }),
       html: buildOwnerEmailHtml({
-        ...payload,
         nombre,
         email,
         telefono,
         telefono_pais: telefonoPais,
-        empresa,
         servicio,
-        contacto_preferido: contactoPreferido,
-        descripcion_servicio: descripcionServicio,
-        descripcion_empresa: descripcionEmpresa,
+        descripcion_servicio: mensaje,
       }),
     });
 
@@ -259,20 +258,8 @@ export default async function handler(
       from: `EternalGrowth <${fromEmail}>`,
       to: email,
       subject: "Recibimos tu solicitud",
-      text: buildUserEmail({
-        ...payload,
-        nombre,
-        email,
-        empresa,
-        servicio,
-      }),
-      html: buildUserEmailHtml({
-        ...payload,
-        nombre,
-        email,
-        empresa,
-        servicio,
-      }),
+      text: buildUserEmail({ nombre, email, servicio }),
+      html: buildUserEmailHtml({ nombre, email, servicio }),
     });
 
     response.status(200).json({ ok: true });
