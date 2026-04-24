@@ -49,8 +49,8 @@ const EternalGrowthLanding = () => {
     const sectionIds: SectionId[] = [
       "hero",
       "beneficios",
-      "servicios",
       "paquetes",
+      "servicios",
       "contacto",
     ];
 
@@ -88,8 +88,8 @@ const EternalGrowthLanding = () => {
       <Header activeSection={activeSection} onNavigate={handleNavigate} />
       <Hero />
       <Benefits />
-      <Services />
       <Packages />
+      <Services />
       <Contact />
       <Footer />
     </div>

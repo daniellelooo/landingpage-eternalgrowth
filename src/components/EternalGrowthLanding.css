@@ -1149,14 +1149,36 @@
   /* Mobile */
   @media (max-width: 700px) {
     .services-list {
-      grid-template-columns: 1fr;
-      gap: 20px;
-      padding: 0 1rem;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 0.85rem;
+      padding-bottom: 0.5rem;
+      padding-right: 1.25rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      grid-template-columns: unset;
     }
+    .services-list::-webkit-scrollbar { display: none; }
     .service-card {
-      width: 100%;
+      flex: 0 0 82vw;
+      max-width: none;
+      scroll-snap-align: start;
       padding: 24px 20px;
-      min-height: 160px;
+      width: auto;
+      min-height: unset;
+    }
+    .services-section {
+      padding: 3rem 0 3rem 1.25rem;
+    }
+    .services-container {
+      padding-right: 0;
+    }
+    .services-title,
+    .services-subtitle,
+    .services-section .section-cta {
+      padding-right: 1.25rem;
     }
     .services-title {
       font-size: 1.8rem;
@@ -1172,11 +1194,9 @@
     .service-card-details li::before {
       content: "→";
     }
-
     .card-details {
       display: block;
     }
-
     .service-card-content {
       display: none;
     }
@@ -2198,6 +2218,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   align-items: start;
+  padding-top: 1rem;
 }
 
 .package-card {
