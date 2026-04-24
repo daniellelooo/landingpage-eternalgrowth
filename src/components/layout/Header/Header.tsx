@@ -51,8 +51,8 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
             type="button"
             className={`header-news-icon ${activeSection === "news" ? "active" : ""}`}
             onClick={() => onNavigate("news")}
-            aria-label="Ir a Sin filtro digital"
-            title="Sin filtro digital"
+            aria-label="Ir al Blog"
+            title="Blog"
           >
             <svg
               viewBox="0 0 24 24"
@@ -67,6 +67,7 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
               <line x1="7" y1="17" x2="14" y2="17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               <rect x="14.5" y="7.2" width="3.5" height="2.8" rx="0.4" fill="currentColor" />
             </svg>
+            <span className="header-news-label">Blog</span>
           </button>
 
           <div className="header-clock">

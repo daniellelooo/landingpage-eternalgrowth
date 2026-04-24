@@ -89,6 +89,15 @@ export default async function handler(
     const sourceLabel = newsletterSource || "Eternal News";
 
     try {
+      // Guardar en Resend Audiences para poder hacer broadcasts futuros
+      if (process.env.RESEND_AUDIENCE_ID) {
+        await resend.contacts.create({
+          email,
+          audienceId: process.env.RESEND_AUDIENCE_ID,
+          unsubscribed: false,
+        });
+      }
+
       await resend.emails.send({
         from: `EternalGrowth <${fromEmail}>`,
         to: toEmail,
