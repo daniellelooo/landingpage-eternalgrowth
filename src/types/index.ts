@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export interface NavItem {
   id: string;
   label: string;
@@ -7,14 +9,21 @@ export interface NavItem {
 export interface ServiceCard {
   title: string;
   description: string;
-  icon?: JSX.Element;
+  icon?: ReactNode;
   details?: string[];
 }
 
 export interface SocialLink {
   name: string;
   url: string;
-  icon: JSX.Element;
+  icon: ReactNode;
 }
 
-export type SectionId = "hero" | "beneficios" | "servicios" | "paquetes" | "contacto";
+export type SectionId =
+  | "hero"
+  | "about"
+  | "beneficios"
+  | "servicios"
+  | "paquetes"
+  | "blog"
+  | "contacto";

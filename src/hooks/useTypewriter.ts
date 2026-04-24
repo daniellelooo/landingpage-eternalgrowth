@@ -14,7 +14,7 @@ export const useTypewriter = () => {
 
   useEffect(() => {
     const currentPhrase = TYPEWRITER_PHRASES[currentPhraseIndex];
-    let timeoutId: number;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     switch (state) {
       case 'typing':
@@ -47,7 +47,11 @@ export const useTypewriter = () => {
         break;
     }
 
-    return () => clearTimeout(timeoutId);
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, [currentText, currentPhraseIndex, state, getRandomDelay]);
 
   return currentText;

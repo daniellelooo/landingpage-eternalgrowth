@@ -14,6 +14,11 @@ const EternalGrowthLanding = () => {
   const [activeSection, setActiveSection] = useState<SectionId>("hero");
 
   const handleNavigate = (sectionId: SectionId) => {
+    if (sectionId === "blog") {
+      window.location.href = "/blog";
+      return;
+    }
+
     scrollToSection(sectionId);
   };
 
@@ -76,6 +81,11 @@ const EternalGrowthLanding = () => {
 
     sections.forEach((section) => observer.observe(section));
     handleScroll();
+
+    if (window.location.hash) {
+      const sectionId = window.location.hash.slice(1);
+      window.setTimeout(() => scrollToSection(sectionId), 100);
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);

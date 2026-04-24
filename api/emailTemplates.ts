@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 
 export type ContactPayload = {
   nombre?: string;
@@ -25,14 +23,8 @@ const escapeHtml = (value: string) =>
 const formatField = (value: string) =>
   value ? escapeHtml(value) : "-";
 
-const getLogoDataUri = () => {
-  try {
-    const logoPath = new URL("../src/assets/logocorregido-removebg-preview.png", import.meta.url);
-    const buffer = readFileSync(fileURLToPath(logoPath));
-    return `data:image/png;base64,${buffer.toString("base64")}`;
-  } catch {
-    return "";
-  }
+const getLogoUrl = () => {
+  return "https://www.eternalgrowth.xyz/logo.jpeg";
 };
 
 export const buildOwnerEmail = (payload: ContactPayload) => {
@@ -51,56 +43,57 @@ export const buildOwnerEmail = (payload: ContactPayload) => {
 
 export const buildOwnerEmailHtml = (payload: ContactPayload) => {
   const telefonoCompleto = `${payload.telefono_pais ?? ""} ${payload.telefono ?? ""}`.trim();
-  const logoUrl = getLogoDataUri();
+  const logoUrl = getLogoUrl();
 
   return `
-    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:720px;margin:0 auto;background:#ffffff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);">
+    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026 !important;background-color:#f5f4fb !important;color-scheme:light;supported-color-schemes:light;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff !important;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026 !important;color-scheme:light;supported-color-schemes:light;">
         <tr>
-          <td style="padding:28px 36px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff;">
+          <td bgcolor="#2c1458" style="padding:28px 36px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">
             <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
               <tr>
                 <td style="vertical-align:middle;">
-                  ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;" />` : ""}
+                  ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;height:auto;margin-bottom:10px;" />` : ""}
+                  <div style="margin-top:10px;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">EternalGrowth</div>
                 </td>
-                <td style="text-align:right;font-size:12px;color:rgba(255,255,255,0.75);letter-spacing:0.12em;text-transform:uppercase;">Nuevo lead</td>
+                <td style="text-align:right;font-size:12px;color:#ffffff !important;letter-spacing:0.12em;text-transform:uppercase;-webkit-text-fill-color:#ffffff !important;">Nuevo lead</td>
               </tr>
             </table>
-            <h1 style="margin:18px 0 6px;font-size:22px;letter-spacing:1px;color:#ffffff;">Solicitud recibida</h1>
-            <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.8);">Revisa el resumen y continua el seguimiento comercial.</p>
+            <h1 style="margin:18px 0 6px;font-size:22px;letter-spacing:1px;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">Solicitud recibida</h1>
+            <p style="margin:0;font-size:14px;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">Revisa el resumen y continua el seguimiento comercial.</p>
           </td>
         </tr>
         <tr>
-          <td style="padding:28px 36px;">
-            <h2 style="margin:0 0 14px;font-size:16px;color:#6b21a8;">Resumen del cliente</h2>
-            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:#1a1026;border-collapse:collapse;">
-              <tr><td style="padding:8px 0;width:36%;color:#5a5168;">Nombre</td><td style="padding:8px 0;font-weight:600;">${formatField(payload.nombre ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:#5a5168;">Email</td><td style="padding:8px 0;">${formatField(payload.email ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:#5a5168;">Telefono</td><td style="padding:8px 0;">${formatField(telefonoCompleto)}</td></tr>
-              <tr><td style="padding:8px 0;color:#5a5168;">Empresa</td><td style="padding:8px 0;">${formatField(payload.empresa ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:#5a5168;">Servicio</td><td style="padding:8px 0;">${formatField(payload.servicio ?? "")}</td></tr>
-              <tr><td style="padding:8px 0;color:#5a5168;">Metodo preferido</td><td style="padding:8px 0;">${formatField(payload.contacto_preferido ?? "")}</td></tr>
+          <td style="padding:28px 36px;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;background-color:#ffffff !important;">
+            <h2 style="margin:0 0 14px;font-size:16px;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Resumen del cliente</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;border-collapse:collapse;">
+              <tr><td style="padding:8px 0;width:36%;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Nombre</td><td style="padding:8px 0;font-weight:600;">${formatField(payload.nombre ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Email</td><td style="padding:8px 0;">${formatField(payload.email ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Telefono</td><td style="padding:8px 0;">${formatField(telefonoCompleto)}</td></tr>
+              <tr><td style="padding:8px 0;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Empresa</td><td style="padding:8px 0;">${formatField(payload.empresa ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Servicio</td><td style="padding:8px 0;">${formatField(payload.servicio ?? "")}</td></tr>
+              <tr><td style="padding:8px 0;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Metodo preferido</td><td style="padding:8px 0;">${formatField(payload.contacto_preferido ?? "")}</td></tr>
             </table>
           </td>
         </tr>
         <tr>
           <td style="padding:0 36px 20px;">
-            <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:14px;padding:16px;">
-              <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Descripcion del servicio</h3>
-              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d;">${formatField(payload.descripcion_servicio ?? "")}</p>
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">
+              <h3 style="margin:0 0 8px;font-size:14px;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Descripcion del servicio</h3>
+              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">${formatField(payload.descripcion_servicio ?? "")}</p>
             </div>
           </td>
         </tr>
         <tr>
           <td style="padding:0 36px 32px;">
-            <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:14px;padding:16px;">
-              <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Descripcion de la empresa</h3>
-              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d;">${formatField(payload.descripcion_empresa ?? "")}</p>
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">
+              <h3 style="margin:0 0 8px;font-size:14px;color:#1a1026 !important;-webkit-text-fill-color:#1a1026 !important;">Descripcion de la empresa</h3>
+              <p style="margin:0;font-size:13.5px;line-height:1.6;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">${formatField(payload.descripcion_empresa ?? "")}</p>
             </div>
           </td>
         </tr>
       </table>
-      <p style="max-width:720px;margin:18px auto 0;font-size:12px;color:#6b6278;text-align:center;">EternalGrowth · Transformacion digital para tu negocio</p>
+      <p style="max-width:720px;margin:18px auto 0;font-size:12px;color:#1a1026 !important;text-align:center;-webkit-text-fill-color:#1a1026 !important;">EternalGrowth · Transformacion digital para tu negocio</p>
     </div>
   `;
 };
@@ -111,52 +104,54 @@ export const buildUserEmail = (payload: ContactPayload) => {
     "Resumen:\n" +
     `Servicio de interes: ${payload.servicio ?? ""}\n` +
     `Empresa: ${payload.empresa ?? ""}\n\n` +
-    "Si necesitas agregar algo, responde este correo.\n\n" +
+    "Si necesitas agregar algo, escribenos a eternalgrowth00@gmail.com.\n\n" +
     "Equipo EternalGrowth";
 };
 
 export const buildUserEmailHtml = (payload: ContactPayload) => {
-  const logoUrl = getLogoDataUri();
+  const logoUrl = getLogoUrl();
 
   return `
-    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:720px;margin:0 auto;background:#ffffff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);">
+    <div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026 !important;background-color:#f5f4fb !important;color-scheme:light;supported-color-schemes:light;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="max-width:720px;margin:0 auto;background:#ffffff !important;background-color:#ffffff !important;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 16px 36px rgba(16,8,32,0.12);color:#1a1026 !important;color-scheme:light;supported-color-schemes:light;">
         <tr>
-          <td style="padding:28px 36px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff;">
-            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;margin:0 0 18px;" />` : ""}
-            <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff;">Hemos recibido tu solicitud</h1>
-            <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.8);">Gracias por contactar a EternalGrowth.</p>
+          <td bgcolor="#2c1458" style="padding:28px 36px;background:#2c1458;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">
+            ${logoUrl ? `<img src="${logoUrl}" alt="EternalGrowth" width="120" style="display:block;max-width:120px;height:auto;margin:0 0 10px;" />` : ""}
+            <div style="margin:0 0 18px;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">EternalGrowth</div>
+            <h1 style="margin:0;font-size:22px;letter-spacing:1px;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;background:transparent !important;">Hemos recibido tu solicitud</h1>
+            <p style="margin:8px 0 0;font-size:14px;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">Gracias por contactar a EternalGrowth.</p>
           </td>
         </tr>
         <tr>
-          <td style="padding:26px 36px;">
-            <p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:#2d233d;">
+          <td style="padding:26px 36px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;background-color:#ffffff !important;">
+            <p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">
               Hola ${formatField(payload.nombre ?? "")}, hemos recibido tu informacion. Nuestro equipo revisara tu solicitud y se pondra en contacto contigo muy pronto.
             </p>
-            <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:14px;padding:16px;">
-              <p style="margin:0 0 6px;font-size:12px;color:#7a6f91;letter-spacing:0.08em;text-transform:uppercase;">Resumen</p>
-              <p style="margin:0;font-size:14px;color:#2d233d;">Servicio: ${formatField(payload.servicio ?? "")}<br />Empresa: ${formatField(payload.empresa ?? "")}</p>
+            <div style="background:#f6f2ff;background-color:#f6f2ff !important;border:1px solid #e1d8f4;border-radius:14px;padding:16px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">
+              <p style="margin:0 0 6px;font-size:12px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;letter-spacing:0.08em;text-transform:uppercase;">Resumen</p>
+              <p style="margin:0;font-size:14px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">Servicio: ${formatField(payload.servicio ?? "")}<br />Empresa: ${formatField(payload.empresa ?? "")}</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 36px 20px;">
-            <h3 style="margin:0 0 8px;font-size:14px;color:#6b21a8;">Contacto</h3>
-            <p style="margin:0;font-size:14px;line-height:1.6;color:#2d233d;">
+          <td style="padding:0 36px 20px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;background-color:#ffffff !important;">
+            <h3 style="margin:0 0 8px;font-size:14px;color:#c4b5fd;-webkit-text-fill-color:#c4b5fd !important;">Contactanos</h3>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">
               Email: eternalgrowth00@gmail.com<br />
               Instagram: @eternalgrowth__
             </p>
           </td>
         </tr>
         <tr>
-          <td style="padding:0 36px 32px;">
-            <p style="margin:0;font-size:13px;color:#7a6f91;">
-              Si necesitas agregar informacion, responde a este correo.
+          <td style="padding:0 36px 32px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;background-color:#ffffff !important;">
+            <p style="margin:0;font-size:13px;color:#2d233d !important;-webkit-text-fill-color:#2d233d !important;">
+              Si necesitas agregar informacion, escribenos a eternalgrowth00@gmail.com.
             </p>
           </td>
         </tr>
       </table>
-      <p style="max-width:720px;margin:18px auto 0;font-size:12px;color:#6b6278;text-align:center;">EternalGrowth · Transformacion digital para tu negocio</p>
+      <p style="max-width:720px;margin:18px auto 0;font-size:12px;color:#1a1026 !important;text-align:center;-webkit-text-fill-color:#1a1026 !important;">EternalGrowth · Transformacion digital para tu negocio</p>
     </div>
   `;
 };
+
