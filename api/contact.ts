@@ -98,62 +98,94 @@ export default async function handler(
         });
       }
 
+      const siteUrl = process.env.SITE_URL ?? "https://eternalgrowth.xyz";
+      const logoUrl = `${siteUrl}/logo.jpeg`;
+      const blogUrl = `${siteUrl}/blog`;
+
+      // Notificación al owner
       await resend.emails.send({
         from: `EternalGrowth <${fromEmail}>`,
         to: toEmail,
         replyTo: email,
-        subject: "Nueva suscripcion a Eternal News",
-        text:
-          "Nueva suscripcion a Eternal News\n\n" +
-          `Email: ${email}\n` +
-          `Origen: ${sourceLabel}`,
+        subject: "Nuevo suscriptor — Eternal News",
+        text: `Nuevo suscriptor en Eternal News\n\nEmail: ${email}\nOrigen: ${sourceLabel}`,
         html: `
-          <div style="font-family:Arial,sans-serif;background:#f5f4fb;padding:24px;color:#1a1026;">
-            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e2ddf3;border-radius:12px;overflow:hidden;">
-              <tr>
-                <td style="padding:20px 24px;background:#2c1458;color:#ffffff;">
-                  <strong style="font-size:18px;">Nueva suscripcion a Eternal News</strong>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:20px 24px;color:#2d233d;line-height:1.6;">
-                  <p style="margin:0 0 12px;">Se registro un nuevo correo.</p>
-                  <p style="margin:0 0 8px;"><strong>Email:</strong> ${safeEmail}</p>
-                  <p style="margin:0;"><strong>Origen:</strong> ${escapeHtml(sourceLabel)}</p>
-                </td>
-              </tr>
-            </table>
-          </div>
-        `,
+<div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"
+    style="max-width:640px;margin:0 auto;background:#fff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
+    <tr>
+      <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
+        <img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;margin-bottom:16px;" />
+        <p style="margin:0 0 4px;font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:.14em;text-transform:uppercase;">Eternal News · Nuevo suscriptor</p>
+        <h1 style="margin:0;font-size:20px;color:#fff;">Alguien se unio al blog</h1>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:24px 32px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;color:#1a1026;border-collapse:collapse;">
+          <tr><td style="padding:7px 0;width:36%;color:#6b6278;">Email</td><td style="padding:7px 0;font-weight:600;">${safeEmail}</td></tr>
+          <tr><td style="padding:7px 0;color:#6b6278;">Origen</td><td style="padding:7px 0;">${escapeHtml(sourceLabel)}</td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <p style="max-width:640px;margin:14px auto 0;font-size:11px;color:#8b80a0;text-align:center;">EternalGrowth · Medellín, Colombia · 2026</p>
+</div>`,
       });
 
+      // Bienvenida al suscriptor
       await resend.emails.send({
-        from: `EternalGrowth <${fromEmail}>`,
+        from: `Eternal News <${fromEmail}>`,
         to: email,
-        subject: "Confirmacion de suscripcion - Eternal News",
+        subject: "Ya eres parte de Eternal News",
         text:
           "Hola,\n\n" +
-          "Gracias por suscribirte a Eternal News.\n" +
-          "Te avisaremos cuando publiquemos nuevas noticias, analisis y alertas utiles.\n\n" +
+          "Quedaste suscrito a Eternal News.\n" +
+          "Cada vez que publiquemos un nuevo analisis, alerta o tendencia digital te avisamos directo a tu correo.\n\n" +
+          `Lee las publicaciones en: ${blogUrl}\n\n` +
           "Equipo EternalGrowth",
         html: `
-          <div style="font-family:Arial,sans-serif;background:#f5f4fb;padding:24px;color:#1a1026;">
-            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e2ddf3;border-radius:12px;overflow:hidden;">
-              <tr>
-                <td style="padding:20px 24px;background:#2c1458;color:#ffffff;">
-                  <strong style="font-size:18px;">Suscripcion confirmada</strong>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:20px 24px;color:#2d233d;line-height:1.6;">
-                  <p style="margin:0 0 12px;">Gracias por suscribirte a Eternal News.</p>
-                  <p style="margin:0 0 12px;">Te avisaremos cuando publiquemos nuevas noticias, analisis y alertas utiles.</p>
-                  <p style="margin:0;"><strong>Email registrado:</strong> ${safeEmail}</p>
-                </td>
-              </tr>
-            </table>
-          </div>
-        `,
+<div style="background:#f5f4fb;padding:40px 20px;font-family:Arial,sans-serif;color:#1a1026;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"
+    style="max-width:640px;margin:0 auto;background:#fff;border:1px solid #e2ddf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,8,32,0.1);">
+    <tr>
+      <td style="padding:28px 32px;background:linear-gradient(135deg,#2c1458 0%,#1d1035 60%,#140a24 100%);">
+        <img src="${logoUrl}" alt="EternalGrowth" width="110" style="display:block;margin-bottom:20px;" />
+        <p style="margin:0 0 6px;font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:.14em;text-transform:uppercase;">Eternal News</p>
+        <h1 style="margin:0 0 8px;font-size:22px;color:#fff;line-height:1.3;">Ya eres parte del blog</h1>
+        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.7);">Te avisamos cada vez que publiquemos algo nuevo.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:28px 32px 20px;">
+        <p style="margin:0 0 20px;font-size:15px;line-height:1.75;color:#2d233d;">
+          Gracias por suscribirte. Desde aquí recibirás análisis, alertas y señales útiles sobre tecnología, IA y marketing digital para hacer crecer tu negocio.
+        </p>
+        <div style="background:#f6f2ff;border:1px solid #e1d8f4;border-radius:12px;padding:18px 20px;margin-bottom:24px;">
+          <p style="margin:0 0 6px;font-size:11px;color:#7a6f91;letter-spacing:.1em;text-transform:uppercase;">¿Qué recibirás?</p>
+          <ul style="margin:8px 0 0;padding-left:18px;font-size:14px;color:#2d233d;line-height:1.8;">
+            <li>Análisis de tendencias digitales</li>
+            <li>Alertas sobre IA y automatización</li>
+            <li>Señales útiles para pymes</li>
+          </ul>
+        </div>
+        <a href="${blogUrl}"
+          style="display:inline-block;padding:13px 30px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:600;letter-spacing:.02em;">
+          Ver el blog →
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:16px 32px;border-top:1px solid #f0ebfa;">
+        <p style="margin:0;font-size:12px;color:#8a7f9a;line-height:1.6;">
+          ¿Tienes preguntas? Escríbenos a <a href="mailto:eternalgrowth00@gmail.com" style="color:#7c3aed;text-decoration:none;">eternalgrowth00@gmail.com</a><br />
+          Síguenos en Instagram: <a href="https://instagram.com/eternalgrowth__" style="color:#7c3aed;text-decoration:none;">@eternalgrowth__</a>
+        </p>
+      </td>
+    </tr>
+  </table>
+  <p style="max-width:640px;margin:14px auto 0;font-size:11px;color:#8b80a0;text-align:center;">EternalGrowth · Medellín, Colombia · 2026</p>
+</div>`,
       });
 
       response.status(200).json({ ok: true });
