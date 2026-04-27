@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomSelect from "../../common/Select";
 
 const COUNTRY_OPTIONS = [
@@ -24,12 +24,39 @@ const SERVICE_OPTIONS = [
 ];
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
+const NEWS_CTA_STORAGE_KEY = "eternalgrowth_news_cta";
 
 const Contact = () => {
   const [countryCode, setCountryCode] = useState("+57");
   const [serviceValue, setServiceValue] = useState("");
+  const [messageValue, setMessageValue] = useState("");
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [submitMessage, setSubmitMessage] = useState("");
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(NEWS_CTA_STORAGE_KEY);
+
+    if (!stored) {
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(stored) as {
+        descripcion_servicio?: string;
+        servicio?: string;
+      };
+
+      if (parsed.servicio) {
+        setServiceValue(parsed.servicio);
+      }
+
+      if (parsed.descripcion_servicio) {
+        setMessageValue(parsed.descripcion_servicio);
+      }
+    } catch {
+      // Ignore invalid stored data.
+    }
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,6 +81,7 @@ const Contact = () => {
       form.reset();
       setCountryCode("+57");
       setServiceValue("");
+      setMessageValue("");
     } catch {
       setSubmitStatus("error");
       setSubmitMessage("No pudimos enviar tu solicitud. Intenta nuevamente en unos minutos.");
@@ -138,6 +166,8 @@ const Contact = () => {
               name="mensaje"
               rows={4}
               placeholder="¿A qué se dedica tu negocio? ¿Qué problema quieres resolver?"
+              value={messageValue}
+              onChange={(event) => setMessageValue(event.target.value)}
               required
             />
           </label>

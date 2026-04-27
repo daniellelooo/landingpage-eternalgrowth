@@ -4,6 +4,7 @@ type NewsItem = {
   slug: string;
   category: string;
   date: string;
+  displayDate?: string;
   title: string;
   deck: string;
   summary: string;
@@ -30,7 +31,7 @@ const NEWS_CTA_BY_KEYWORD: Array<{ keyword: string; config: NewsCtaConfig }> = [
       title: "Quieres implementar IA en tu negocio?",
       description:
         "Te ayudamos a convertir esta tendencia en procesos reales de ventas, atencion y productividad.",
-      buttonLabel: "Hablar de IA aplicada",
+      buttonLabel: "Contactanos para implementarlo en tu negocio",
       suggestedService: "Automatizacion",
     },
   },
@@ -76,6 +77,34 @@ const getNewsCtaConfig = (category: string): NewsCtaConfig => {
 };
 
 const NEWS_ITEMS: NewsItem[] = [
+  {
+    slug: "ia-no-opcional-pyme-latam",
+    category: "🤖 IA Practica",
+    date: "27 Abr 2026",
+    displayDate: "Lunes · 27 de abril de 2026",
+    title: "La IA ya no es opcional para tu pyme: el 54% de negocios en LATAM ya la usan",
+    deck:
+      "El 54% de las pymes latinoamericanas ya usan IA — pero solo las que saben cómo están ganando de verdad.",
+    summary:
+      "Según Microsoft, 54% de pymes en LatAm ya integra IA; Amazon Ads reporta que 65% de quienes la usan en publicidad ahorra 5.6 horas semanales.",
+    insight:
+      "Señal para pymes: automatizar tareas repetitivas libera horas que vuelven a ventas, atención y exploración de nuevos mercados.",
+    signals: [
+      "La adopción de IA pasó de tendencia a estándar operativo para pymes en la región.",
+      "Las horas recuperadas se traducen en capacidad real para vender y atender mejor.",
+      "La brecha entre quienes usan IA y quienes no se amplía cada mes.",
+    ],
+    actions: [
+      "Identifica 1 tarea que repites más de 3 veces por semana y busca si hay una herramienta de IA que la pueda hacer.",
+      "Prueba WhatsApp Business con respuestas automáticas — ya tiene IA integrada y es gratis.",
+      "Si usas Meta Ads, activa las sugerencias automáticas de IA para tus anuncios — están disponibles sin costo adicional.",
+    ],
+    source: "Expansion.mx",
+    url: "https://expansion.mx/tecnologia/2025/04/09/microsoft-ia-pymes-latinoamerica-oportunidades",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+    alt: "Persona trabajando con una laptop y graficas digitales relacionadas con IA",
+  },
   {
     slug: "meta-ia-pequenos-negocios",
     category: "IA para ventas",
@@ -357,8 +386,8 @@ const News = ({ initialSlug }: NewsProps) => {
   const handleCtaClick = (newsItem: NewsItem) => {
     const ctaConfig = getNewsCtaConfig(newsItem.category);
     const prefilledMessage =
-      `Vi la noticia \"${newsItem.title}\" y quiero implementarlo a mi negocio. ` +
-      `Me interesa avanzar en ${newsItem.category.toLowerCase()} con su apoyo.`;
+      `Hola, lei el blog \"${newsItem.title}\" y necesito ayuda ` +
+      `para implementar IA en mi negocio.`;
 
     window.localStorage.setItem(
       NEWS_CTA_STORAGE_KEY,
@@ -385,6 +414,7 @@ const News = ({ initialSlug }: NewsProps) => {
 
   if (selectedNews) {
     const ctaConfig = getNewsCtaConfig(selectedNews.category);
+    const newsDisplayDate = selectedNews.displayDate ?? selectedNews.date;
 
     return (
       <section id="news" className="news-section news-article-section">
@@ -411,6 +441,9 @@ const News = ({ initialSlug }: NewsProps) => {
 
           <div className="news-article-body">
             <div className="news-article-lead">
+              <div className="news-meta news-article-meta">
+                <span>{newsDisplayDate}</span>
+              </div>
               <p>{selectedNews.summary}</p>
             </div>
 
