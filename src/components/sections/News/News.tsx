@@ -99,8 +99,8 @@ const NEWS_ITEMS: NewsItem[] = [
       "Prueba WhatsApp Business con respuestas automáticas — ya tiene IA integrada y es gratis.",
       "Si usas Meta Ads, activa las sugerencias automáticas de IA para tus anuncios — están disponibles sin costo adicional.",
     ],
-    source: "Expansion.mx",
-    url: "https://expansion.mx/tecnologia/2025/04/09/microsoft-ia-pymes-latinoamerica-oportunidades",
+    source: "Microsoft News LATAM",
+    url: "https://news.microsoft.com/source/latam/noticias-de-microsoft/encuesta-pymes-2025-54-de-las-pymes-en-las-americas-usa-ia/",
     image:
       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
     alt: "Persona trabajando con una laptop y graficas digitales relacionadas con IA",
