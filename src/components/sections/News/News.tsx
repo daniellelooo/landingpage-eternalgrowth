@@ -15,6 +15,7 @@ type NewsItem = {
   url: string;
   image: string;
   alt: string;
+  contactMessage?: string;
 };
 
 type NewsCtaConfig = {
@@ -77,6 +78,66 @@ const getNewsCtaConfig = (category: string): NewsCtaConfig => {
 };
 
 const NEWS_ITEMS: NewsItem[] = [
+  {
+    slug: "ransomware-latam-pymes-colombia-alerta",
+    category: "Ciberseguridad y datos",
+    date: "2 May 2026",
+    displayDate: "Sabado - 2 de mayo de 2026",
+    title: "El 88% de los ataques de ransomware en LATAM apuntan a pymes: Colombia, en alerta",
+    deck:
+      "Colombia es el unico pais de LATAM donde el spyware esta creciendo, y las pymes son el blanco principal.",
+    summary:
+      "El informe Cyber Protect 2026 de SonicWall advierte que 88% de las filtraciones de ransomware en 2025 afectaron a pymes, con Colombia en alerta por el crecimiento del spyware.",
+    insight:
+      "No te atacan porque seas grande. Te atacan porque no tienes proteccion: una sola brecha puede paralizar operaciones, exponer datos de clientes y generar riesgos legales.",
+    signals: [
+      "El 88% de las filtraciones de ransomware en 2025 afectaron a pymes, mas del doble que a grandes empresas.",
+      "En Colombia, los ataques de gravedad alta y media aumentaron 20.8%.",
+      "Colombia es el unico mercado de America Latina donde el spyware muestra una tendencia al alza del 50.1%.",
+    ],
+    actions: [
+      "Activa autenticacion de dos factores (2FA) en Gmail, Meta Ads, WhatsApp Business y todas las cuentas criticas.",
+      "Haz una copia de seguridad de tus datos importantes esta semana en Google Drive, OneDrive u otra nube confiable.",
+      "Revisa que personas del equipo tienen acceso a cada sistema; menos accesos significan menos riesgo.",
+    ],
+    source: "SonicWall Cyber Protect Report 2026 / Noticias Super",
+    url: "https://elespaciodigital.com/ciberseguridad/sonicwall-revela-que-el-88-de-filtraciones-en-pymes-se-vincula-a-ransomware-pese-a-caida-del-volumen-global/",
+    image:
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
+    alt: "Panel de ciberseguridad con alertas digitales y proteccion de datos",
+    contactMessage:
+      "Hola, lei el blog sobre ransomware en pymes y quiero revisar si mi negocio esta protegido: accesos, copias de seguridad, datos de clientes y riesgos de seguridad.",
+  },
+  {
+    slug: "zapier-make-n8n-automatizar-pyme",
+    category: "Automatizacion",
+    date: "30 Abr 2026",
+    displayDate: "Jueves - 30 de abril de 2026",
+    title: "Zapier, Make o n8n: cual elegir para automatizar tu pyme sin saber programar",
+    deck:
+      "En 2026 la automatizacion ya no es 'si pasa esto, haz aquello': ahora piensa, decide y actua sola.",
+    summary:
+      "Zapier, Make y n8n lideran la automatizacion no-code para pymes, pero elegir la herramienta equivocada puede costarte tiempo, dinero y procesos mal armados.",
+    insight:
+      "Para una pyme con equipo pequeno, automatizar bien un proceso repetitivo puede equivaler a sumar capacidad operativa sin contratar otra persona.",
+    signals: [
+      "Zapier destaca por facilidad de uso y mas de 7.000 integraciones.",
+      "Make funciona bien para flujos visuales complejos y suele tener mejor precio por volumen.",
+      "n8n gana fuerza por ser codigo abierto e ideal para automatizaciones con IA integrada.",
+    ],
+    actions: [
+      "Si estas empezando y no tienes conocimientos tecnicos, prueba Zapier con su plan gratis de 100 tareas al mes.",
+      "Si necesitas flujos mas complejos con buen precio, evalua Make y sus 1.000 operaciones gratis al mes.",
+      "Automatiza primero lo mas doloroso: responder leads, agendar citas o notificar al equipo de ventas.",
+    ],
+    source: "Aprender21 / Ecosistema Startup / NoCode Hackers",
+    url: "https://www.aprender21.com/blog/automatizacion-ia-n8n-make-zapier",
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
+    alt: "Equipo revisando flujos de automatizacion en pantallas de trabajo",
+    contactMessage:
+      "Hola, lei el blog sobre Zapier, Make y n8n. Quiero identificar que procesos de mi negocio puedo automatizar primero: leads, WhatsApp, CRM, agenda o seguimiento comercial.",
+  },
   {
     slug: "ia-no-opcional-pyme-latam",
     category: "🤖 IA Practica",
@@ -386,8 +447,9 @@ const News = ({ initialSlug }: NewsProps) => {
   const handleCtaClick = (newsItem: NewsItem) => {
     const ctaConfig = getNewsCtaConfig(newsItem.category);
     const prefilledMessage =
-      `Hola, lei el blog \"${newsItem.title}\" y necesito ayuda ` +
-      `para implementar IA en mi negocio.`;
+      newsItem.contactMessage ??
+      (`Hola, lei el blog \"${newsItem.title}\" y necesito ayuda ` +
+        `para implementar IA en mi negocio.`);
 
     window.localStorage.setItem(
       NEWS_CTA_STORAGE_KEY,
