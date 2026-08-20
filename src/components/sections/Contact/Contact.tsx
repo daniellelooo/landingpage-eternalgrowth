@@ -89,17 +89,25 @@ const Contact = () => {
   };
 
   return (
-    <section id="contacto" className="contact-section">
-      <div className="contact-container">
-        <div className="contact-header">
-          <h2 className="contact-title">
-            Agenda tu <span className="contact-title-accent">Diagnóstico Gratuito</span>
-          </h2>
-          <p className="contact-subtitle">
-            30 minutos para entender tu negocio y mostrarte exactamente qué
-            necesitas. Sin compromiso, sin tecnicismos.
-          </p>
-        </div>
+    <section id="contacto" className="contact-section" data-theme="accent">
+      <div className="contact-banner" data-trigger>
+        <p className="micro-label rise">04 — Contacto</p>
+        <h2 className="contact-title">
+          <span className="line">
+            <span className="line-inner">Agenda tu diagnóstico</span>
+          </span>
+          <span className="line">
+            <span className="line-inner">
+              <span className="accent-serif">gratuito</span>.
+            </span>
+          </span>
+        </h2>
+        <p className="contact-subtitle rise">
+          30 minutos para entender tu negocio y mostrarte exactamente qué
+          necesitas. Sin compromiso, sin tecnicismos.
+        </p>
+      </div>
+      <div className="contact-container" data-reveal>
 
         <form className="contact-form" onSubmit={handleSubmit}>
           {/* Honeypot */}

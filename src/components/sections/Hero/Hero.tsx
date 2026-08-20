@@ -1,50 +1,61 @@
 import { useTypewriter } from "../../../hooks/useTypewriter";
-import { useState } from "react";
-import logoImage from "../../../assets/logo.jpeg";
 import { scrollToSection } from "../../../utils/helpers";
-import GlobalEffects from "../../layout/GlobalEffects";
+import DotGrid from "../../../fx/DotGrid";
 
 const Hero = () => {
-  const typewriterText = useTypewriter();
-  const [isTitleHovered, setIsTitleHovered] = useState(false);
+  const { text: typewriterText, isWaiting } = useTypewriter();
 
   return (
-    <section id="hero" className="hero-section">
-      <GlobalEffects />
-      {/* Background Logo */}
-      <div className="background-logo">
-        <img src={logoImage} alt="EternalGrowth" />
+    <section id="hero" className="hero-section" data-theme="dark">
+      <div className="hero-bg">
+        <DotGrid
+          dotSize={3}
+          gap={26}
+          baseColor="#262138"
+          activeColor="#8b5cf6"
+          proximity={200}
+        />
       </div>
+      <div className="hero-fade" aria-hidden="true" />
 
-      {/* Main Content */}
-      <div className="content-container">
-        <div className="logo-container">
-          <h1
-            className={`logo ${isTitleHovered ? "hovered" : ""}`}
-            onMouseEnter={() => setIsTitleHovered(true)}
-            onMouseLeave={() => setIsTitleHovered(false)}
-          >
-            EternalGrowth
-          </h1>
-        </div>
-
-        <div className="message-container">
-          <div className="typewriter-wrapper">
-            <span className="typewriter-text">{typewriterText}</span>
-            <span className="cursor">|</span>
-          </div>
-        </div>
-
-        <p className="hero-description">
-          Cerramos la brecha digital para micro y pequeñas empresas en Medellín
+      <div className="content-container" data-trigger>
+        <p className="micro-label hero-label rise">
+          Transformación digital — Medellín, Colombia
         </p>
 
-        <div className="hero-cta-buttons">
+        <h1 className="hero-title">
+          <span className="line">
+            <span className="line-inner">Cerramos la brecha</span>
+          </span>
+          <span className="line">
+            <span className="line-inner">
+              <span className="accent-serif">digital</span> de tu negocio.
+            </span>
+          </span>
+        </h1>
+
+        <div className="typewriter-wrapper rise" aria-live="off">
+          <span className="typewriter-prompt" aria-hidden="true">
+            &gt;
+          </span>
+          <span className="typewriter-text">{typewriterText}</span>
+          <span
+            className={`cursor${isWaiting ? " cursor--blink" : ""}`}
+            aria-hidden="true"
+          />
+        </div>
+
+        <p className="hero-description rise">
+          Desarrollo web, automatización y marketing digital para micro y
+          pequeñas empresas en Medellín. Un solo sistema, no piezas sueltas.
+        </p>
+
+        <div className="hero-cta-buttons rise">
           <button
             className="hero-cta-primary"
             onClick={() => scrollToSection("servicios")}
           >
-            Conoce Nuestros Servicios
+            Conoce nuestros servicios
           </button>
           <button
             className="hero-cta-secondary"
@@ -55,12 +66,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="scroll-indicator">
-        <div className="scroll-arrow">
-          <span>↓</span>
-        </div>
-        <div className="scroll-text">Scroll para saber más</div>
+      <div className="scroll-indicator" aria-hidden="true">
+        <span className="scroll-indicator-line" />
+        <span className="scroll-indicator-text">scroll</span>
       </div>
     </section>
   );

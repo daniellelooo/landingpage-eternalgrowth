@@ -22,7 +22,6 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
   return (
     <header className="main-header">
       <div className="header-container">
-        {/* Logo/Brand */}
         <button
           type="button"
           className="header-brand"
@@ -32,62 +31,43 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
           <span className="brand-text">EternalGrowth</span>
         </button>
 
-        {/* Desktop Navigation */}
         <nav className="header-nav desktop-nav">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               type="button"
-              className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+              className={`nav-link link-wipe ${activeSection === item.id ? "active" : ""}`}
               onClick={() => onNavigate(item.id as SectionId)}
             >
               {item.label}
             </button>
           ))}
+          <button
+            type="button"
+            className={`nav-link link-wipe ${activeSection === "blog" ? "active" : ""}`}
+            onClick={() => onNavigate("blog")}
+          >
+            Blog
+          </button>
         </nav>
 
         <div className="header-quick-actions">
-          <button
-            type="button"
-            className={`header-news-icon ${activeSection === "blog" ? "active" : ""}`}
-            onClick={() => onNavigate("blog")}
-            aria-label="Ir al Blog"
-            title="Blog"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
-              <line x1="7" y1="8" x2="10" y2="8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              <line x1="7" y1="11" x2="17" y2="11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              <line x1="7" y1="14" x2="17" y2="14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              <line x1="7" y1="17" x2="14" y2="17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              <rect x="14.5" y="7.2" width="3.5" height="2.8" rx="0.4" fill="currentColor" />
-            </svg>
-            <span className="header-news-label">Blog</span>
-          </button>
-
           <div className="header-clock">
             <MedellinClock />
           </div>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           type="button"
-          className="mobile-menu-toggle"
+          className={`mobile-menu-toggle${isMobileMenuOpen ? " is-open" : ""}`}
+          aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <span className="hamburger-icon">
-            {isMobileMenuOpen ? "✕" : "☰"}
-          </span>
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
         </button>
       </div>
 
-      {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <nav className="header-nav mobile-nav">
           {NAV_ITEMS.map((item) => (

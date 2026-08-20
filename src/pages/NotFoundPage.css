@@ -1,57 +1,54 @@
 .notfound-page {
-  min-height: 100vh;
-  background: linear-gradient(180deg, #0a0514 0%, #120a1a 40%, #0d0618 100%);
-  color: #f5efff;
-  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--chalk);
   padding: 2rem;
 }
 
 .notfound-content {
-  max-width: 480px;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 1.1rem;
 }
 
 .notfound-code {
-  font-size: clamp(5rem, 20vw, 9rem);
-  font-weight: 800;
-  line-height: 1;
-  background: linear-gradient(135deg, #8b5cf6, #c084fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0 0 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: var(--accent-bright);
 }
 
 .notfound-title {
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  font-weight: 700;
-  margin: 0 0 1rem;
-  color: #f5efff;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
 }
 
 .notfound-desc {
-  font-size: 1rem;
-  color: rgba(245, 239, 255, 0.6);
-  margin: 0 0 2rem;
-  line-height: 1.6;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--chalk) 72%, transparent);
 }
 
 .notfound-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-  color: #fff;
+  margin-top: 0.6rem;
+  background: var(--accent);
+  color: var(--ink);
   border: none;
-  border-radius: 8px;
-  padding: 0.75rem 2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.95em 1.9em;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.25s var(--ease-quint), transform 0.25s var(--ease-quint);
 }
 
 .notfound-btn:hover {
-  opacity: 0.85;
+  background: var(--accent-bright);
+  transform: translateY(-2px);
 }

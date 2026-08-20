@@ -1,25 +1,10 @@
+/**
+ * Capas globales de textura: grano animado sobre toda la página.
+ * pointer-events: none; opacidad baja. El movimiento va dentro de
+ * prefers-reduced-motion: no-preference en el CSS.
+ */
 const GlobalEffects = () => {
-  return (
-    <div className="global-effects">
-      {/* CRT Effects Layer */}
-      <div className="tv-static">
-        <div className="scanlines"></div>
-        <div className="horizontal-sweep"></div>
-        <div className="crt-glow"></div>
-      </div>
-
-      {/* Noise Layer */}
-      <div className="noise-layer">
-        <svg width="100%" height="100%">
-          <filter id="noise">
-            <feTurbulence baseFrequency="0.7" numOctaves={3} result="noise" />
-            <feColorMatrix in="noise" type="saturate" values="0" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noise)" opacity="0.4" />
-        </svg>
-      </div>
-    </div>
-  );
+  return <div className="grain" aria-hidden="true" />;
 };
 
 export default GlobalEffects;

@@ -1,6 +1,6 @@
 /**
- * Configuration file for EternalGrowth typewriter phrases
- * Easy to modify for future updates
+ * Frases del typewriter del hero.
+ * El contenido no cambia entre rediseños; los tiempos sí se afinan.
  */
 
 export const TYPEWRITER_PHRASES = [
@@ -17,16 +17,9 @@ export const TYPEWRITER_PHRASES = [
 ] as const;
 
 export const TYPING_CONFIG = {
-  typeSpeed: { min: 80, max: 120 }, // milliseconds per character
-  eraseSpeed: { min: 30, max: 50 }, // milliseconds per character
-  pauseBetweenPhrases: { min: 3000, max: 5000 }, // milliseconds
-  glitchProbability: 0.25, // 25% chance (era 8%, ahora es mucho más frecuente)
-  glitchInterval: 2000, // check every 2 seconds (era 4000ms)
-} as const;
-
-export const ANIMATION_CONFIG = {
-  logoGlowDuration: 3000,
-  noiseUpdateInterval: 3000,
-  crtEffectDuration: 100,
-  horizontalSweepDuration: 3000,
+  /* cadencia humana: rápida con microvariación, no un metrónomo */
+  typeSpeed: { min: 38, max: 74 }, // ms por carácter al escribir
+  eraseSpeed: { min: 18, max: 30 }, // ms por carácter al borrar
+  pauseBetweenPhrases: { min: 2600, max: 3800 }, // ms con la frase completa
+  pauseBeforeTyping: 420, // ms en vacío antes de la siguiente frase
 } as const;

@@ -3,6 +3,9 @@ import { SectionId } from "../types";
 import { scrollToSection } from "../utils/helpers";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import GlobalEffects from "./layout/GlobalEffects";
+import MotionEngine from "../fx/MotionEngine";
+import Marquee from "../fx/Marquee";
 import Hero from "./sections/Hero";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
@@ -23,34 +26,6 @@ const EternalGrowthLanding = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const heroSection = document.getElementById("hero");
-      const scrollIndicator = document.querySelector(".scroll-indicator");
-      const backgroundLogo = document.querySelector(".background-logo");
-      const globalEffects = document.querySelector(".global-effects");
-
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-      if (scrollIndicator && window.scrollY > 100) {
-        scrollIndicator.classList.add("hidden");
-      } else if (scrollIndicator) {
-        scrollIndicator.classList.remove("hidden");
-      }
-
-      if (backgroundLogo) {
-        const scrolled = window.scrollY;
-        (backgroundLogo as HTMLElement).style.transform =
-          `translate(-50%, calc(-50% + ${scrolled * 0.3}px))`;
-      }
-
-      if (globalEffects && heroSection) {
-        const inHero = scrollPosition < heroSection.offsetHeight;
-        globalEffects.classList.toggle("paused", !inHero);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
     const sectionIds: SectionId[] = [
       "hero",
       "beneficios",
@@ -80,7 +55,6 @@ const EternalGrowthLanding = () => {
     );
 
     sections.forEach((section) => observer.observe(section));
-    handleScroll();
 
     if (window.location.hash) {
       const sectionId = window.location.hash.slice(1);
@@ -88,15 +62,18 @@ const EternalGrowthLanding = () => {
     }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
   }, []);
 
   return (
     <div className="eternal-growth-container">
+      <MotionEngine />
+      <GlobalEffects />
+      <div className="progress-bar" aria-hidden="true" />
       <Header activeSection={activeSection} onNavigate={handleNavigate} />
       <Hero />
+      <Marquee />
       <Benefits />
       <Packages />
       <Services />

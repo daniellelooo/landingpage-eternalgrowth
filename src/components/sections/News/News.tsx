@@ -140,7 +140,7 @@ const NEWS_ITEMS: NewsItem[] = [
   },
   {
     slug: "ia-no-opcional-pyme-latam",
-    category: "🤖 IA Practica",
+    category: "IA Practica",
     date: "27 Abr 2026",
     displayDate: "Lunes · 27 de abril de 2026",
     title: "La IA ya no es opcional para tu pyme: el 54% de negocios en LATAM ya la usan",
