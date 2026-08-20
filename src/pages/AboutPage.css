@@ -1,240 +1,274 @@
-/* Página "Nuestra historia" — mismo sistema de tokens que la landing */
-
 .about-page {
   min-height: 100vh;
-  background: var(--ink);
-  color: var(--chalk);
+  background: linear-gradient(180deg, #0a0514 0%, #120a1a 40%, #0d0618 100%);
+  color: #f5efff;
+  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
 }
 
+/* Header */
 .about-page-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  height: var(--header-h);
-  padding: 0 clamp(1.1rem, 3.4vw, 2.6rem);
-  background: color-mix(in srgb, var(--ink) 86%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid color-mix(in srgb, var(--chalk) 12%, transparent);
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.12);
+  position: sticky;
+  top: 0;
+  background: rgba(10, 5, 20, 0.9);
+  backdrop-filter: blur(12px);
+  z-index: 100;
 }
 
 .about-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   background: none;
-  border: 1px solid color-mix(in srgb, var(--chalk) 22%, transparent);
-  border-radius: 999px;
-  padding: 0.55em 1.3em;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: rgba(255,255,255,0.75);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
   cursor: pointer;
-  color: var(--chalk);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  transition: border-color 0.25s var(--ease-quint), color 0.25s var(--ease-quint);
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 .about-back-btn:hover {
-  border-color: var(--accent-bright);
-  color: var(--accent-bright);
-}
-
-.about-page-brand-group {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
+  border-color: rgba(168, 85, 247, 0.7);
+  color: #fff;
+  background: rgba(139, 92, 246, 0.08);
 }
 
 .about-page-logo {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
+  margin-left: auto;
 }
 
 .about-page-brand {
+  font-family: 'Space Grotesk', Arial, sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.025em;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 0.04em;
 }
 
-.about-container {
-  max-width: 1080px;
-  margin: 0 auto;
-}
-
-/* hero */
+/* Hero */
 .about-hero {
-  padding: clamp(5rem, 11vw, 8.5rem) clamp(1.1rem, 4vw, 3rem) clamp(3.5rem, 7vw, 5.5rem);
+  padding: 6rem 2rem 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.about-hero-content {
-  max-width: 1080px;
-  margin: 0 auto;
-  display: grid;
-  gap: 1.4rem;
+.about-hero-eyebrow {
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #A855F7;
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .about-hero-title {
-  font-size: clamp(2.8rem, 7vw, 6.4rem);
-  font-weight: 600;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  text-wrap: balance;
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+.about-accent {
+  color: #A855F7;
 }
 
 .about-hero-desc {
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-  line-height: 1.55;
-  letter-spacing: -0.012em;
-  max-width: 40rem;
-  color: color-mix(in srgb, var(--chalk) 74%, transparent);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.8;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
-/* misión / visión */
+/* Container */
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Mission */
 .about-mission {
-  padding: 0 clamp(1.1rem, 4vw, 3rem) clamp(3.5rem, 7vw, 5.5rem);
+  padding: 4rem 2rem;
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .about-mission-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
 .about-mission-card {
-  background: var(--ink-soft);
-  border: 1px solid color-mix(in srgb, var(--chalk) 11%, transparent);
-  border-radius: clamp(1rem, 1.6vw, 1.4rem);
-  padding: clamp(1.6rem, 3.4vw, 2.6rem);
-  display: grid;
-  gap: 1rem;
-  align-content: start;
+  background: rgba(24, 16, 40, 0.5);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 16px;
+  padding: 2rem;
 }
 
 .about-section-label {
-  color: var(--accent-bright);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #A855F7;
+  margin-bottom: 0.9rem;
+  font-weight: 600;
 }
 
 .about-mission-text {
-  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
-  font-weight: 500;
-  line-height: 1.55;
-  letter-spacing: -0.01em;
-  color: color-mix(in srgb, var(--chalk) 82%, transparent);
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.75;
 }
 
-/* valores */
+/* Values */
 .about-values {
-  padding: 0 clamp(1.1rem, 4vw, 3rem) clamp(3.5rem, 7vw, 5.5rem);
+  padding: 5rem 2rem;
+  background: rgba(13, 6, 24, 0.5);
+  border-top: 1px solid rgba(139, 92, 246, 0.08);
 }
 
 .about-values-title {
-  font-size: clamp(2rem, 4.4vw, 3.6rem);
-  font-weight: 600;
-  line-height: 0.92;
-  letter-spacing: -0.042em;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .about-values-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .about-value-card {
-  border-top: 1px solid color-mix(in srgb, var(--chalk) 16%, transparent);
-  padding-top: 1.4rem;
-  display: grid;
-  gap: 0.7rem;
-  align-content: start;
+  background: rgba(24, 16, 40, 0.6);
+  border: 1.5px solid rgba(139, 92, 246, 0.18);
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
-.about-value-index {
-  color: color-mix(in srgb, var(--chalk) 55%, transparent);
+.about-value-card:hover {
+  border-color: rgba(139, 92, 246, 0.45);
+  transform: translateY(-4px);
+}
+
+.about-value-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+
+.about-value-icon {
+  width: 24px;
+  height: 24px;
+  color: #A855F7;
 }
 
 .about-value-title {
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.6rem;
 }
 
 .about-value-desc {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.55;
-  letter-spacing: -0.006em;
-  color: color-mix(in srgb, var(--chalk) 72%, transparent);
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
 }
 
 /* CTA */
 .about-cta-section {
-  background: var(--accent);
-  color: var(--ink);
-  padding: clamp(4rem, 8vw, 6.5rem) clamp(1.1rem, 4vw, 3rem);
+  padding: 5rem 2rem;
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+  text-align: center;
 }
 
 .about-cta-inner {
-  display: grid;
-  justify-items: center;
-  text-align: center;
-  gap: 1.2rem;
+  max-width: 620px;
 }
 
 .about-cta-title {
-  font-size: clamp(2.4rem, 6vw, 5.2rem);
-  font-weight: 600;
-  line-height: 0.9;
-  letter-spacing: -0.048em;
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
 }
 
 .about-cta-desc {
-  font-size: clamp(1.02rem, 1.4vw, 1.25rem);
-  font-weight: 600;
-  line-height: 1.5;
-  max-width: 34rem;
-  color: color-mix(in srgb, var(--ink) 78%, transparent);
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  margin-bottom: 2rem;
 }
 
 .about-cta-btn {
-  background: var(--ink);
-  color: var(--chalk);
+  background: linear-gradient(135deg, #7C3AED, #A855F7);
+  color: #fff;
   border: none;
-  border-radius: 999px;
-  padding: 0.95em 1.9em;
+  border-radius: 12px;
+  padding: 0.9rem 2rem;
+  font-family: 'Space Grotesk', Arial, sans-serif;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.25s var(--ease-quint), background 0.25s var(--ease-quint);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .about-cta-btn:hover {
+  background: linear-gradient(135deg, #6D28D9, #9333EA);
   transform: translateY(-2px);
-  background: var(--ink-soft);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
 }
 
-/* footer */
+/* Footer */
 .about-footer {
-  padding: 1.8rem clamp(1.1rem, 4vw, 3rem);
-  border-top: 1px solid color-mix(in srgb, var(--chalk) 10%, transparent);
-}
-
-.about-footer p {
-  font-family: var(--font-mono);
-  font-size: 0.78125rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: color-mix(in srgb, var(--chalk) 55%, transparent);
   text-align: center;
+  padding: 2rem;
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.4);
 }
 
-@media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 640px) {
   .about-mission-grid,
   .about-values-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    padding: 4rem 1.5rem 3rem;
+  }
+
+  .about-page-header {
+    padding: 1rem 1.25rem;
   }
 }

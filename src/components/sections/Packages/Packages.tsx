@@ -1,17 +1,48 @@
 import { scrollToSection } from "../../../utils/helpers";
-import { useRef, useState, useEffect } from "react";
+import { ReactElement, useRef, useState, useEffect } from "react";
 
 interface Package {
   name: string;
   tag: string;
+  icon: ReactElement;
   items: string[];
   highlighted?: boolean;
   note?: string;
 }
 
+const SeedIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" />
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+  </svg>
+);
+
+const RocketIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  </svg>
+);
+
+const ZapIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </svg>
+);
+
+const GraduationIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+  </svg>
+);
+
 const PACKAGES: Package[] = [
   {
-    name: "Semilla",
+    icon: <SeedIcon />,
+    name: "Paquete Semilla",
     tag: "Para negocios que quieren dar el primer paso",
     items: [
       "Landing page de 1 página responsive",
@@ -23,7 +54,8 @@ const PACKAGES: Package[] = [
     ],
   },
   {
-    name: "Escala",
+    icon: <RocketIcon />,
+    name: "Paquete Escala",
     tag: "Para pymes que necesitan sistematizar y crecer",
     highlighted: true,
     items: [
@@ -38,7 +70,8 @@ const PACKAGES: Package[] = [
     ],
   },
   {
-    name: "Impulso",
+    icon: <ZapIcon />,
+    name: "Paquete Impulso",
     tag: "Para pymes listas para transformación completa",
     items: [
       "Web robusta con catálogo, reservas y redirección a pago",
@@ -54,7 +87,8 @@ const PACKAGES: Package[] = [
     ],
   },
   {
-    name: "Universidad",
+    icon: <GraduationIcon />,
+    name: "Paquete Universidad",
     tag: "Solo para emprendedores universitarios activos",
     note: "Requiere acreditar matrícula activa",
     items: [
@@ -87,63 +121,49 @@ const Packages = () => {
   }, []);
 
   return (
-    <section id="paquetes" className="packages-section" data-theme="light">
+    <section id="paquetes" className="packages-section">
       <div className="packages-container">
-        <header className="section-head" data-trigger>
-          <p className="micro-label rise">02 — Paquetes</p>
-          <h2 className="display-title">
-            <span className="line">
-              <span className="line-inner">Empieza donde puedas,</span>
-            </span>
-            <span className="line">
-              <span className="line-inner">
-                escala cuando estés <span className="accent-serif">listo</span>.
-              </span>
-            </span>
-          </h2>
-          <p className="section-lede rise">
-            Soluciones pensadas para cada etapa de tu negocio.
-          </p>
-        </header>
+        <h2 className="packages-title">Paquetes</h2>
+        <p className="packages-subtitle">
+          Soluciones pensadas para cada etapa de tu negocio. Empieza donde
+          puedas y escala cuando estés listo.
+        </p>
 
-        <div className="packages-grid" ref={gridRef} data-reveal>
+        <div className="packages-grid" ref={gridRef}>
           {PACKAGES.map((pkg, index) => (
-            <article
+            <div
               key={index}
               className={`package-card${pkg.highlighted ? " package-card--highlighted" : ""}`}
             >
               {pkg.highlighted && (
-                <span className="package-badge">Más popular</span>
+                <div className="package-badge">Más popular</div>
               )}
-              <p className="micro-label package-index">
-                0{index + 1} / 0{PACKAGES.length}
-              </p>
+              <div className="package-icon-wrapper">
+                <div className="package-icon">{pkg.icon}</div>
+              </div>
               <h3 className="package-name">{pkg.name}</h3>
               <p className="package-tag">{pkg.tag}</p>
               <ul className="package-items">
                 {pkg.items.map((item, i) => (
                   <li key={i} className="package-item">
+                    <span className="package-check">✓</span>
                     {item}
                   </li>
                 ))}
               </ul>
-              {pkg.note && <p className="package-note">{pkg.note}</p>}
+              {pkg.note && <p className="package-note">* {pkg.note}</p>}
               <button
                 className="package-cta"
                 onClick={() => scrollToSection("contacto")}
               >
                 Quiero este paquete
-                <span className="package-cta-arrow" aria-hidden="true">
-                  <span>&rarr;</span>
-                  <span>&rarr;</span>
-                </span>
               </button>
-            </article>
+            </div>
           ))}
         </div>
 
         {/* Dots indicadores — solo visibles en mobile */}
-        <div className="packages-dots" aria-hidden="true">
+        <div className="packages-dots">
           {PACKAGES.map((_, i) => (
             <span
               key={i}
@@ -152,7 +172,7 @@ const Packages = () => {
           ))}
         </div>
 
-        <div className="packages-footer-note" data-reveal>
+        <div className="packages-footer-note">
           <p>
             Todos los paquetes incluyen implementación (pago único) +
             mensualidad (MRR).{" "}

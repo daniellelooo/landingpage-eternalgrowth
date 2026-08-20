@@ -1,86 +1,24 @@
-/* ============================================================
-   Tokens del sistema — scroll inmersivo
-   Tres colores, tres fuentes. El resto no se toca entre proyectos.
-   ============================================================ */
-
-:root {
-  /* paleta: par neutro + un solo acento (el violeta de la marca) */
-  --ink: #0b0a10;
-  --ink-soft: #131118;
-  --paper: #f3f1ea;
-  --chalk: #f8f6f2;
-  --accent: #8b5cf6;
-  --accent-bright: #a78bfa;
-
-  /* tema interpolado por el motor de scroll */
-  --t-bg: #0b0a10;
-  --t-fg: #f8f6f2;
-  --theme-progress: 0;
-  --scroll-progress: 0;
-
-  /* fuentes */
-  --font-sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
-  --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
-
-  /* vocabulario de easing cerrado */
-  --ease-quint: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);
-  --ease-drama: cubic-bezier(1, 0, 0, 1);
-
-  --header-h: 72px;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --header-h: 84px;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-html,
-body {
+html, body {
+  height: 100%;
   width: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
-  font-family: var(--font-sans);
-  background: var(--ink);
-  color: var(--chalk);
-  line-height: 1.58;
-  font-kerning: normal;
-  font-optical-sizing: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  background: #000;
+  color: #fff;
+  line-height: 1.6;
 }
 
 #root {
   min-height: 100vh;
-  width: 100%;
-}
-
-::selection {
-  background: var(--accent);
-  color: var(--ink);
-}
-
-button {
-  font-family: inherit;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  width: 100vw;
 }
