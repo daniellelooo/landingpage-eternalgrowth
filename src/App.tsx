@@ -1,35 +1,39 @@
+import { Analytics } from "@vercel/analytics/react";
 import EternalGrowthLanding from "./components/EternalGrowthLanding";
 import AboutPage from "./pages/AboutPage";
 import NewsPage from "./components/sections/News/NewsPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import { NEWS_BASE_PATH, getNewsBySlug } from "./data/news";
+import { normalizePath } from "./seo/meta";
 
-const KNOWN_ROUTES = ["/", "/blog", "/blog/", "/eternalgrowth", "/eternalgrowth/"];
+interface AppProps {
+  // El build le pasa la ruta al generar el HTML de cada página; en el
+  // navegador sale de la barra de direcciones.
+  pathname?: string;
+}
 
-function App() {
-  const pathname = window.location.pathname;
+const renderPage = (path: string) => {
+  if (path === "/") return <EternalGrowthLanding />;
+  if (path === "/eternalgrowth") return <AboutPage />;
+  if (path === NEWS_BASE_PATH) return <NewsPage />;
 
-  if (pathname === "/blog" || pathname === "/blog/") {
-    return <NewsPage />;
+  if (path.startsWith(`${NEWS_BASE_PATH}/`)) {
+    const slug = path.slice(NEWS_BASE_PATH.length + 1);
+    return getNewsBySlug(slug) ? <NewsPage initialSlug={slug} /> : <NotFoundPage />;
   }
 
-  if (pathname.startsWith("/blog/")) {
-    const slug = pathname.slice("/blog/".length).replace(/\/+$/, "");
-    return <NewsPage initialSlug={slug} />;
-  }
+  return <NotFoundPage />;
+};
 
-  if (pathname === "/eternalgrowth" || pathname === "/eternalgrowth/") {
-    return <AboutPage />;
-  }
+function App({ pathname }: AppProps) {
+  const path = normalizePath(pathname ?? window.location.pathname);
 
-  if (pathname === "/" || pathname === "") {
-    return <EternalGrowthLanding />;
-  }
-
-  if (!KNOWN_ROUTES.includes(pathname)) {
-    return <NotFoundPage />;
-  }
-
-  return <EternalGrowthLanding />;
+  return (
+    <>
+      {renderPage(path)}
+      <Analytics />
+    </>
+  );
 }
 
 export default App;

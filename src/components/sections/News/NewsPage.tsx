@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { SectionId } from "../../../types";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
@@ -13,9 +13,13 @@ interface NewsPageProps {
 const SUBSCRIBED_KEY = "eg_blog_subscribed";
 
 const NewsPage = ({ initialSlug }: NewsPageProps) => {
-  const [showSubscribePrompt, setShowSubscribePrompt] = useState(
-    () => localStorage.getItem(SUBSCRIBED_KEY) === null
-  );
+  // Arranca cerrado para que el HTML generado en el build no lleve la ventana
+  // de suscripción encima del contenido; se decide al montar en el navegador.
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
+
+  useEffect(() => {
+    setShowSubscribePrompt(localStorage.getItem(SUBSCRIBED_KEY) === null);
+  }, []);
   const [subscriberEmail, setSubscriberEmail] = useState("");
   const [subscriptionStatus, setSubscriptionStatus] =
     useState<SubscriptionStatus>("idle");

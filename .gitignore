@@ -126,3 +126,6 @@ $RECYCLE.BIN/
 *.msp
 *.lnk
 .vercel
+
+# Build intermedio del prerender
+dist-ssr

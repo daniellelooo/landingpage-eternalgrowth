@@ -3223,6 +3223,7 @@
   margin-bottom: 1rem;
 }
 
+.news-article-hero h1,
 .news-article-hero h2 {
   font-family: 'Space Grotesk', Arial, sans-serif;
   font-size: clamp(2rem, 5vw, 3.7rem);
@@ -3369,6 +3370,7 @@
 
 .news-page .news-title,
 .news-page .news-card h3,
+.news-page .news-article-hero h1,
 .news-page .news-article-hero h2,
 .news-page .news-article-block h3 {
   font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
