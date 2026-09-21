@@ -3,16 +3,20 @@
  * Easy to modify for future updates
  */
 
+// Cada frase nombra algo concreto que el visitante reconoce de su propio día
+// (Google, WhatsApp, una cita, un pedido). Las frases de eslogan genérico
+// ("De invisible a imparable", "Automatiza. Crece. Descansa.") se quitaron el
+// 2026-09-20: podrían estar en la web de cualquier agencia y no dicen nada.
 export const TYPEWRITER_PHRASES = [
   "Tu web trabajando mientras duermes.",
   "Clientes que llegan solos por Google.",
   "WhatsApp que responde sin que estés.",
   "Un sistema, no piezas sueltas.",
-  "Presencia digital que vende de verdad.",
-  "Automatiza. Crece. Descansa.",
+  "Que te encuentren cuando te están buscando.",
+  "Menos tareas a mano, más tiempo para vender.",
   "Tu negocio merece más que una página bonita.",
-  "Leads en tiempo real, 24/7.",
-  "De invisible a imparable.",
+  "Citas agendadas sin una sola llamada.",
+  "El pedido entra solo y queda registrado.",
   "Marketing que mide cada peso invertido.",
 ] as const;
 
