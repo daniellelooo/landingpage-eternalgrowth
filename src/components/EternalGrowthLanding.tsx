@@ -7,7 +7,11 @@ import Hero from "./sections/Hero";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
 import Contact from "./sections/Contact";
+import DelBlog from "./sections/DelBlog";
+import Proceso from "./sections/Proceso";
 import "./EternalGrowthLanding.css";
+// Va después: la estructura nueva de la home sobreescribe reglas de la hoja base.
+import "./sections/reestructuracion.css";
 
 const EternalGrowthLanding = () => {
   const [activeSection, setActiveSection] = useState<SectionId>("hero");
@@ -37,9 +41,9 @@ const EternalGrowthLanding = () => {
       }
 
       if (backgroundLogo) {
-        const scrolled = window.scrollY;
-        (backgroundLogo as HTMLElement).style.transform =
-          `translate(-50%, calc(-50% + ${scrolled * 0.3}px))`;
+        // El desplazamiento por scroll va en una variable: el hero suma la del
+        // puntero en el CSS, y así las dos no se pisan.
+        (backgroundLogo as HTMLElement).style.setProperty("--sy", `${window.scrollY * 0.3}px`);
       }
 
       if (globalEffects && heroSection) {
@@ -97,6 +101,8 @@ const EternalGrowthLanding = () => {
       <Hero />
       <Benefits />
       <Services />
+      <DelBlog />
+      <Proceso />
       <Contact />
       <Footer />
     </div>

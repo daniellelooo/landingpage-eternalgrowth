@@ -87,29 +87,32 @@ const Contact = () => {
 
   return (
     <section id="contacto" className="contact-section">
-      <div className="contact-container">
+      <div className="contact-container contacto-dos-columnas">
         <div className="contact-header">
-          <h2 className="contact-title">
-            Agenda tu <span className="contact-title-accent">Diagnóstico Gratuito</span>
+          <h2 className="contact-title contacto-titulo">
+            Agenda tu diagnóstico gratuito
           </h2>
           <p className="contact-subtitle">
             30 minutos para entender tu negocio y mostrarte exactamente qué
             necesitas. Sin compromiso, sin tecnicismos.
           </p>
-          <ol className="contact-steps" aria-label="Qué pasa cuando nos escribes">
+          <ul className="contacto-vias">
             <li>
-              <span className="contact-step-number">1</span>
-              Nos cuentas de tu negocio en este formulario.
+              <span className="pixel" aria-hidden="true" />
+              <span>Te respondemos en menos de 24 horas hábiles.</span>
             </li>
             <li>
-              <span className="contact-step-number">2</span>
-              Te respondemos en menos de 24 horas hábiles para agendar.
+              <span className="pixel" aria-hidden="true" />
+              <span>
+                ¿Prefieres escribir directo? A{" "}
+                <a href={`mailto:${SITE.email}`}>{SITE.email}</a> o por{" "}
+                <a href={SITE.instagram} target="_blank" rel="noreferrer">
+                  Instagram
+                </a>
+                .
+              </span>
             </li>
-            <li>
-              <span className="contact-step-number">3</span>
-              Hacemos el diagnóstico de 30 minutos, sin costo.
-            </li>
-          </ol>
+          </ul>
         </div>
 
         <form className="contact-form" onSubmit={handleSubmit}>
@@ -193,14 +196,6 @@ const Contact = () => {
             </button>
             <p className="contact-hint">
               Te respondemos por correo en menos de 24 horas hábiles.
-            </p>
-            <p className="contact-alternativas">
-              ¿Prefieres escribirnos directo? Estamos en{" "}
-              <a href={`mailto:${SITE.email}`}>{SITE.email}</a> y en{" "}
-              <a href={SITE.instagram} target="_blank" rel="noreferrer">
-                Instagram
-              </a>
-              .
             </p>
             {submitMessage && (
               <p className={`contact-status contact-status-${submitStatus}`} role="status">

@@ -4,6 +4,7 @@ import {
   NEWS_ITEMS,
   NewsItem,
   getNewsBySlug,
+  imagenRecortada,
 } from "../../../data/news";
 import { applyPageMeta } from "../../../seo/applyMeta";
 import { getPageMeta } from "../../../seo/meta";
@@ -71,19 +72,6 @@ const getNewsCtaConfig = (category: string): NewsCtaConfig => {
   return matched?.config ?? DEFAULT_NEWS_CTA;
 };
 
-
-// Las imágenes del blog vienen de Unsplash a 1200px, que es lo que necesita la
-// portada del artículo y la vista previa al compartir. En la tarjeta del listado
-// el hueco tiene otra forma: en computador es alto y angosto (~210 x 480-700 px)
-// y en celular es apaisado (todo el ancho x ~190 px). Se le pide a Unsplash la
-// foto ya recortada a esa forma: pesa una fracción y se ve nítida. Con una foto
-// apaisada pequeña, el recorte la estiraba y quedaba borrosa.
-const imagenRecortada = (url: string, ancho: number, alto: number) => {
-  const base = url.replace(/([?&])(w|h)=[^&]*/g, "$1").replace(/[?&]+$/, "").replace(/&&+/g, "&");
-  const separador = base.includes("?") ? "&" : "?";
-  // Recorte centrado, igual que el object-fit: cover de antes: mismo encuadre.
-  return `${base}${separador}w=${ancho}&h=${alto}`;
-};
 
 const getSlugFromPath = (pathname: string) => {
   if (!pathname.startsWith(`${NEWS_BASE_PATH}/`)) {

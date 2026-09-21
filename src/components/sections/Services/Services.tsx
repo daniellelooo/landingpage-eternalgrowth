@@ -1,96 +1,159 @@
-import { ServiceCard as ServiceCardType } from "../../../types";
-import ServiceCard from "../../common/Card/ServiceCard.tsx";
+import { Fragment, useRef, useState } from "react";
+import type { CSSProperties, PointerEvent } from "react";
 import { scrollToSection } from "../../../utils/helpers";
 
-const SERVICES: ServiceCardType[] = [
+interface ServicioIndice {
+  nombre: string;
+  lema: string;
+  incluye: string[];
+  href: string;
+}
+
+// Índice en vez de tarjetas: a la izquierda los servicios, a la derecha el
+// detalle del que está elegido. En celular se vuelve acordeón con el mismo HTML.
+// Todo el detalle va en el HTML aunque no se vea, para que Google lo lea, y cada
+// servicio enlaza a su página propia.
+const SERVICIOS: ServicioIndice[] = [
   {
-    title: "Desarrollo Web",
-    href: "/servicios/desarrollo-web-medellin",
-    description: "Tu negocio merece más que una página bonita",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-    details: [
+    nombre: "Desarrollo web",
+    lema: "Tu negocio merece más que una página bonita.",
+    incluye: [
       "Landing pages de alto impacto",
-      "Webs multipágina con catálogo de productos o servicios",
-      "E-commerce con redirección a WhatsApp o pasarela de pago",
+      "Webs de varias páginas con catálogo de productos o servicios",
+      "Tienda en línea con pedido por WhatsApp o pasarela de pago",
       "SEO técnico básico incluido en todo desarrollo",
     ],
+    href: "/servicios/desarrollo-web-medellin",
   },
   {
-    title: "Automatización con n8n",
-    href: "/servicios/automatizacion-procesos-medellin",
-    description: "Tu negocio abierto 24/7 sin contratar a nadie",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="6" width="20" height="12" rx="2" />
-        <path d="M12 12h.01" />
-        <path d="M17 12h.01" />
-        <path d="M7 12h.01" />
-      </svg>
-    ),
-    details: [
-      "Respuesta automática por WhatsApp",
+    nombre: "Automatización de procesos",
+    lema: "Tu negocio abierto 24/7 sin contratar a nadie.",
+    incluye: [
+      "Flujos con n8n entre tus herramientas: WhatsApp, correo, hojas de cálculo, CRM",
       "Confirmación y recordatorio de citas o reservas",
-      "Reactivación de clientes que no han vuelto",
-      "Notificación de nuevos leads en tiempo real",
+      "Seguimiento a clientes que no han vuelto",
+      "Aviso inmediato cuando entra un cliente potencial",
     ],
+    href: "/servicios/automatizacion-procesos-medellin",
   },
   {
-    title: "Marketing Digital",
-    href: "/servicios/marketing-digital-medellin",
-    description: "Que te encuentren cuando están listos para comprar",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-      </svg>
-    ),
-    details: [
-      "Google My Business optimizado y activo",
-      "Campañas de Meta Ads segmentadas por nicho",
+    nombre: "WhatsApp automatizado",
+    lema: "Responde lo de siempre sin estar pegado al celular.",
+    incluye: [
+      "Respuestas a lo que más te preguntan: precios, horarios, domicilios",
+      "Paso a una persona cuando la conversación lo necesita",
+      "Agendamiento y recordatorio de citas",
+      "Seguimiento a quien cotizó y no respondió",
+    ],
+    href: "/servicios/chatbot-whatsapp-medellin",
+  },
+  {
+    nombre: "Marketing digital",
+    lema: "Que te encuentren cuando están listos para comprar.",
+    incluye: [
+      "Google Business optimizado y activo",
+      "Campañas de Meta Ads segmentadas por zona y tipo de cliente",
       "Plan de contenido mensual para redes sociales",
-      "Email marketing con secuencias automatizadas",
+      "Correos automáticos para quien ya te compró",
     ],
+    href: "/servicios/marketing-digital-medellin",
   },
   {
-    title: "Consultoría y Diagnóstico",
-    href: "/servicios/transformacion-digital-medellin",
-    description: "Primero entendemos tu negocio, luego actuamos",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 8v4l3 3" />
-      </svg>
-    ),
-    details: [
+    nombre: "Consultoría y diagnóstico",
+    lema: "Primero entendemos tu negocio, luego actuamos.",
+    incluye: [
       "Diagnóstico digital gratuito de 30 minutos",
-      "Análisis de presencia online actual",
-      "Hoja de ruta estratégica de 3 a 6 meses",
+      "Análisis de cómo te encuentran hoy en internet",
+      "Hoja de ruta de 3 a 6 meses con prioridades y costos",
       "Acompañamiento mensual con el equipo",
     ],
+    href: "/servicios/transformacion-digital-medellin",
   },
 ];
 
+// Pasar el mouse cambia el servicio solo si la persona lo movió de verdad y se
+// quedó un momento. Sin esto, al hacer scroll con el cursor encima de la lista
+// el detalle iba cambiando solo, servicio por servicio.
+const ESPERA_INTENCION_MS = 120;
+
 const Services = () => {
+  const [activo, setActivo] = useState(0);
+  const intencion = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const alMoverSobre = (i: number) => (evento: PointerEvent) => {
+    if (evento.pointerType !== "mouse") return;
+    if (evento.movementX === 0 && evento.movementY === 0) return;
+    clearTimeout(intencion.current);
+    intencion.current = setTimeout(() => setActivo(i), ESPERA_INTENCION_MS);
+  };
+
+  const cancelarIntencion = () => clearTimeout(intencion.current);
+
   return (
-    <section id="servicios" className="services-section">
-      <div className="services-container">
-        <h2 className="services-title">Nuestros Servicios</h2>
-        <p className="services-subtitle">
-          Soluciones integradas de desarrollo, automatización y marketing digital
-          para que tu negocio crezca sin depender de ti las 24 horas.
-        </p>
-        <div className="services-list">
-          {SERVICES.map((service, index) => (
-            <ServiceCard key={index} {...service} />
-          ))}
+    <section id="servicios" className="services-section indice-seccion">
+      <div className="indice-contenedor">
+        <header className="indice-cabecera">
+          <h2 className="indice-titulo">Nuestros servicios</h2>
+          <p className="indice-bajada">
+            Desarrollo, automatización y marketing conectados entre sí, para que
+            tu negocio crezca sin depender de ti las 24 horas.
+          </p>
+        </header>
+
+        <div className="indice">
+          {SERVICIOS.map((servicio, i) => {
+            const abierto = activo === i;
+            return (
+              <Fragment key={servicio.nombre}>
+                <button
+                  type="button"
+                  id={`servicio-${i}`}
+                  className="indice-nombre"
+                  style={{ "--fila": i + 1 } as CSSProperties}
+                  aria-expanded={abierto}
+                  aria-controls={`servicio-detalle-${i}`}
+                  onClick={() => {
+                    cancelarIntencion();
+                    setActivo(i);
+                  }}
+                  onPointerMove={alMoverSobre(i)}
+                  onPointerLeave={cancelarIntencion}
+                >
+                  <span className="indice-pixeles" aria-hidden="true">
+                    <span className="pixel" />
+                    <span className="pixel" />
+                    <span className="pixel" />
+                  </span>
+                  <span className="indice-nombre-texto">{servicio.nombre}</span>
+                </button>
+
+                <div
+                  id={`servicio-detalle-${i}`}
+                  role="region"
+                  aria-labelledby={`servicio-${i}`}
+                  className="indice-detalle"
+                  data-abierto={abierto}
+                >
+                  <p className="indice-lema">{servicio.lema}</p>
+                  <ul className="indice-incluye">
+                    {servicio.incluye.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <a
+                    className="indice-enlace"
+                    href={servicio.href}
+                    aria-label={`Ver más sobre ${servicio.nombre}`}
+                  >
+                    Ver más
+                  </a>
+                </div>
+              </Fragment>
+            );
+          })}
         </div>
 
-        <div className="section-cta">
+        <div className="section-cta indice-cta">
           <button
             className="hero-cta-primary"
             onClick={() => scrollToSection("contacto")}
@@ -99,13 +162,6 @@ const Services = () => {
           </button>
           <p className="section-cta-note">
             Te respondemos en menos de 24 horas hábiles.
-          </p>
-          <p className="section-cta-note">
-            ¿Vendes por WhatsApp?{" "}
-            <a href="/servicios/chatbot-whatsapp-medellin">
-              Mira cómo automatizamos la atención
-            </a>
-            .
           </p>
         </div>
       </div>
