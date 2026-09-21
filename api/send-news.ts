@@ -13,7 +13,7 @@ function buildNewsEmailHtml(p: {
   date: string;
   slug: string;
 }) {
-  const siteUrl = process.env.SITE_URL ?? "https://eternalgrowth.co";
+  const siteUrl = process.env.SITE_URL ?? "https://www.eternalgrowth.xyz";
   const logoUrl = `${siteUrl}/logo.jpeg`;
   const articleUrl = `${siteUrl}/blog/${p.slug}`;
   const title = escapeHtml(p.title);
@@ -108,7 +108,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const fromEmail = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
-  const siteUrl = process.env.SITE_URL ?? "https://eternalgrowth.co";
+  const siteUrl = process.env.SITE_URL ?? "https://www.eternalgrowth.xyz";
 
   try {
     // Crear broadcast en Resend dirigido a toda la audiencia
