@@ -74,11 +74,16 @@ const getNewsCtaConfig = (category: string): NewsCtaConfig => {
 
 // Las imágenes del blog vienen de Unsplash a 1200px, que es lo que necesita la
 // portada del artículo y la vista previa al compartir. En la tarjeta del listado
-// el hueco mide unos 200px (o el ancho del celular), así que se piden versiones
-// del tamaño justo: bajar 150-200 KB por miniatura hacía que se vieran vacías un
-// momento después de que ya se veía el texto.
-const imagenConAncho = (url: string, ancho: number) =>
-  url.includes("w=") ? url.replace(/([?&])w=\d+/, `$1w=${ancho}`) : url;
+// el hueco tiene otra forma: en computador es alto y angosto (~210 x 480-700 px)
+// y en celular es apaisado (todo el ancho x ~190 px). Se le pide a Unsplash la
+// foto ya recortada a esa forma: pesa una fracción y se ve nítida. Con una foto
+// apaisada pequeña, el recorte la estiraba y quedaba borrosa.
+const imagenRecortada = (url: string, ancho: number, alto: number) => {
+  const base = url.replace(/([?&])(w|h)=[^&]*/g, "$1").replace(/[?&]+$/, "").replace(/&&+/g, "&");
+  const separador = base.includes("?") ? "&" : "?";
+  // Recorte centrado, igual que el object-fit: cover de antes: mismo encuadre.
+  return `${base}${separador}w=${ancho}&h=${alto}`;
+};
 
 const getSlugFromPath = (pathname: string) => {
   if (!pathname.startsWith(`${NEWS_BASE_PATH}/`)) {
@@ -255,16 +260,21 @@ const News = ({ initialSlug }: NewsProps) => {
             {NEWS_ITEMS.map((item, index) => (
               <article className="news-card" key={item.title}>
                 <div className="news-card-media">
-                  <img
-                    src={imagenConAncho(item.image, 480)}
-                    srcSet={`${imagenConAncho(item.image, 480)} 480w, ${imagenConAncho(item.image, 800)} 800w`}
-                    sizes="(max-width: 768px) 100vw, 220px"
-                    alt={item.alt}
-                    // Las dos primeras están a la vista al entrar: se piden ya.
-                    loading={index < 2 ? "eager" : "lazy"}
-                    fetchPriority={index < 2 ? "high" : "auto"}
-                    decoding="async"
-                  />
+                  <picture>
+                    <source
+                      media="(max-width: 768px)"
+                      srcSet={`${imagenRecortada(item.image, 400, 220)} 1x, ${imagenRecortada(item.image, 800, 440)} 2x, ${imagenRecortada(item.image, 1200, 660)} 3x`}
+                    />
+                    <img
+                      src={imagenRecortada(item.image, 240, 720)}
+                      srcSet={`${imagenRecortada(item.image, 240, 720)} 1x, ${imagenRecortada(item.image, 480, 1440)} 2x`}
+                      alt={item.alt}
+                      // Las dos primeras están a la vista al entrar: se piden ya.
+                      loading={index < 2 ? "eager" : "lazy"}
+                      fetchPriority={index < 2 ? "high" : "auto"}
+                      decoding="async"
+                    />
+                  </picture>
                 </div>
 
                 <div className="news-card-content">
