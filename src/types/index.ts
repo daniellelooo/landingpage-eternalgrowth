@@ -11,6 +11,9 @@ export interface ServiceCard {
   description: string;
   icon?: ReactNode;
   details?: string[];
+  // Página propia del servicio, cuando existe.
+  href?: string;
+  linkLabel?: string;
 }
 
 export interface SocialLink {

@@ -58,6 +58,29 @@ el título, el Open Graph, los datos estructurados y la entrada del sitemap sale
 **Cadencia:** un artículo cada dos semanas como mínimo. El blog estuvo parado de mayo a
 septiembre de 2026 y un blog parado le dice a Google y al cliente que la empresa también.
 
+## Páginas de servicio
+
+`src/data/servicios.ts` genera una página por servicio en `/servicios/<slug>`. Son las que
+apuntan a búsquedas concretas ("desarrollo web en Medellín"), cosa que la home no puede hacer
+porque una sola página no puede competir por diez búsquedas distintas a la vez.
+
+Cada una lleva datos estructurados de tipo `Service` y `FAQPage`. Las **preguntas frecuentes
+son la parte que más rinde**: es lo que Google puede mostrar desplegado en los resultados y lo
+que un asistente de IA cita cuando alguien pregunta por el tema. Se escriben con la respuesta
+real, incluida la incómoda ("depende", "no te lo puedo garantizar"); una respuesta publicitaria
+no la cita nadie.
+
+Para agregar un servicio: añadir el objeto a `SERVICIOS` y enlazarlo desde la home
+(`src/components/sections/Services/Services.tsx`). Sin ese enlace interno la página existe,
+pero Google la considera menos importante.
+
+## Cómo nos encuentran los asistentes de IA
+
+`public/llms.txt` resume en texto plano qué hace la empresa, dónde está y qué páginas tiene.
+Cuando se agrega un servicio o una guía importante, se actualiza ese archivo también. Lo demás
+que ayuda es lo mismo que ayuda en Google: preguntas y respuestas concretas, contenido propio
+y datos estructurados coherentes.
+
 ## Agregar una página nueva sin romper el SEO
 
 1. Crear el componente de la página.

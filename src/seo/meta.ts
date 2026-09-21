@@ -4,6 +4,7 @@ import {
   getIsoDateFromNewsDate,
   getNewsBySlug,
 } from "../data/news";
+import { SERVICIOS, SERVICIOS_BASE_PATH, getServicioBySlug } from "../data/servicios";
 import { SITE, absoluteUrl } from "./site";
 
 export type PageMeta = {
@@ -24,6 +25,8 @@ const organizationJsonLd = {
   "@type": "Organization",
   "@id": ORGANIZATION_ID,
   name: SITE.name,
+  // Así se busca a la empresa de verdad: "eternal", "eternal growth" sueltos.
+  alternateName: ["Eternal", "Eternal Growth", "EternalGrowth Medellín"],
   url: SITE.url,
   logo: absoluteUrl(SITE.logo),
   email: SITE.email,
@@ -150,6 +153,67 @@ export const NOT_FOUND_META: PageMeta = {
   jsonLd: [],
 };
 
+const getServicioMeta = (slug: string): PageMeta | null => {
+  const servicio = getServicioBySlug(slug);
+  if (!servicio) return null;
+
+  const path = `${SERVICIOS_BASE_PATH}/${servicio.slug}`;
+
+  return {
+    path,
+    title: servicio.metaTitulo,
+    description: servicio.metaDescripcion,
+    ogType: "website",
+    image: SITE.ogImage,
+    imageAlt: DEFAULT_IMAGE_ALT,
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: servicio.nombre,
+        serviceType: servicio.nombre,
+        description: servicio.metaDescripcion,
+        url: absoluteUrl(path),
+        provider: { "@id": ORGANIZATION_ID },
+        areaServed: [
+          { "@type": "City", name: "Medellín" },
+          { "@type": "Country", name: "Colombia" },
+        ],
+        audience: {
+          "@type": "BusinessAudience",
+          name: "Micro y pequeñas empresas",
+        },
+      },
+      // Las preguntas frecuentes en datos estructurados son lo que Google puede
+      // mostrar desplegado en los resultados, y la forma más citable para un
+      // asistente de IA que responda "quién hace esto en Medellín".
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: servicio.preguntas.map((item) => ({
+          "@type": "Question",
+          name: item.pregunta,
+          acceptedAnswer: { "@type": "Answer", text: item.respuesta },
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: servicio.nombre,
+            item: absoluteUrl(path),
+          },
+        ],
+      },
+      organizationJsonLd,
+    ],
+  };
+};
+
 const getArticleMeta = (slug: string): PageMeta | null => {
   const item = getNewsBySlug(slug);
   if (!item) return null;
@@ -213,6 +277,9 @@ export const getPageMeta = (pathname: string): PageMeta | null => {
   if (path === "/") return HOME_META;
   if (path === "/eternalgrowth") return ABOUT_META;
   if (path === NEWS_BASE_PATH) return BLOG_META;
+  if (path.startsWith(`${SERVICIOS_BASE_PATH}/`)) {
+    return getServicioMeta(path.slice(SERVICIOS_BASE_PATH.length + 1));
+  }
   if (path.startsWith(`${NEWS_BASE_PATH}/`)) {
     return getArticleMeta(path.slice(NEWS_BASE_PATH.length + 1));
   }
@@ -225,6 +292,7 @@ export const getPageMeta = (pathname: string): PageMeta | null => {
 export const getAllPaths = (): string[] => [
   "/",
   "/eternalgrowth",
+  ...SERVICIOS.map((servicio) => `${SERVICIOS_BASE_PATH}/${servicio.slug}`),
   NEWS_BASE_PATH,
   ...NEWS_ITEMS.map((item) => `${NEWS_BASE_PATH}/${item.slug}`),
 ];
@@ -238,6 +306,9 @@ export const getSitemapEntries = (): { path: string; lastmod?: string }[] => {
   return [
     { path: "/" },
     { path: "/eternalgrowth" },
+    ...SERVICIOS.map((servicio) => ({
+      path: `${SERVICIOS_BASE_PATH}/${servicio.slug}`,
+    })),
     { path: NEWS_BASE_PATH, lastmod: newest },
     ...NEWS_ITEMS.map((item, index) => ({
       path: `${NEWS_BASE_PATH}/${item.slug}`,

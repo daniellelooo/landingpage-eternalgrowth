@@ -1,0 +1,223 @@
+/* Páginas de servicio. Reutilizan la paleta y las tipografías de la web:
+   Space Grotesk para títulos, JetBrains Mono para etiquetas e Inter para
+   lectura larga. Nada de tarjetas con iconos ni animaciones nuevas. */
+
+.servicio-page {
+  background: #0a0612;
+  min-height: 100vh;
+}
+
+.servicio-main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 7.5rem 1.5rem 5rem;
+}
+
+.servicio-migas {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 2.5rem;
+}
+
+.servicio-migas a {
+  color: rgba(216, 180, 254, 0.9);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(216, 180, 254, 0.35);
+}
+
+.servicio-migas a:hover {
+  color: #ffffff;
+}
+
+.servicio-kicker {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(216, 180, 254, 0.95);
+  margin: 0 0 1rem;
+}
+
+.servicio-hero h1 {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 1.25rem;
+}
+
+.servicio-entradilla {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 2rem;
+  max-width: 62ch;
+}
+
+.servicio-cta {
+  display: inline-block;
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 10px;
+  border: 1.5px solid rgba(139, 92, 246, 0.6);
+  background: rgba(139, 92, 246, 0.18);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.servicio-cta:hover {
+  background: rgba(139, 92, 246, 0.32);
+  border-color: rgba(139, 92, 246, 0.9);
+}
+
+.servicio-cta-nota {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0.9rem 0 0;
+}
+
+.servicio-cta-nota a {
+  color: rgba(216, 180, 254, 0.95);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(216, 180, 254, 0.45);
+}
+
+.servicio-cta-nota a:hover {
+  color: #ffffff;
+}
+
+.servicio-bloque {
+  margin-top: 3.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2.5rem;
+}
+
+.servicio-bloque h2,
+.servicio-cierre h2 {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0 0 1.5rem;
+}
+
+.servicio-bloque > p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.76);
+  margin: 0 0 1.2rem;
+  max-width: 68ch;
+}
+
+.servicio-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.75rem;
+}
+
+.servicio-item h3,
+.servicio-faq-item h3 {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.6rem;
+  line-height: 1.35;
+}
+
+.servicio-item p,
+.servicio-faq-item p {
+  font-family: "Inter", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+
+.servicio-vinetas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+  max-width: 68ch;
+}
+
+.servicio-vinetas li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.servicio-vinetas li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.9);
+}
+
+.servicio-faq {
+  display: grid;
+  gap: 1.75rem;
+  max-width: 68ch;
+}
+
+.servicio-cierre {
+  margin-top: 4rem;
+  padding: 2.5rem;
+  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  border-radius: 16px;
+  background: rgba(24, 16, 40, 0.55);
+}
+
+.servicio-cierre p {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.76);
+  margin: 0 0 1.6rem;
+  max-width: 60ch;
+}
+
+@media (max-width: 768px) {
+  .servicio-main {
+    padding: 6rem 1.25rem 3.5rem;
+  }
+
+  .servicio-cierre {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .servicio-cta {
+    display: block;
+    text-align: center;
+  }
+}

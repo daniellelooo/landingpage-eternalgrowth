@@ -5,6 +5,8 @@ import { scrollToSection } from "../../../utils/helpers";
 const SERVICES: ServiceCardType[] = [
   {
     title: "Desarrollo Web",
+    href: "/servicios/desarrollo-web-medellin",
+    linkLabel: "Ver desarrollo web en Medellín",
     description: "Tu negocio merece más que una página bonita",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -22,6 +24,8 @@ const SERVICES: ServiceCardType[] = [
   },
   {
     title: "Automatización con n8n",
+    href: "/servicios/automatizacion-procesos-medellin",
+    linkLabel: "Ver automatización de procesos",
     description: "Tu negocio abierto 24/7 sin contratar a nadie",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -55,6 +59,8 @@ const SERVICES: ServiceCardType[] = [
   },
   {
     title: "Consultoría y Diagnóstico",
+    href: "/servicios/transformacion-digital-medellin",
+    linkLabel: "Ver transformación digital",
     description: "Primero entendemos tu negocio, luego actuamos",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -82,13 +88,7 @@ const Services = () => {
         </p>
         <div className="services-list">
           {SERVICES.map((service, index) => (
-            <ServiceCard
-              key={index}
-              title={service.title}
-              description={service.description}
-              icon={service.icon}
-              details={service.details}
-            />
+            <ServiceCard key={index} {...service} />
           ))}
         </div>
 
@@ -101,6 +101,13 @@ const Services = () => {
           </button>
           <p className="section-cta-note">
             Te respondemos en menos de 24 horas hábiles.
+          </p>
+          <p className="section-cta-note">
+            ¿Vendes por WhatsApp?{" "}
+            <a href="/servicios/chatbot-whatsapp-medellin">
+              Mira cómo automatizamos la atención
+            </a>
+            .
           </p>
         </div>
       </div>

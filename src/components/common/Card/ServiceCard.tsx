@@ -1,6 +1,13 @@
 import { ServiceCard as ServiceCardType } from "../../../types";
 
-const ServiceCard = ({ title, description, icon, details }: ServiceCardType) => {
+const ServiceCard = ({
+  title,
+  description,
+  icon,
+  details,
+  href,
+  linkLabel,
+}: ServiceCardType) => {
   return (
     <div className="service-card">
       {icon && (
@@ -16,6 +23,11 @@ const ServiceCard = ({ title, description, icon, details }: ServiceCardType) => 
             <li key={index}>{detail}</li>
           ))}
         </ul>
+      )}
+      {href && (
+        <a className="service-card-link" href={href}>
+          {linkLabel ?? `Ver ${title.toLowerCase()}`}
+        </a>
       )}
       <div className="service-card-glow"></div>
     </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CustomSelect from "../../common/Select";
+import { SITE } from "../../../seo/site";
 
 const COUNTRY_OPTIONS = [
   { label: "CO +57", value: "+57" },
@@ -191,7 +192,15 @@ const Contact = () => {
               {submitStatus === "loading" ? "Enviando..." : "Agendar diagnóstico gratuito"}
             </button>
             <p className="contact-hint">
-              Te respondemos por correo o WhatsApp en menos de 24 horas hábiles.
+              Te respondemos por correo en menos de 24 horas hábiles.
+            </p>
+            <p className="contact-alternativas">
+              ¿Prefieres escribirnos directo? Estamos en{" "}
+              <a href={`mailto:${SITE.email}`}>{SITE.email}</a> y en{" "}
+              <a href={SITE.instagram} target="_blank" rel="noreferrer">
+                Instagram
+              </a>
+              .
             </p>
             {submitMessage && (
               <p className={`contact-status contact-status-${submitStatus}`} role="status">

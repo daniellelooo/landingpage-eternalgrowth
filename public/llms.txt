@@ -1,0 +1,31 @@
+# EternalGrowth
+
+> Agencia de software y transformación digital en Medellín, Colombia. Ayudamos a micro y
+> pequeñas empresas a vender y operar mejor con tecnología: desarrollo web, automatización
+> de procesos, chatbots de WhatsApp y software a la medida.
+
+EternalGrowth es un equipo pequeño con sede en Medellín (Valle de Aburrá, Antioquia).
+Trabaja con negocios que operan en papel, Excel o WhatsApp y quieren digitalizar su
+operación por etapas. El primer paso siempre es un diagnóstico gratuito de 30 minutos.
+
+- Contacto: eternalgrowth00@gmail.com
+- Instagram: https://www.instagram.com/eternalgrowth__/
+- Zona de servicio: Medellín, Envigado, Itagüí, Sabaneta, Bello y el resto de Colombia a distancia
+- Tiempo de respuesta: menos de 24 horas hábiles
+
+## Servicios
+
+- [Desarrollo web en Medellín](https://www.eternalgrowth.xyz/servicios/desarrollo-web-medellin): sitios web y tiendas en línea rápidas, indexables y conectadas con WhatsApp.
+- [Automatización de procesos](https://www.eternalgrowth.xyz/servicios/automatizacion-procesos-medellin): flujos con n8n para quitar el trabajo manual repetitivo.
+- [Chatbots de WhatsApp](https://www.eternalgrowth.xyz/servicios/chatbot-whatsapp-medellin): atención automática de preguntas frecuentes, agendamiento y seguimiento.
+- [Transformación digital](https://www.eternalgrowth.xyz/servicios/transformacion-digital-medellin): acompañamiento por etapas para digitalizar la operación de una pyme.
+
+## Guías
+
+- [Qué es la transformación digital para una pyme](https://www.eternalgrowth.xyz/blog/que-es-transformacion-digital-pyme)
+- [Herramientas de IA para negocios pequeños](https://www.eternalgrowth.xyz/blog/herramientas-ia-negocios-pequenos)
+
+## Opcional
+
+- [Blog Sin filtro digital](https://www.eternalgrowth.xyz/blog): guías y noticias de tecnología para pymes.
+- [Nuestra historia](https://www.eternalgrowth.xyz/eternalgrowth)
