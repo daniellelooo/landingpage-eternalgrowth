@@ -72,6 +72,14 @@ const getNewsCtaConfig = (category: string): NewsCtaConfig => {
 };
 
 
+// Las imágenes del blog vienen de Unsplash a 1200px, que es lo que necesita la
+// portada del artículo y la vista previa al compartir. En la tarjeta del listado
+// el hueco mide unos 200px (o el ancho del celular), así que se piden versiones
+// del tamaño justo: bajar 150-200 KB por miniatura hacía que se vieran vacías un
+// momento después de que ya se veía el texto.
+const imagenConAncho = (url: string, ancho: number) =>
+  url.includes("w=") ? url.replace(/([?&])w=\d+/, `$1w=${ancho}`) : url;
+
 const getSlugFromPath = (pathname: string) => {
   if (!pathname.startsWith(`${NEWS_BASE_PATH}/`)) {
     return null;
@@ -244,10 +252,19 @@ const News = ({ initialSlug }: NewsProps) => {
 
         <div className="news-layout news-grid-layout">
           <div className="news-stack news-grid" aria-label="Noticias destacadas">
-            {NEWS_ITEMS.map((item) => (
+            {NEWS_ITEMS.map((item, index) => (
               <article className="news-card" key={item.title}>
                 <div className="news-card-media">
-                  <img src={item.image} alt={item.alt} loading="lazy" />
+                  <img
+                    src={imagenConAncho(item.image, 480)}
+                    srcSet={`${imagenConAncho(item.image, 480)} 480w, ${imagenConAncho(item.image, 800)} 800w`}
+                    sizes="(max-width: 768px) 100vw, 220px"
+                    alt={item.alt}
+                    // Las dos primeras están a la vista al entrar: se piden ya.
+                    loading={index < 2 ? "eager" : "lazy"}
+                    fetchPriority={index < 2 ? "high" : "auto"}
+                    decoding="async"
+                  />
                 </div>
 
                 <div className="news-card-content">

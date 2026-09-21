@@ -1,7 +1,7 @@
 // Genera el HTML real de cada página después del build de Vite.
 // Sin esto el servidor entrega un <div id="root"> vacío y el mismo título en
 // todas las rutas. Ver docs/SEO.md.
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -11,7 +11,23 @@ const ssrEntry = path.join(root, "dist-ssr", "entry-server.js");
 
 const { renderPage, getAllPaths, getSitemapEntries, SITE } = await import(pathToFileURL(ssrEntry).href);
 
-const template = await readFile(path.join(dist, "index.html"), "utf8");
+let template = await readFile(path.join(dist, "index.html"), "utf8");
+
+// Las fuentes que se ven en la primera pantalla se piden de entrada, sin esperar
+// a leer el CSS: así el texto no aparece primero en otra letra y luego salta.
+const FUENTES_PRIMERA_PANTALLA = [
+  /^space-grotesk-latin-700-normal-.*\.woff2$/,
+  /^jetbrains-mono-latin-400-normal-.*\.woff2$/,
+  /^inter-latin-600-normal-.*\.woff2$/,
+];
+const archivos = await readdir(path.join(dist, "assets"));
+const precargas = FUENTES_PRIMERA_PANTALLA.map((patron) => archivos.find((a) => patron.test(a)))
+  .filter(Boolean)
+  .map((a) => `<link rel="preload" href="/assets/${a}" as="font" type="font/woff2" crossorigin />`);
+if (precargas.length !== FUENTES_PRIMERA_PANTALLA.length) {
+  throw new Error("prerender: no se encontraron todas las fuentes a precargar en dist/assets");
+}
+template = template.replace("</head>", `    ${precargas.join("\n    ")}\n  </head>`);
 
 const HEAD_BLOCK = /<!--seo:start-->[\s\S]*?<!--seo:end-->/;
 const ROOT_BLOCK = '<div id="root"></div>';
