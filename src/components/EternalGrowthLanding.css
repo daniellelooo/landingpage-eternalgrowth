@@ -110,10 +110,15 @@
 }
 
 /* Horizontal Sweep */
+/* El barrido se mueve con transform, no con left: mismo recorrido, pero sin
+   recalcular la maqueta en cada fotograma. Con left, Google lo contaba como
+   "la página se mueve al cargar" (CLS de 0,5-0,6, cuando el límite bueno es 0,1). */
 .horizontal-sweep {
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
+  transform: translateX(-100%);
+  will-change: transform;
   width: 100%;
   height: 100%;
   background: linear-gradient(
@@ -126,9 +131,9 @@
 }
 
 @keyframes horizontal-sweep {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
 }
 
 /* CRT Glow Effect - More subtle */
@@ -4092,4 +4097,22 @@
 
 .contact-alternativas a:hover {
   color: #ffffff;
+}
+
+/* Las tarjetas de "¿Por qué elegirnos?" y "Servicios" tenían una animación de
+   entrada que corre al cargar la página, cuando están fuera de la pantalla.
+   Nadie la veía entera: lo único que se notaba era que, al bajar rápido o al
+   entrar por un enlace a /#servicios, las tarjetas seguían invisibles hasta
+   un segundo. Se quitan; el hover se mantiene igual. */
+.benefit-card,
+.service-card {
+  animation: none;
+}
+
+/* Lo mismo con las secciones que las contienen: arrancaban en opacidad 0 y
+   tardaban ~1,2 s en aparecer, y se sumaba a la animación de las tarjetas. */
+.benefits-section,
+.services-section {
+  opacity: 1;
+  animation: none;
 }
