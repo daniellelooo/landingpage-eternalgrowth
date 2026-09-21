@@ -58,7 +58,7 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
 
       localStorage.setItem(SUBSCRIBED_KEY, "1");
       setSubscriptionStatus("success");
-      setSubscriptionMessage("Muy pronto recibiras las nuevas publicaciones en tu correo.");
+      setSubscriptionMessage("Muy pronto recibirás las nuevas publicaciones en tu correo.");
     } catch (error) {
       setSubscriptionStatus("error");
       setSubscriptionMessage("No pudimos registrar tu correo. Intenta nuevamente en unos minutos.");
@@ -75,8 +75,8 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
             <span className="news-kicker">Sin filtro digital</span>
             <h2>Recibe cada nueva noticia</h2>
             <p>
-              Te avisamos cuando publiquemos analisis, alertas y senales utiles
-              para hacer crecer tu negocio con tecnologia.
+              Te avisamos cuando publiquemos análisis, alertas y señales útiles
+              para hacer crecer tu negocio con tecnología.
             </p>
 
             {subscriptionStatus === "success" ? (
@@ -93,7 +93,7 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
               </div>
             ) : (
               <form className="news-subscribe-form" onSubmit={handleSubscribe}>
-                <label htmlFor="news-subscribe-email">Correo electronico</label>
+                <label htmlFor="news-subscribe-email">Correo electrónico</label>
                 <input
                   id="news-subscribe-email"
                   type="email"
@@ -110,7 +110,7 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
                 >
                   {subscriptionStatus === "loading"
                     ? "Enviando..."
-                    : "Si, quiero suscribirme"}
+                    : "Sí, quiero suscribirme"}
                 </button>
                 <button
                   type="button"

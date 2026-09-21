@@ -19,19 +19,19 @@ const NEWS_CTA_BY_KEYWORD: Array<{ keyword: string; config: NewsCtaConfig }> = [
   {
     keyword: "ia",
     config: {
-      title: "Quieres implementar IA en tu negocio?",
+      title: "¿Quieres implementar IA en tu negocio?",
       description:
-        "Te ayudamos a convertir esta tendencia en procesos reales de ventas, atencion y productividad.",
-      buttonLabel: "Contactanos para implementarlo en tu negocio",
+        "Te ayudamos a convertir esta tendencia en procesos reales de ventas, atención y productividad.",
+      buttonLabel: "Contáctanos para implementarlo en tu negocio",
       suggestedService: "Automatizacion",
     },
   },
   {
     keyword: "automatizacion",
     config: {
-      title: "Quieres automatizar procesos en tu negocio?",
+      title: "¿Quieres automatizar procesos en tu negocio?",
       description:
-        "Diseñamos flujos practicos para reducir tareas manuales y escalar tu operacion sin friccion.",
+        "Diseñamos flujos prácticos para reducir tareas manuales y escalar tu operación sin fricción.",
       buttonLabel: "Quiero automatizar",
       suggestedService: "Automatizacion",
     },
@@ -39,9 +39,9 @@ const NEWS_CTA_BY_KEYWORD: Array<{ keyword: string; config: NewsCtaConfig }> = [
   {
     keyword: "ciberseguridad",
     config: {
-      title: "Quieres proteger mejor tu negocio?",
+      title: "¿Quieres proteger mejor tu negocio?",
       description:
-        "Te acompañamos a definir controles y buenas practicas para reducir riesgos digitales en tu empresa.",
+        "Te acompañamos a definir controles y buenas prácticas para reducir riesgos digitales en tu empresa.",
       buttonLabel: "Fortalecer seguridad",
       suggestedService: "Consultoria",
     },
@@ -49,9 +49,9 @@ const NEWS_CTA_BY_KEYWORD: Array<{ keyword: string; config: NewsCtaConfig }> = [
 ];
 
 const DEFAULT_NEWS_CTA: NewsCtaConfig = {
-  title: "Quieres aplicar esto en tu empresa?",
+  title: "¿Quieres aplicar esto en tu empresa?",
   description:
-    "Traducimos esta señal en un plan de implementacion claro para tu contexto y tus objetivos.",
+    "Traducimos esta señal en un plan de implementación claro para tu contexto y tus objetivos.",
   buttonLabel: "Hablar con un especialista",
   suggestedService: "Consultoria",
 };
@@ -59,7 +59,11 @@ const DEFAULT_NEWS_CTA: NewsCtaConfig = {
 const NEWS_CTA_STORAGE_KEY = "eternalgrowth_news_cta";
 
 const getNewsCtaConfig = (category: string): NewsCtaConfig => {
-  const normalizedCategory = category.toLowerCase();
+  // Sin tildes, para que "Automatización" siga casando con "automatizacion".
+  const normalizedCategory = category
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
   const matched = NEWS_CTA_BY_KEYWORD.find(({ keyword }) =>
     normalizedCategory.includes(keyword),
   );
@@ -111,7 +115,7 @@ const News = ({ initialSlug }: NewsProps) => {
     const ctaConfig = getNewsCtaConfig(newsItem.category);
     const prefilledMessage =
       newsItem.contactMessage ??
-      (`Hola, lei el blog \"${newsItem.title}\" y necesito ayuda ` +
+      (`Hola, leí el blog \"${newsItem.title}\" y necesito ayuda ` +
         `para implementar IA en mi negocio.`);
 
     window.localStorage.setItem(
@@ -205,7 +209,7 @@ const News = ({ initialSlug }: NewsProps) => {
               Fuente original: {selectedNews.source}
             </a>
 
-            <section className="news-article-cta" aria-label="Llamado a la accion">
+            <section className="news-article-cta" aria-label="Llamado a la acción">
               <p className="news-article-cta-kicker">Siguiente paso</p>
               <h3>{ctaConfig.title}</h3>
               <p>{ctaConfig.description}</p>
