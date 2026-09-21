@@ -6,7 +6,6 @@ import Footer from "./layout/Footer";
 import Hero from "./sections/Hero";
 import Benefits from "./sections/Benefits";
 import Services from "./sections/Services";
-import Packages from "./sections/Packages";
 import Contact from "./sections/Contact";
 import "./EternalGrowthLanding.css";
 
@@ -54,7 +53,6 @@ const EternalGrowthLanding = () => {
     const sectionIds: SectionId[] = [
       "hero",
       "beneficios",
-      "paquetes",
       "servicios",
       "contacto",
     ];
@@ -98,7 +96,6 @@ const EternalGrowthLanding = () => {
       <Header activeSection={activeSection} onNavigate={handleNavigate} />
       <Hero />
       <Benefits />
-      <Packages />
       <Services />
       <Contact />
       <Footer />

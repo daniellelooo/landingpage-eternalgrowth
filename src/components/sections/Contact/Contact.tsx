@@ -16,10 +16,6 @@ const SERVICE_OPTIONS = [
   { label: "Automatización con n8n", value: "Automatizacion" },
   { label: "Marketing Digital", value: "Marketing Digital" },
   { label: "Consultoría y Diagnóstico", value: "Consultoria" },
-  { label: "Paquete Semilla", value: "Paquete Semilla" },
-  { label: "Paquete Escala", value: "Paquete Escala" },
-  { label: "Paquete Impulso", value: "Paquete Impulso" },
-  { label: "Paquete Universidad", value: "Paquete Universidad" },
   { label: "No sé, necesito orientación", value: "Orientacion" },
 ];
 
@@ -99,6 +95,20 @@ const Contact = () => {
             30 minutos para entender tu negocio y mostrarte exactamente qué
             necesitas. Sin compromiso, sin tecnicismos.
           </p>
+          <ol className="contact-steps" aria-label="Qué pasa cuando nos escribes">
+            <li>
+              <span className="contact-step-number">1</span>
+              Nos cuentas de tu negocio en este formulario.
+            </li>
+            <li>
+              <span className="contact-step-number">2</span>
+              Te respondemos en menos de 24 horas hábiles para agendar.
+            </li>
+            <li>
+              <span className="contact-step-number">3</span>
+              Hacemos el diagnóstico de 30 minutos, sin costo.
+            </li>
+          </ol>
         </div>
 
         <form className="contact-form" onSubmit={handleSubmit}>
@@ -181,7 +191,7 @@ const Contact = () => {
               {submitStatus === "loading" ? "Enviando..." : "Agendar diagnóstico gratuito"}
             </button>
             <p className="contact-hint">
-              Te confirmaremos por email en menos de 24 horas.
+              Te respondemos por correo o WhatsApp en menos de 24 horas hábiles.
             </p>
             {submitMessage && (
               <p className={`contact-status contact-status-${submitStatus}`} role="status">

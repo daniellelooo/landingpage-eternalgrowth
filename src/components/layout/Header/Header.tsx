@@ -11,7 +11,6 @@ interface HeaderProps {
 const NAV_ITEMS: NavItem[] = [
   { id: "hero", label: "Inicio" },
   { id: "beneficios", label: "¿Por qué elegirnos?" },
-  { id: "paquetes", label: "Paquetes" },
   { id: "servicios", label: "Servicios" },
   { id: "contacto", label: "Contacto" },
 ];

@@ -1,3 +1,8 @@
+// Fuera de la web desde 2026-09-20: los cuatro paquetes (Semilla, Escala,
+// Impulso, Universidad) se retiraron hasta definir la oferta nueva y sus
+// precios. El componente se conserva para reutilizar la maqueta cuando entren
+// los paquetes nuevos. Para volver a mostrarlo: importarlo en
+// EternalGrowthLanding.tsx y devolver "paquetes" al menú del Header.
 import { scrollToSection } from "../../../utils/helpers";
 import { ReactElement, useRef, useState, useEffect } from "react";
 

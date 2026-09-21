@@ -99,6 +99,9 @@ const Services = () => {
           >
             Agenda tu diagnóstico gratuito
           </button>
+          <p className="section-cta-note">
+            Te respondemos en menos de 24 horas hábiles.
+          </p>
         </div>
       </div>
     </section>
