@@ -1,0 +1,35 @@
+/* Fuentes servidas desde la propia web, en su versión variable: un archivo por
+   familia con todos los pesos, en vez de un archivo por peso. Antes eran 13
+   archivos (260 KB) y el navegador tenía que procesarlos todos antes del primer
+   pintado; ahora son 3 (111 KB).
+
+   Los nombres de familia son los de siempre, y cada rango de pesos es
+   exactamente el que se cargaba antes, para que el navegador elija lo mismo:
+   - Space Grotesk 400-700
+   - JetBrains Mono 300-600
+   - Inter 400-800
+   Solo el subconjunto latino: cubre español completo (tildes, ñ, ¿, ¡). */
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url("../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 600;
+  src: url("../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 800;
+  src: url("../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2") format("woff2-variations");
+}

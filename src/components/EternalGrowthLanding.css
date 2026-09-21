@@ -29,6 +29,12 @@
   inset: 0;
   pointer-events: none;
   z-index: 4;
+  animation: efectos-entrada 0.6s ease-out both;
+}
+
+@keyframes efectos-entrada {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Hero Section */

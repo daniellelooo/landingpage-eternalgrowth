@@ -13,13 +13,9 @@ const { renderPage, getAllPaths, getSitemapEntries, SITE } = await import(pathTo
 
 let template = await readFile(path.join(dist, "index.html"), "utf8");
 
-// Las fuentes que se ven en la primera pantalla se piden de entrada, sin esperar
-// a leer el CSS: así el texto no aparece primero en otra letra y luego salta.
-const FUENTES_PRIMERA_PANTALLA = [
-  /^space-grotesk-latin-700-normal-.*\.woff2$/,
-  /^jetbrains-mono-latin-400-normal-.*\.woff2$/,
-  /^inter-latin-600-normal-.*\.woff2$/,
-];
+// Solo se precarga la fuente del título. Precargar más retrasaba el primer
+// pintado: el navegador esperaba a tenerlas todas antes de dibujar el texto.
+const FUENTES_PRIMERA_PANTALLA = [/^space-grotesk-latin-wght-normal-.*\.woff2$/];
 const archivos = await readdir(path.join(dist, "assets"));
 const precargas = FUENTES_PRIMERA_PANTALLA.map((patron) => archivos.find((a) => patron.test(a)))
   .filter(Boolean)
@@ -28,6 +24,15 @@ if (precargas.length !== FUENTES_PRIMERA_PANTALLA.length) {
   throw new Error("prerender: no se encontraron todas las fuentes a precargar en dist/assets");
 }
 template = template.replace("</head>", `    ${precargas.join("\n    ")}\n  </head>`);
+
+// El CSS va dentro del HTML en vez de en un archivo aparte. Con el <link>, el
+// navegador recibía la página, tenía que volver a pedir el CSS y hasta que no
+// llegaba no dibujaba nada: esa era la pantalla negra del principio. Pesa ~12 KB
+// comprimido y así la primera pantalla sale con una sola petición.
+const enlaceCss = template.match(/<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/);
+if (!enlaceCss) throw new Error("prerender: no se encontró el <link> del CSS en dist/index.html");
+const css = (await readFile(path.join(dist, enlaceCss[1]), "utf8")).replace(/<\/style/gi, "<\\/style");
+template = template.replace(enlaceCss[0], () => `<style>${css}</style>`);
 
 const HEAD_BLOCK = /<!--seo:start-->[\s\S]*?<!--seo:end-->/;
 const ROOT_BLOCK = '<div id="root"></div>';
