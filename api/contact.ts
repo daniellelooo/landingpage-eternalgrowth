@@ -43,6 +43,46 @@ const escapeHtml = (value: string) =>
 const isValidLength = (value: string, maxLength: number) =>
   value.length > 0 && value.length <= maxLength;
 
+// Tope de envíos por IP. Este endpoint manda un correo a la dirección que le
+// escriban, así que sin tope alguien podría usarlo para enviar correos con la
+// marca de EternalGrowth a terceros. La cuenta vive en memoria de la función:
+// si Vercel arranca otra instancia se reinicia, pero corta de raíz el caso de
+// alguien enviando en bucle desde el mismo sitio.
+const RATE_LIMIT = { envios: 5, ventanaMs: 10 * 60 * 1000 };
+const enviosPorIp = new Map<string, number[]>();
+
+const getClientIp = (request: VercelRequest) => {
+  const forwarded = request.headers["x-forwarded-for"];
+  const raw = Array.isArray(forwarded) ? forwarded[0] : forwarded;
+  return raw?.split(",")[0]?.trim() || "desconocida";
+};
+
+const superaElTope = (ip: string) => {
+  const ahora = Date.now();
+  const recientes = (enviosPorIp.get(ip) ?? []).filter(
+    (momento) => ahora - momento < RATE_LIMIT.ventanaMs,
+  );
+
+  if (recientes.length >= RATE_LIMIT.envios) {
+    enviosPorIp.set(ip, recientes);
+    return true;
+  }
+
+  recientes.push(ahora);
+  enviosPorIp.set(ip, recientes);
+
+  // Limpieza para que el mapa no crezca sin control.
+  if (enviosPorIp.size > 500) {
+    for (const [clave, momentos] of enviosPorIp) {
+      if (momentos.every((momento) => ahora - momento >= RATE_LIMIT.ventanaMs)) {
+        enviosPorIp.delete(clave);
+      }
+    }
+  }
+
+  return false;
+};
+
 
 export default async function handler(
   request: VercelRequest,
@@ -55,6 +95,13 @@ export default async function handler(
 
   if (!process.env.RESEND_API_KEY) {
     response.status(500).json({ error: "Falta RESEND_API_KEY" });
+    return;
+  }
+
+  if (superaElTope(getClientIp(request))) {
+    response
+      .status(429)
+      .json({ error: "Demasiados envios. Intenta de nuevo en unos minutos." });
     return;
   }
 

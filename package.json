@@ -10,16 +10,15 @@
     "lint": "node node_modules/typescript/bin/tsc --noEmit"
   },
   "keywords": [
+    "eternalgrowth",
+    "agencia",
+    "medellin",
+    "desarrollo-web",
+    "automatizacion",
+    "n8n",
     "react",
     "typescript",
-    "vite",
-    "cyberpunk",
-    "landing-page",
-    "crt-effects",
-    "animations",
-    "futuristic",
-    "wallpaper",
-    "eternalgrowth"
+    "vite"
   ],
   "author": "EternalGrowth Team",
   "license": "ISC",
@@ -33,7 +32,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   },
   "dependencies": {
     "@types/react": "^19.1.12",

@@ -129,3 +129,7 @@ $RECYCLE.BIN/
 
 # Build intermedio del prerender
 dist-ssr
+
+# Vercel
+.vercel
+.env.local

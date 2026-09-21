@@ -10,6 +10,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    // Sin mapas de código en producción: publicaban el código fuente original.
+    sourcemap: false
   }
 })
