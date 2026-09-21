@@ -4087,3 +4087,84 @@
 .contact-alternativas a:hover {
   color: #ffffff;
 }
+
+/* ===================================================================
+   RENOVACIÓN 2026-09 — propuesta 1, solo el hero
+   Referencias aprobadas: railway.com (titular sobrio sobre fondo oscuro
+   con tinte violeta) y monogram.io (la mono en mayúsculas como voz del
+   sitio). Misma estructura, mismas secciones, mismas tipografías, mismo
+   fondo. Lo que cambia es el acabado.
+   Para descartar esta propuesta basta con borrar este bloque.
+   =================================================================== */
+
+/* 1. El nombre deja el halo de neón y gana presencia por tipografía:
+      caja más cerrada y un peso mayor. Es lo que hace que un titular se
+      vea trabajado en vez de "iluminado". */
+.eternal-growth-container .logo {
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  text-shadow: none;
+  animation: none;
+}
+
+.eternal-growth-container .logo.hovered {
+  text-shadow: none;
+  color: #ffffff;
+}
+
+/* 2. La frase rotativa se lee como una línea de terminal, no como un
+      letrero de neón: sin resplandor ni degradado que la recorre. */
+.eternal-growth-container .typewriter-wrapper {
+  text-shadow: none;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.eternal-growth-container .typewriter-text {
+  text-shadow: none;
+  background: none;
+  animation: fade-in 2s ease-out 1s both;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* 3. La descripción sube de peso: era el reclamo de siempre, que el
+      texto pequeño se ve plano. */
+.eternal-growth-container .hero-description {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0;
+}
+
+/* 4. Botones más sobrios: el relleno degradado y el halo desenfocado
+      salen; queda el borde y un fondo plano que se aclara al pasar. */
+.eternal-growth-container .hero-cta-primary {
+  background: rgba(139, 92, 246, 0.16);
+  box-shadow: none;
+  border-color: rgba(139, 92, 246, 0.55);
+}
+
+.eternal-growth-container .hero-cta-primary::before {
+  display: none;
+}
+
+.eternal-growth-container .hero-cta-primary:hover {
+  background: rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.9);
+  box-shadow: none;
+  transform: none;
+}
+
+.eternal-growth-container .hero-cta-secondary:hover {
+  transform: none;
+}
+
+/* 5. El aviso de scroll pasa a la voz mono en mayúsculas, que es la que
+      ya usa el resto del sitio. */
+.eternal-growth-container .scroll-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
