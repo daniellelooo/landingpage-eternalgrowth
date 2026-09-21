@@ -222,6 +222,74 @@ export const SERVICIOS: Servicio[] = [
     ],
   },
   {
+    slug: "marketing-digital-medellin",
+    nombre: "Marketing digital",
+    titulo: "Marketing digital y pauta en Meta Ads para negocios en Medellín",
+    metaTitulo: "Marketing digital y Meta Ads en Medellín | EternalGrowth",
+    metaDescripcion:
+      "Pauta en Meta Ads (Facebook e Instagram), Google Business y contenido para pymes de Medellín. Campañas medidas en clientes, no en likes.",
+    entradilla:
+      "Pautar sin medir es regalarle plata a Meta. La pregunta no es cuántos likes tuvo el anuncio, sino cuántas personas escribieron y cuántas compraron.",
+    intro: [
+      "Hacemos marketing digital para micro y pequeñas empresas de Medellín: campañas en Meta Ads (Facebook e Instagram), la ficha de Google Business, contenido para redes y correos automáticos a clientes. Siempre conectado con lo que pasa después del anuncio, porque ahí es donde se pierde la mayoría de la plata.",
+      "El error más común que vemos es pautar hacia un lugar que no está listo para recibir a nadie: un perfil sin información, un WhatsApp que tarda un día en contestar, una página que no carga en el celular. Antes de subir el presupuesto, revisamos que el camino desde el anuncio hasta la venta no tenga huecos.",
+    ],
+    incluye: [
+      {
+        titulo: "Campañas en Meta Ads",
+        detalle:
+          "Facebook e Instagram, segmentadas por zona, interés y tipo de cliente. Con un objetivo concreto por campaña: mensajes, visitas o ventas, no todo a la vez.",
+      },
+      {
+        titulo: "Medición de lo que importa",
+        detalle:
+          "Cuántas personas escribieron, cuántas agendaron, cuántas compraron y cuánto costó cada una. El alcance y los likes se reportan, pero no se celebran.",
+      },
+      {
+        titulo: "Google Business activo",
+        detalle:
+          "La ficha que aparece en Google Maps y al lado de los resultados, con la información correcta, fotos reales y respuesta a las reseñas. Para un negocio local es de lo que más clientes trae y no cuesta nada.",
+      },
+      {
+        titulo: "Contenido y correos automáticos",
+        detalle:
+          "Un plan de publicaciones que se pueda sostener, y secuencias de correo para quien ya te compró o te escribió y no volvió.",
+      },
+    ],
+    paraQuien: [
+      "Negocios que pautan en Instagram y no saben si les está trayendo clientes.",
+      "Comercios locales que no aparecen en Google Maps cuando alguien busca lo que venden.",
+      "Empresas que publican en redes sin un plan y lo dejan cuando se acaba el tiempo.",
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Cuánto hay que invertir en Meta Ads?",
+        respuesta:
+          "No hay una cifra mínima mágica. Con poco presupuesto se puede probar, pero se tarda más en saber qué funciona. Lo que sí recomendamos es separar dos cosas: lo que se le paga a Meta por mostrar los anuncios y lo que se paga por gestionarlos. Tienes que ver las dos por separado.",
+      },
+      {
+        pregunta: "¿En cuánto tiempo se ven resultados?",
+        respuesta:
+          "Las primeras semanas son de prueba: se lanzan varias versiones y se deja correr la que mejor responde. Prometer ventas desde el primer día es mentir. Lo que sí debes ver desde el principio es el reporte de qué se hizo y qué pasó.",
+      },
+      {
+        pregunta: "¿Qué es mejor, Meta Ads o Google Ads?",
+        respuesta:
+          "Depende de si la gente ya te está buscando. Google Ads funciona cuando alguien escribe lo que vendes; Meta Ads funciona para mostrarte a quien todavía no te conoce pero encaja con tu cliente. Para muchos negocios locales, antes que cualquiera de los dos, rinde más tener la ficha de Google Business bien hecha.",
+      },
+      {
+        pregunta: "¿Hacen el contenido o lo tengo que hacer yo?",
+        respuesta:
+          "Podemos hacer el plan y los textos. Las fotos y videos de tu negocio salen mejor si los grabas tú o alguien de tu equipo, con indicaciones claras. El contenido que se ve real vende más que el que se ve de agencia.",
+      },
+      {
+        pregunta: "¿Me entregan informes?",
+        respuesta:
+          "Sí, cada mes, en lenguaje claro: cuánto se invirtió, cuántos contactos llegaron, cuánto costó cada uno y qué se va a cambiar. Si un mes no funcionó, el informe lo dice.",
+      },
+    ],
+  },
+  {
     slug: "transformacion-digital-medellin",
     nombre: "Transformación digital",
     titulo: "Transformación digital para empresas en Medellín",

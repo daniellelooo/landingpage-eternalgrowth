@@ -25,8 +25,12 @@ const ServiceCard = ({
         </ul>
       )}
       {href && (
-        <a className="service-card-link" href={href}>
-          {linkLabel ?? `Ver ${title.toLowerCase()}`}
+        <a
+          className="service-card-link"
+          href={href}
+          aria-label={`Ver más sobre ${title}`}
+        >
+          {linkLabel ?? "Ver más"}
         </a>
       )}
       <div className="service-card-glow"></div>

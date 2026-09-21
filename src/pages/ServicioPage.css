@@ -89,8 +89,14 @@
   font-family: "Space Grotesk", Arial, sans-serif;
   font-size: 0.92rem;
   font-weight: 600;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
-  margin: 0.9rem 0 0;
+  margin: 1.1rem 0 0;
+}
+
+/* En el cierre, el botón y la nota de correo/Instagram quedaban pegados. */
+.servicio-cierre .servicio-cta-nota {
+  margin-top: 1.75rem;
 }
 
 .servicio-cta-nota a {

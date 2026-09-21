@@ -76,10 +76,43 @@ pero Google la considera menos importante.
 
 ## Cómo nos encuentran los asistentes de IA
 
-`public/llms.txt` resume en texto plano qué hace la empresa, dónde está y qué páginas tiene.
-Cuando se agrega un servicio o una guía importante, se actualiza ese archivo también. Lo demás
-que ayuda es lo mismo que ayuda en Google: preguntas y respuestas concretas, contenido propio
-y datos estructurados coherentes.
+ChatGPT, Gemini, Perplexity y los resúmenes de IA de Google responden con lo que tienen
+indexado y con lo que consideran fuentes confiables. Hay dos frentes, y **el segundo pesa más**.
+
+### En la web (hecho)
+
+- `public/llms.txt`: resumen en texto plano de qué hace la empresa, dónde está y qué páginas
+  tiene. Se actualiza cuando entra un servicio o una guía importante.
+- Preguntas frecuentes con datos estructurados `FAQPage` en cada página de servicio. Es el
+  formato que más citan.
+- Datos estructurados de empresa (`Organization`, `ProfessionalService`) con ciudad, correo,
+  redes y nombres alternativos ("Eternal", "Eternal Growth").
+- HTML real en cada página: un asistente que no ejecuta JavaScript ve el contenido completo.
+
+### En la web (pendiente, por orden de impacto)
+
+1. **Publicar una guía cada dos semanas** respondiendo una pregunta concreta que alguien le
+   haría a una IA: "cuánto cuesta una página web en Colombia", "cómo automatizar WhatsApp en un
+   negocio pequeño", "cómo elegir quién me desarrolla el software". Título = la pregunta.
+2. **Casos con cifras** cuando se definan. Una IA recomienda a quien puede demostrar algo.
+3. **Nombre, ciudad y servicio siempre juntos** en textos nuevos ("EternalGrowth, agencia de
+   software en Medellín"): es lo que le enseña a un modelo qué es la empresa.
+
+### Fuera de la web (lo que más pesa)
+
+Un asistente recomienda a quien aparece mencionado en sitios que él considera confiables.
+Ninguna de estas se hace desde el código:
+
+1. **Reseñas en Google Business.** Pedírselas a cada cliente al terminar un proyecto.
+2. **Perfil en directorios de agencias**: Clutch, GoodFirms, DesignRush, Sortlist. Los
+   asistentes los consultan cuando alguien pide "agencias de software en Medellín".
+3. **Página de empresa en LinkedIn** con el mismo nombre, descripción y enlace a la web.
+4. **Menciones en otros sitios**: aparecer en artículos, listas de emprendimientos de
+   Medellín, Ruta N, cámaras de comercio, podcasts o blogs de terceros.
+5. **Instagram con enlace a la web en la biografía** y el mismo texto de descripción.
+6. **Consistencia**: mismo nombre (EternalGrowth), misma ciudad y mismo correo en todas partes.
+   Si en un sitio dice "Eternal Growth SAS" y en otro "EG Agencia", el modelo no sabe que son
+   la misma empresa.
 
 ## Agregar una página nueva sin romper el SEO
 

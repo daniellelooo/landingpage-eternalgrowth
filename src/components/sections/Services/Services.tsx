@@ -6,7 +6,6 @@ const SERVICES: ServiceCardType[] = [
   {
     title: "Desarrollo Web",
     href: "/servicios/desarrollo-web-medellin",
-    linkLabel: "Ver desarrollo web en Medellín",
     description: "Tu negocio merece más que una página bonita",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -25,7 +24,6 @@ const SERVICES: ServiceCardType[] = [
   {
     title: "Automatización con n8n",
     href: "/servicios/automatizacion-procesos-medellin",
-    linkLabel: "Ver automatización de procesos",
     description: "Tu negocio abierto 24/7 sin contratar a nadie",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -44,6 +42,7 @@ const SERVICES: ServiceCardType[] = [
   },
   {
     title: "Marketing Digital",
+    href: "/servicios/marketing-digital-medellin",
     description: "Que te encuentren cuando están listos para comprar",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -60,7 +59,6 @@ const SERVICES: ServiceCardType[] = [
   {
     title: "Consultoría y Diagnóstico",
     href: "/servicios/transformacion-digital-medellin",
-    linkLabel: "Ver transformación digital",
     description: "Primero entendemos tu negocio, luego actuamos",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
