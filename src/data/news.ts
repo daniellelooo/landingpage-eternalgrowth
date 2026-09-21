@@ -9,14 +9,80 @@ export type NewsItem = {
   insight: string;
   signals: string[];
   actions: string[];
-  source: string;
-  url: string;
+  // Las guías son contenido propio y no llevan fuente externa.
+  tipo?: "noticia" | "guia";
+  source?: string;
+  url?: string;
   image: string;
   alt: string;
   contactMessage?: string;
 };
 
 export const NEWS_ITEMS: NewsItem[] = [
+  {
+    slug: "que-es-transformacion-digital-pyme",
+    tipo: "guia",
+    category: "Transformación digital",
+    date: "20 Sep 2026",
+    displayDate: "Sábado · 20 de septiembre de 2026",
+    title: "Qué es la transformación digital para una pyme (y por dónde se empieza)",
+    deck:
+      "Casi todos creen que es comprar software. Casi siempre es lo contrario: quitar trabajo manual que nadie debería estar haciendo.",
+    summary:
+      "Transformación digital no es comprar herramientas: es dejar de hacer a mano lo que te cuesta horas. Qué significa para una pyme y por dónde empezar.",
+    insight:
+      "Si una herramienta nueva no le quita trabajo a alguien de tu equipo ni le resuelve algo al cliente, no es transformación digital: es un gasto con pantalla bonita.",
+    signals: [
+      "Digitalizar y transformar no son lo mismo. Pasar tu cuaderno a un Excel es digitalizar. Que el pedido entre por WhatsApp, quede registrado solo y le avise a quien despacha, eso es transformar.",
+      "El cuello de botella casi nunca es la tecnología, es el proceso. Si nadie sabe quién responde los mensajes, ningún sistema lo va a decidir por ti.",
+      "Empieza por lo que más duele, no por lo más moderno. El orden natural suele ser: que te encuentren, que te puedan escribir, que quede registrado y que no se te pierda nadie.",
+      "Lo que no se mide no se puede mejorar. Antes de cambiar algo, ten claro cuántas horas o cuántos clientes se están yendo por ahí.",
+      "Un proyecto que solo entiende la persona que lo montó es un riesgo, no un avance.",
+    ],
+    actions: [
+      "Escribe las tres tareas que tu equipo repite más de tres veces por semana. Esa lista es tu punto de partida real.",
+      "Calcula cuánto tiempo se va en la primera de las tres. Multiplícalo por las semanas del mes: ese es el costo que llevas pagando sin verlo.",
+      "Resuelve una sola, completa, antes de tocar la siguiente. Media transformación en cinco frentes no sirve para nada.",
+      "Antes de contratar cualquier desarrollo, pide que te expliquen qué pasa el día que la persona que lo montó no esté.",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+    alt: "Equipo de una empresa pequeña revisando procesos e indicadores en una reunión",
+    contactMessage:
+      "Hola, leí el artículo sobre transformación digital y quiero identificar qué procesos de mi negocio se pueden dejar de hacer a mano.",
+  },
+  {
+    slug: "herramientas-ia-negocios-pequenos",
+    tipo: "guia",
+    category: "IA Práctica",
+    date: "20 Sep 2026",
+    displayDate: "Sábado · 20 de septiembre de 2026",
+    title: "Herramientas de IA para negocios pequeños: cuáles sirven de verdad",
+    deck:
+      "Hay cientos y casi todas prometen lo mismo. Estas son las categorías que de verdad le cambian el día a un negocio pequeño, y cómo saber si te sirven.",
+    summary:
+      "Guía práctica de herramientas de IA para pequeños negocios: qué categorías sirven de verdad, cómo elegir y qué revisar antes de pagar una suscripción.",
+    insight:
+      "La pregunta correcta no es cuál es la mejor herramienta de IA, sino qué tarea concreta le vas a quitar de encima a una persona. Sin esa respuesta, cualquier herramienta sobra.",
+    signals: [
+      "Atención de mensajes. Es donde más rápido se nota: responder lo de siempre (precios, horarios, si hay domicilio) sin que alguien tenga que estar pegado al celular.",
+      "Escritura y contenido. Sirve para ir más rápido con publicaciones, descripciones de producto y correos. No sirve para publicar sin leer: el texto hay que revisarlo siempre.",
+      "Orden de la información. Resumir reuniones, pasar audios a texto, sacar los datos de una factura. Tareas aburridas donde el error humano es alto.",
+      "Conectar herramientas entre sí. Que un formulario llene tu base de datos y avise por WhatsApp sin que nadie copie y pegue.",
+      "Cuidado con el dato que subes. Si una herramienta gratuita procesa información de tus clientes, esa información sale de tu negocio. Vale la pena saber a dónde va.",
+    ],
+    actions: [
+      "Elige una sola tarea repetitiva y mide cuánto tiempo consume hoy. Sin ese número no vas a saber si la herramienta sirvió.",
+      "Prueba primero lo que ya tienes: WhatsApp Business trae respuestas automáticas y no cuesta nada.",
+      "Antes de pagar una suscripción anual, úsala un mes completo en el trabajo real. La mayoría se abandona a las dos semanas.",
+      "Deja por escrito qué herramientas puede usar el equipo y qué datos no se suben nunca. Una regla de tres líneas evita el problema antes de que exista.",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+    alt: "Personas trabajando con computadores en una oficina pequeña",
+    contactMessage:
+      "Hola, leí el artículo sobre herramientas de IA y quiero saber cuáles aplican a mi negocio y por cuál empezar.",
+  },
   {
     slug: "ransomware-latam-pymes-colombia-alerta",
     category: "Ciberseguridad y datos",

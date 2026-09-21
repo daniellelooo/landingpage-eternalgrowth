@@ -144,6 +144,7 @@ const News = ({ initialSlug }: NewsProps) => {
   if (selectedNews) {
     const ctaConfig = getNewsCtaConfig(selectedNews.category);
     const newsDisplayDate = selectedNews.displayDate ?? selectedNews.date;
+    const esGuia = selectedNews.tipo === "guia";
 
     return (
       <section id="news" className="news-section news-article-section">
@@ -177,13 +178,13 @@ const News = ({ initialSlug }: NewsProps) => {
             </div>
 
             <section className="news-article-block">
-              <h3>Qué está pasando</h3>
+              <h2>{esGuia ? "De qué se trata" : "Qué está pasando"}</h2>
               <p>{selectedNews.deck}</p>
               <p>{selectedNews.insight}</p>
             </section>
 
             <section className="news-article-block">
-              <h3>Señales para mirar</h3>
+              <h2>{esGuia ? "Lo que hay que entender" : "Señales para mirar"}</h2>
               <ul>
                 {selectedNews.signals.map((signal) => (
                   <li key={signal}>{signal}</li>
@@ -192,7 +193,7 @@ const News = ({ initialSlug }: NewsProps) => {
             </section>
 
             <section className="news-article-block">
-              <h3>Cómo convertirlo en acción</h3>
+              <h2>{esGuia ? "Por dónde empezar" : "Cómo convertirlo en acción"}</h2>
               <ul>
                 {selectedNews.actions.map((action) => (
                   <li key={action}>{action}</li>
@@ -200,14 +201,16 @@ const News = ({ initialSlug }: NewsProps) => {
               </ul>
             </section>
 
-            <a
-              href={selectedNews.url}
-              target="_blank"
-              rel="noreferrer"
-              className="news-link news-source-link"
-            >
-              Fuente original: {selectedNews.source}
-            </a>
+            {selectedNews.url && (
+              <a
+                href={selectedNews.url}
+                target="_blank"
+                rel="noreferrer"
+                className="news-link news-source-link"
+              >
+                Fuente original: {selectedNews.source}
+              </a>
+            )}
 
             <section className="news-article-cta" aria-label="Llamado a la acción">
               <p className="news-article-cta-kicker">Siguiente paso</p>
@@ -234,8 +237,8 @@ const News = ({ initialSlug }: NewsProps) => {
           <span className="news-kicker">Sin filtro digital</span>
           <h1 className="news-title">Sin filtro digital</h1>
           <p className="news-subtitle">
-            Señales de negocios, tecnología e IA que una pequeña empresa puede
-            convertir en acción esta semana.
+            Guías y señales de tecnología, negocios e IA, escritas para que una
+            pequeña empresa las pueda convertir en acción.
           </p>
         </div>
 

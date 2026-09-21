@@ -26,12 +26,30 @@ En el navegador React "hidrata" ese HTML: la página se ve y se comporta igual q
 | `vercel.json` | `cleanUrls`, redirección de `/news` a `/blog`. Ya no hay rewrites a `index.html`. |
 | `public/og-image.png` | Imagen de previsualización (1200x630) al compartir por WhatsApp o LinkedIn. |
 
+## Dos tipos de artículo
+
+- **Noticia** (por defecto): comenta algo que pasó y enlaza a la fuente original. Los
+  encabezados son "Qué está pasando", "Señales para mirar" y "Cómo convertirlo en acción".
+- **Guía** (`tipo: "guia"`): contenido propio, sin fuente externa. Los encabezados pasan a
+  "De qué se trata", "Lo que hay que entender" y "Por dónde empezar", y no se muestra el
+  enlace de fuente.
+
+**Para que la gente encuentre la web desde Google, las guías rinden mucho más.** Una noticia
+la buscan unos días; una guía como "qué es la transformación digital para una pyme" la buscan
+todo el año. Lo ideal es al menos una guía por cada dos noticias.
+
+Al escribir una guía, el título debe ser lo que alguien escribiría en Google, no un titular
+de periódico. "Herramientas de IA para negocios pequeños" se busca; "La revolución de la IA
+llegó a las pymes" no lo busca nadie.
+
 ## Publicar un artículo nuevo
 
 Agregar un objeto al inicio de `NEWS_ITEMS` en `src/data/news.ts`. Nada más: el HTML propio,
 el título, el Open Graph, los datos estructurados y la entrada del sitemap salen solos.
 
+- `tipo`: `"guia"` para contenido propio; se omite para una noticia con fuente.
 - `slug`: en minúsculas, sin tildes, con guiones. **No se cambia después de publicar.**
+  Que contenga las palabras que alguien buscaría.
 - `date`: formato `2 May 2026` (día, mes de tres letras, año). De ahí sale la fecha para Google.
 - `title`: es el título que aparece en Google. Con tildes y por debajo de ~65 caracteres si se puede.
 - `summary`: es la descripción que aparece en Google (se corta a 158 caracteres).

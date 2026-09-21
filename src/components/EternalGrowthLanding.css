@@ -3273,6 +3273,7 @@
   margin-bottom: 1.8rem;
 }
 
+.news-article-block h2,
 .news-article-block h3 {
   color: #ffffff;
   font-family: 'Space Grotesk', Arial, sans-serif;
@@ -3372,6 +3373,7 @@
 .news-page .news-card h3,
 .news-page .news-article-hero h1,
 .news-page .news-article-hero h2,
+.news-page .news-article-block h2,
 .news-page .news-article-block h3 {
   font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
   text-shadow:

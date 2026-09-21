@@ -16,7 +16,7 @@ const BENEFITS: Benefit[] = [
     ),
     title: "Tecnología que funciona de verdad",
     description:
-      "No usamos plantillas genéricas. Cada web corre en Next.js — rápida y escalable. Cada automatización vive en n8n — flujos reales que trabajan mientras tú atiendes tu negocio.",
+      "No usamos plantillas genéricas. Elegimos la herramienta según lo que tu negocio necesita y construimos sobre ella: webs que cargan rápido y aguantan crecer, y automatizaciones que trabajan mientras tú atiendes tu negocio.",
   },
   {
     icon: (

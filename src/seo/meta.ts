@@ -110,7 +110,7 @@ const ABOUT_META: PageMeta = {
 };
 
 const BLOG_DESCRIPTION =
-  "Noticias de tecnología, negocios e IA explicadas para pymes en Colombia: qué está pasando, qué señales mirar y cómo convertirlo en acción.";
+  "Guías y noticias de tecnología, negocios e IA para pymes en Colombia: transformación digital, herramientas de IA y automatización, explicadas sin tecnicismos.";
 
 const BLOG_META: PageMeta = {
   path: NEWS_BASE_PATH,
