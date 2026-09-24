@@ -18,7 +18,7 @@ const Footer = () => {
         <div className="footer-contact">
           <h3 className="footer-title">Contacto</h3>
           <div className="footer-links">
-            <a className="footer-link" href="mailto:eternalgrowth00@gmail.com">
+            <a className="footer-link" href="mailto:gerencia@eternalgrowth.xyz">
               <svg
                 className="footer-icon"
                 viewBox="0 0 24 24"
@@ -30,7 +30,7 @@ const Footer = () => {
                 <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
                 <polyline points="22,8 12,13 2,8" />
               </svg>
-              eternalgrowth00@gmail.com
+              gerencia@eternalgrowth.xyz
             </a>
             <a
               className="footer-link"

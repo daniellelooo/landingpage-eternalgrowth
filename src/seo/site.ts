@@ -4,7 +4,7 @@ export const SITE = {
   name: "EternalGrowth",
   url: "https://www.eternalgrowth.xyz",
   locale: "es_CO",
-  email: "eternalgrowth00@gmail.com",
+  email: "gerencia@eternalgrowth.xyz",
   city: "Medellín",
   region: "Antioquia",
   country: "CO",

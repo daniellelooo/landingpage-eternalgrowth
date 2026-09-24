@@ -128,7 +128,7 @@ export default async function handler(
   }
 
   const fromEmail = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
-  const toEmail = process.env.CONTACT_TO_EMAIL ?? "eternalgrowth00@gmail.com";
+  const toEmail = process.env.CONTACT_TO_EMAIL ?? "gerencia@eternalgrowth.xyz";
 
   if (isNewsletter) {
     const safeEmail = escapeHtml(email);
@@ -248,7 +248,7 @@ export default async function handler(
       <tr>
         <td class="eg-footer-row" bgcolor="#ffffff" style="padding:16px 32px;background:#ffffff;background-color:#ffffff;border-top:1px solid #f0ebfa;">
           <p style="margin:0;font-size:12px;color:#8a7f9a;-webkit-text-fill-color:#8a7f9a;line-height:1.6;">
-            ¿Tienes preguntas? Escríbenos a <a href="mailto:eternalgrowth00@gmail.com" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">eternalgrowth00@gmail.com</a><br />
+            ¿Tienes preguntas? Escríbenos a <a href="mailto:gerencia@eternalgrowth.xyz" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">gerencia@eternalgrowth.xyz</a><br />
             Síguenos en Instagram: <a href="https://instagram.com/eternalgrowth__" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">@eternalgrowth__</a>
           </p>
         </td>

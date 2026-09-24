@@ -103,7 +103,7 @@ export const buildUserEmail = (payload: ContactPayload) => {
     "Resumen:\n" +
     `Servicio de interes: ${payload.servicio ?? ""}\n` +
     `Empresa: ${payload.empresa ?? ""}\n\n` +
-    "Si necesitas agregar algo, escribenos a eternalgrowth00@gmail.com.\n\n" +
+    "Si necesitas agregar algo, escribenos a gerencia@eternalgrowth.xyz.\n\n" +
     "Equipo EternalGrowth";
 };
 
@@ -152,8 +152,8 @@ export const buildUserEmailHtml = (payload: ContactPayload) => {
           <td bgcolor="#ffffff" style="padding:0 36px 28px;background:#ffffff;background-color:#ffffff;border-top:1px solid #f0ebfa;">
             <p style="margin:0 0 6px;font-size:13px;color:#6b6278;-webkit-text-fill-color:#6b6278;">¿Tienes dudas? Escríbenos directamente:</p>
             <p style="margin:0;font-size:13px;color:#2d233d;-webkit-text-fill-color:#2d233d;">
-              📧 <a href="mailto:eternalgrowth00@gmail.com" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">eternalgrowth00@gmail.com</a><br />
-              📸 <a href="https://instagram.com/eternalgrowth__" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">@eternalgrowth__</a>
+              <a href="mailto:gerencia@eternalgrowth.xyz" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">gerencia@eternalgrowth.xyz</a><br />
+              <a href="https://instagram.com/eternalgrowth__" style="color:#7c3aed;-webkit-text-fill-color:#7c3aed;text-decoration:none;">@eternalgrowth__</a>
             </p>
           </td>
         </tr>
