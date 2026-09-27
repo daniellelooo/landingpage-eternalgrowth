@@ -6,6 +6,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import { NEWS_BASE_PATH, getNewsBySlug } from "./data/news";
 import { SERVICIOS_BASE_PATH, getServicioBySlug } from "./data/servicios";
 import ServicioPage from "./pages/ServicioPage";
+import PortafolioPage from "./pages/PortafolioPage";
+import { PORTAFOLIO_PATH } from "./data/portafolio";
 import { normalizePath } from "./seo/meta";
 
 interface AppProps {
@@ -18,6 +20,7 @@ const renderPage = (path: string) => {
   if (path === "/") return <EternalGrowthLanding />;
   if (path === "/eternalgrowth") return <AboutPage />;
   if (path === NEWS_BASE_PATH) return <NewsPage />;
+  if (path === PORTAFOLIO_PATH) return <PortafolioPage />;
 
   if (path.startsWith(`${SERVICIOS_BASE_PATH}/`)) {
     const servicio = getServicioBySlug(path.slice(SERVICIOS_BASE_PATH.length + 1));

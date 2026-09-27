@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavItem, SectionId } from "../../../types";
 import MedellinClock from "../../MedellinClock";
 import logoImage from "../../../assets/logocorregido-removebg-preview.png";
+import { PORTAFOLIO_PATH } from "../../../data/portafolio";
 
 interface HeaderProps {
   activeSection: SectionId;
@@ -12,6 +13,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: "hero", label: "Inicio" },
   { id: "beneficios", label: "¿Por qué elegirnos?" },
   { id: "servicios", label: "Servicios" },
+  { id: "portafolio", label: "Portafolio", href: PORTAFOLIO_PATH },
   { id: "contacto", label: "Contacto" },
 ];
 
@@ -33,16 +35,27 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
 
         {/* Desktop Navigation */}
         <nav className="header-nav desktop-nav">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={`nav-link ${activeSection === item.id ? "active" : ""}`}
-              onClick={() => onNavigate(item.id as SectionId)}
-            >
-              {item.label}
-            </button>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.href ? (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+                aria-current={activeSection === item.id ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <button
+                key={item.id}
+                type="button"
+                className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+                onClick={() => onNavigate(item.id as SectionId)}
+              >
+                {item.label}
+              </button>
+            ),
+          )}
         </nav>
 
         <div className="header-quick-actions">
@@ -89,19 +102,30 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <nav className="header-nav mobile-nav">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={`nav-link ${activeSection === item.id ? "active" : ""}`}
-              onClick={() => {
-                onNavigate(item.id as SectionId);
-                setIsMobileMenuOpen(false);
-              }}
-            >
-              {item.label}
-            </button>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.href ? (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+                aria-current={activeSection === item.id ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <button
+                key={item.id}
+                type="button"
+                className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+                onClick={() => {
+                  onNavigate(item.id as SectionId);
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                {item.label}
+              </button>
+            ),
+          )}
           <button
             type="button"
             className={`nav-link ${activeSection === "blog" ? "active" : ""}`}

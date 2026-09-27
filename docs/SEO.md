@@ -22,6 +22,8 @@ En el navegador React "hidrata" ese HTML: la página se ve y se comporta igual q
 | `src/seo/meta.ts` | Título, descripción y datos estructurados de cada ruta. Lista de páginas y sitemap. |
 | `src/seo/applyMeta.ts` | Mantiene las etiquetas al día al navegar dentro del blog sin recargar. |
 | `src/data/news.ts` | Los artículos del blog. |
+| `src/data/portafolio.ts` | Los proyectos del portafolio (`/portafolio` y el bloque de la home). |
+| `scripts/capturar-portafolio.mjs` | Toma las capturas de un proyecto del portafolio (se corre a mano). |
 | `scripts/prerender.mjs` | Escribe los HTML, el 404 y el sitemap. |
 | `vercel.json` | `cleanUrls`, redirección de `/news` a `/blog`. Ya no hay rewrites a `index.html`. |
 | `public/og-image.png` | Imagen de previsualización (1200x630) al compartir por WhatsApp o LinkedIn. |
@@ -73,6 +75,29 @@ no la cita nadie.
 Para agregar un servicio: añadir el objeto a `SERVICIOS` y enlazarlo desde la home
 (`src/components/sections/Services/Services.tsx`). Sin ese enlace interno la página existe,
 pero Google la considera menos importante.
+
+## Portafolio
+
+`/portafolio` ("Portafolio de páginas web en Medellín") y el bloque "Webs que ya están en
+línea" de la home salen de `src/data/portafolio.ts`. Dos grupos: proyectos en producción
+(clientes reales) y demos por sector (negocios ficticios, y así se dice en la página y en los
+datos estructurados).
+
+Para agregar un proyecto o una demo:
+
+1. Capturas de la primera pantalla en escritorio (1440) y celular (390), ya en WebP:
+   ```bash
+   npm i --no-save playwright-core sharp
+   node scripts/capturar-portafolio.mjs <slug> <url>
+   ```
+   Usa el Chrome instalado. Mirar las imágenes antes de publicarlas: sin avisos tapando, con
+   las fotos cargadas y sin pantallas negras.
+2. Agregar el objeto a `PROYECTOS` con su `grupo` (`"produccion"` o `"demo"`). El texto de
+   `resultado` dice qué gana el negocio con la web, sin cifras que no se puedan demostrar.
+3. Cambiar `PORTAFOLIO_ACTUALIZADO` a la fecha del cambio: es el `lastmod` del sitemap.
+
+La home muestra los tres primeros proyectos en producción. La imagen al compartir la página
+es `public/og-portafolio.jpg`.
 
 ## Cómo nos encuentran los asistentes de IA
 
@@ -166,5 +191,6 @@ Vercel, pestaña Analytics del proyecto `eternalgrowth`. No usa cookies, no nece
   `https://www.eternalgrowth.xyz/sitemap.xml`. Es lo que hace que Google indexe el sitio.
 - **Google Business Profile**: la ficha, con los datos de
   `Documentacion/eternalgrowth-docs/01-reunion-21-sep/datos-google-business.md`.
-- Paquetes nuevos con precio "desde" y página de casos: cuando se definan. El componente
+- Paquetes nuevos con precio "desde" y casos con cifras: cuando se definan. El portafolio ya
+  muestra los proyectos, pero sin cifras de resultados. El componente
   `src/components/sections/Packages` se conserva sin usar para reutilizar la maqueta.

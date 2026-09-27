@@ -1,0 +1,15 @@
+{
+  "name": "EternalGrowth",
+  "short_name": "EternalGrowth",
+  "description": "Agencia de software en Medellín: desarrollo web, automatización y WhatsApp para pymes.",
+  "lang": "es-CO",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#0a0612",
+  "theme_color": "#0a0612",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

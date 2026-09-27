@@ -4,6 +4,9 @@ export interface NavItem {
   id: string;
   label: string;
   icon?: string;
+  // Página aparte (no una sección de la home): se pinta como enlace real para
+  // que Google lo siga.
+  href?: string;
 }
 
 export interface ServiceCard {
@@ -29,4 +32,5 @@ export type SectionId =
   | "servicios"
   | "paquetes"
   | "blog"
+  | "portafolio"
   | "contacto";

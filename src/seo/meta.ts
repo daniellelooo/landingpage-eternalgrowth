@@ -5,6 +5,12 @@ import {
   getNewsBySlug,
 } from "../data/news";
 import { SERVICIOS, SERVICIOS_BASE_PATH, getServicioBySlug } from "../data/servicios";
+import {
+  PORTAFOLIO_ACTUALIZADO,
+  PORTAFOLIO_PATH,
+  PROYECTOS,
+  imagenesDe,
+} from "../data/portafolio";
 import { SITE, absoluteUrl } from "./site";
 
 export type PageMeta = {
@@ -14,6 +20,8 @@ export type PageMeta = {
   ogType: "website" | "article";
   image: string;
   imageAlt: string;
+  // Solo cuando la imagen no es la general (que ya se sabe que mide 1200x630).
+  imageSize?: { width: number; height: number };
   noindex?: boolean;
   jsonLd: Record<string, unknown>[];
 };
@@ -138,6 +146,64 @@ const BLOG_META: PageMeta = {
         url: absoluteUrl(`${NEWS_BASE_PATH}/${item.slug}`),
         datePublished: getIsoDateFromNewsDate(item.date),
       })),
+    },
+  ],
+};
+
+const PORTAFOLIO_DESCRIPTION =
+  "Webs que EternalGrowth desarrolló para negocios de Medellín y Bello: un taller, una tienda de tecnología y una tienda táctica, más demos por sector.";
+
+const PORTAFOLIO_META: PageMeta = {
+  path: PORTAFOLIO_PATH,
+  title: "Portafolio de páginas web en Medellín | EternalGrowth",
+  description: PORTAFOLIO_DESCRIPTION,
+  ogType: "website",
+  image: "/og-portafolio.jpg",
+  imageAlt: "Portafolio de EternalGrowth: capturas de webs hechas para negocios de Medellín",
+  imageSize: { width: 1200, height: 630 },
+  jsonLd: [
+    organizationJsonLd,
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Portafolio de páginas web en Medellín",
+      description: PORTAFOLIO_DESCRIPTION,
+      url: absoluteUrl(PORTAFOLIO_PATH),
+      inLanguage: "es-CO",
+      dateModified: PORTAFOLIO_ACTUALIZADO,
+      about: { "@id": ORGANIZATION_ID },
+      mainEntity: {
+        "@type": "ItemList",
+        itemListElement: PROYECTOS.map((proyecto, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "WebSite",
+            // Las demos lo dicen también aquí: no son negocios reales.
+            name:
+              proyecto.grupo === "demo"
+                ? `${proyecto.nombre} (sitio de demostración)`
+                : proyecto.nombre,
+            url: proyecto.url,
+            description: proyecto.resultado,
+            image: absoluteUrl(imagenesDe(proyecto).escritorio.grande),
+            creator: { "@id": ORGANIZATION_ID },
+          },
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Portafolio",
+          item: absoluteUrl(PORTAFOLIO_PATH),
+        },
+      ],
     },
   ],
 };
@@ -277,6 +343,7 @@ export const getPageMeta = (pathname: string): PageMeta | null => {
   if (path === "/") return HOME_META;
   if (path === "/eternalgrowth") return ABOUT_META;
   if (path === NEWS_BASE_PATH) return BLOG_META;
+  if (path === PORTAFOLIO_PATH) return PORTAFOLIO_META;
   if (path.startsWith(`${SERVICIOS_BASE_PATH}/`)) {
     return getServicioMeta(path.slice(SERVICIOS_BASE_PATH.length + 1));
   }
@@ -292,13 +359,15 @@ export const getPageMeta = (pathname: string): PageMeta | null => {
 export const getAllPaths = (): string[] => [
   "/",
   "/eternalgrowth",
+  PORTAFOLIO_PATH,
   ...SERVICIOS.map((servicio) => `${SERVICIOS_BASE_PATH}/${servicio.slug}`),
   NEWS_BASE_PATH,
   ...NEWS_ITEMS.map((item) => `${NEWS_BASE_PATH}/${item.slug}`),
 ];
 
-// Entradas del sitemap. Solo los artículos llevan fecha: es la única que es
-// verdad. Poner la fecha del build en todo le diría a Google que todo cambió.
+// Entradas del sitemap. Solo llevan fecha las páginas que la tienen de verdad
+// (los artículos y el portafolio, que la anota en src/data/portafolio.ts).
+// Poner la fecha del build en todo le diría a Google que todo cambió.
 export const getSitemapEntries = (): { path: string; lastmod?: string }[] => {
   const articleDates = NEWS_ITEMS.map((item) => getIsoDateFromNewsDate(item.date));
   const newest = [...articleDates].sort().at(-1);
@@ -306,6 +375,7 @@ export const getSitemapEntries = (): { path: string; lastmod?: string }[] => {
   return [
     { path: "/" },
     { path: "/eternalgrowth" },
+    { path: PORTAFOLIO_PATH, lastmod: PORTAFOLIO_ACTUALIZADO },
     ...SERVICIOS.map((servicio) => ({
       path: `${SERVICIOS_BASE_PATH}/${servicio.slug}`,
     })),
@@ -344,8 +414,8 @@ export const renderHeadTags = (meta: PageMeta): string => {
     `<meta property="og:title" content="${title}" />`,
     `<meta property="og:description" content="${description}" />`,
     `<meta property="og:image" content="${escapeHtml(image)}" />`,
-    meta.image === SITE.ogImage
-      ? `<meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />`
+    meta.image === SITE.ogImage || meta.imageSize
+      ? `<meta property="og:image:width" content="${meta.imageSize?.width ?? 1200}" />\n    <meta property="og:image:height" content="${meta.imageSize?.height ?? 630}" />`
       : "",
     `<meta property="og:image:alt" content="${escapeHtml(meta.imageAlt)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,

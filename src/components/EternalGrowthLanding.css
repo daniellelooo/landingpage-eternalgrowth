@@ -4122,3 +4122,43 @@
   opacity: 1;
   animation: none;
 }
+
+/* Opciones del menú que son una página aparte (Portafolio): van como enlace
+   real para que Google las siga, con el mismo aspecto que los botones. */
+a.nav-link {
+  display: inline-flex;
+  align-items: center;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.desktop-nav .nav-link {
+  white-space: nowrap;
+}
+
+/* Entre 969 px (donde aparece el menú de escritorio) y 1200 px las opciones no
+   cabían: "¿Por qué elegirnos?" se partía en dos líneas y el header se salía
+   de la pantalla. Se reduce el aire entre opciones y, hasta 1100 px, se oculta
+   el reloj, que es decorativo. */
+@media (min-width: 969px) and (max-width: 1200px) {
+  .header-container {
+    gap: 1.25rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .desktop-nav .nav-link {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 969px) and (max-width: 1100px) {
+  .header-clock {
+    display: none;
+  }
+
+  .desktop-nav .nav-link {
+    padding: 0.7rem 0.6rem;
+  }
+}
