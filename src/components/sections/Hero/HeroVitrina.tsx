@@ -1,60 +1,122 @@
 import { PROYECTOS, ProyectoPortafolio } from "../../../data/portafolio";
-import { AccionesHero, QueHacemos } from "./HeroComun";
+import { AccionesHero, ListaServicios, Subrayado } from "./HeroComun";
 
 // Concepto A, "Vitrina": el trabajo real es el hero. Una cinta de webs que
-// hicimos cruza la pantalla en diagonal, de borde a borde, y avanza despacio.
-// Una nota escrita a mano en neón dice de quién son.
+// hicimos cruza la pantalla inclinada, de borde a borde, y avanza despacio.
+// Encima, notas escritas a mano en neón señalan en tres de ellas lo que hace
+// la web por el negocio (la agenda, el pedido, el software).
+
+// Marca a mano sobre una zona de la captura, en % de la captura.
+interface Marca {
+  forma: "circulo" | "ovalo";
+  x: number;
+  y: number;
+  ancho: number;
+  alto: number;
+  nota: string;
+}
 
 interface Pieza {
   slug: string;
   formato: "escritorio" | "celular";
   que: string;
+  marca?: Marca;
 }
 
-// Orden pensado para alternar colores fuertes (menta, azul, negro, crema) y
-// formatos (pantalla ancha y celular).
+// Orden pensado para alternar colores (menta, azul, negro, crema) y formatos.
+// Cada celular se monta un poco sobre la pantalla anterior.
 const PIEZAS: Pieza[] = [
-  { slug: "arrayan-veterinaria", formato: "escritorio", que: "Agenda de citas" },
+  {
+    slug: "arrayan-veterinaria",
+    formato: "escritorio",
+    que: "Agenda de citas",
+    marca: { forma: "ovalo", x: 8, y: 72, ancho: 36, alto: 24, nota: "agenda en línea" },
+  },
   { slug: "ceiba-psicologia", formato: "celular", que: "Consultorio" },
   { slug: "techverse", formato: "escritorio", que: "Tienda con configurador" },
-  { slug: "floristeria-alheli", formato: "celular", que: "Pedidos por WhatsApp" },
-  { slug: "movo", formato: "escritorio", que: "Software a medida" },
-  { slug: "reno-motriz", formato: "escritorio", que: "Agenda del taller" },
   { slug: "piston-motoservicio", formato: "celular", que: "Taller de motos" },
+  {
+    slug: "floristeria-alheli",
+    formato: "escritorio",
+    que: "Catálogo",
+    marca: { forma: "circulo", x: 89.5, y: 86, ancho: 11, alto: 17, nota: "pedidos por WhatsApp" },
+  },
+  {
+    slug: "movo",
+    formato: "escritorio",
+    que: "Software para talleres",
+    marca: { forma: "ovalo", x: 18, y: 74, ancho: 78, alto: 30, nota: "software a medida" },
+  },
+  { slug: "reno-motriz", formato: "escritorio", que: "Agenda del taller" },
   { slug: "bunker-force", formato: "escritorio", que: "Tienda en línea" },
 ];
 
 const proyectoDe = (slug: string) =>
   PROYECTOS.find((p) => p.slug === slug) as ProyectoPortafolio;
 
+// Trazos a mano: un óvalo que no cierra del todo y un círculo apretado.
+const TRAZO_MARCA = {
+  ovalo: "M52 3 C 20 2, 3 14, 4 30 C 5 48, 30 58, 56 57 C 82 56, 98 44, 97 28 C 96 12, 74 3, 44 6",
+  circulo: "M50 4 C 22 3, 4 20, 5 36 C 6 54, 28 58, 52 57 C 78 56, 96 42, 95 26 C 94 10, 70 1, 38 8",
+};
+
 const Captura = ({ pieza, primera }: { pieza: Pieza; primera: boolean }) => {
   const proyecto = proyectoDe(pieza.slug);
   const base = `/portafolio/${proyecto.imagen}`;
   const esCelular = pieza.formato === "celular";
+  const { marca } = pieza;
   return (
     // Nombres de clase completos: PurgeCSS borra los que se arman por partes.
     <figure className={esCelular ? "vitrina-pieza vitrina-pieza--celular" : "vitrina-pieza vitrina-pieza--escritorio"}>
-      <div className="vitrina-marco">
-        <img
-          src={esCelular ? `${base}-celular-200.webp` : `${base}-escritorio-640.webp`}
-          srcSet={
-            esCelular
-              ? `${base}-celular-200.webp 200w, ${base}-celular-400.webp 400w`
-              : `${base}-escritorio-640.webp 640w, ${base}-escritorio-1080.webp 1080w`
-          }
-          sizes={esCelular ? "(min-width: 900px) 170px, 118px" : "(min-width: 900px) 440px, 300px"}
-          width={esCelular ? 390 : 1440}
-          height={esCelular ? 844 : 900}
-          alt={primera ? proyecto.alt : ""}
-          loading={primera ? "eager" : "lazy"}
-          decoding="async"
-        />
+      <div className="vitrina-lienzo">
+        <div className="vitrina-marco">
+          <img
+            src={esCelular ? `${base}-celular-200.webp` : `${base}-escritorio-640.webp`}
+            srcSet={
+              esCelular
+                ? `${base}-celular-200.webp 200w, ${base}-celular-400.webp 400w`
+                : `${base}-escritorio-640.webp 640w, ${base}-escritorio-1080.webp 1080w`
+            }
+            sizes={esCelular ? "(min-width: 900px) 170px, 118px" : "(min-width: 900px) 460px, 320px"}
+            width={esCelular ? 390 : 1440}
+            height={esCelular ? 844 : 900}
+            alt={primera ? proyecto.alt : ""}
+            loading={primera ? "eager" : "lazy"}
+            decoding="async"
+          />
+        </div>
+        {marca && (
+          <svg
+            className="trazo vitrina-marca"
+            viewBox="0 0 100 60"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            style={{
+              left: `${marca.x}%`,
+              top: `${marca.y}%`,
+              width: `${marca.ancho}%`,
+              height: `${marca.alto}%`,
+            }}
+          >
+            <path d={TRAZO_MARCA[marca.forma]} pathLength={1} />
+          </svg>
+        )}
       </div>
       <figcaption>
         <span className="vitrina-nombre">{proyecto.nombre}</span>
-        <span className="vitrina-que">
-          {proyecto.naturaleza === "demo" ? `Demo · ${pieza.que}` : pieza.que}
-        </span>
+        {marca ? (
+          <span className="vitrina-nota-pieza">
+            <svg className="trazo" viewBox="0 0 30 26" aria-hidden="true">
+              <path d="M24 24 C 12 22, 6 14, 7 3" pathLength={1} />
+              <path d="M2 9 L 7 2 L 12 8" pathLength={1} />
+            </svg>
+            {marca.nota}
+          </span>
+        ) : (
+          <span className="vitrina-que">
+            {proyecto.naturaleza === "demo" ? `Demo · ${pieza.que}` : pieza.que}
+          </span>
+        )}
       </figcaption>
     </figure>
   );
@@ -64,7 +126,11 @@ const HeroVitrina = () => (
   <section id="hero" className="hero hero--vitrina" aria-labelledby="hero-titulo">
     <div className="vitrina-cabeza">
       <h1 id="hero-titulo" className="hero-titulo vitrina-titulo">
-        Así se ve un negocio de Medellín cuando llega a internet.
+        Tu local cierra a las 7. Tu web{" "}
+        <span className="con-trazo">
+          sigue atendiendo.
+          <Subrayado />
+        </span>
       </h1>
     </div>
 
@@ -87,16 +153,17 @@ const HeroVitrina = () => (
       <div className="vitrina-nota" aria-hidden="true">
         <span>todas estas las hicimos nosotros</span>
         <svg viewBox="0 0 100 130" className="trazo">
-          <path d="M6 10 C 52 4, 86 34, 82 118" />
-          <path d="M70 104 L 82 120 L 94 102" />
+          <path d="M6 10 C 52 4, 86 34, 82 118" pathLength={1} />
+          <path d="M70 104 L 82 120 L 94 102" pathLength={1} />
         </svg>
       </div>
     </div>
 
     <div className="vitrina-pie">
-      <QueHacemos className="hero-texto vitrina-texto">
-        El primer paso es un diagnóstico gratuito.
-      </QueHacemos>
+      <p className="hero-texto vitrina-texto">
+        Te encuentran en Google, ven tus precios y agendan o piden sin esperar a que
+        contestes. Hacemos <ListaServicios /> para negocios de Medellín.
+      </p>
       <AccionesHero />
     </div>
   </section>

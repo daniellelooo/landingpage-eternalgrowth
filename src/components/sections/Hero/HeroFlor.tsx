@@ -1,202 +1,192 @@
-import { useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 import { PROYECTOS, ProyectoPortafolio } from "../../../data/portafolio";
-import { AccionesHero, QueHacemos } from "./HeroComun";
+import { AccionesHero, ListaServicios } from "./HeroComun";
 
-// Concepto C, "La flor": el isotipo de la marca dibujado grande, y los píxeles
-// en que se deshace la flor siguen subiendo hasta convertirse en proyectos
-// reales. Es el logo contando lo que hace la empresa: algo que crece y se
-// vuelve digital.
+// Concepto C, "La flor": el isotipo de la marca, tal cual viene en el manual
+// (el PNG de 348 x 527, sin redibujar ni estirar), y los píxeles de su corola
+// siguen subiendo por la misma retícula hasta volverse proyectos reales.
+//
+// Todo se mide en píxeles del isotipo original. La corola está en una
+// retícula que empieza en x = 191, y = 0, con paso 39,75 y cuadros de 37,5
+// (medido sobre el archivo). Los proyectos ocupan 2x2, 3x3 o 4x3 celdas de esa
+// misma retícula, así que parecen píxeles de la flor que crecieron.
+//
+// Hay dos composiciones: escritorio (flor abajo a la izquierda y la escalera
+// subiendo en diagonal) y celular (más ancha que alta, menos proyectos y más
+// grandes). Ninguna pieza sale de la escena: la escena mide lo que ocupan
+// entre todas y se ajusta a la pantalla sin recortarse.
 
-// La escena mide 700 x 700 unidades; todo se posiciona en porcentaje de ella.
-const ESCENA = 700;
-// La flor (el isotipo mide 348 x 527) va con la esquina en este punto; el
-// tallo se sale por abajo.
-const FLOR_X = 40;
-const FLOR_Y = 300;
+const ISO_ANCHO = 348;
+const ISO_ALTO = 527;
+const ORIGEN_X = 191;
+const PASO = 39.75;
+const HUECO = PASO - 37.5;
 
-// Los proyectos siguen la misma retícula de los píxeles del logo (paso de 40,
-// cuadro de 36), medidos desde la esquina de la flor. Un proyecto ocupa 2x2,
-// 3x3 o 4x4 cuadros: la flor se deshace en píxeles cada vez más grandes.
-const PASO = 40;
-const cuadros = (n: number) => n * PASO - 4;
+interface Escena {
+  // Columnas a la derecha del origen de la corola y filas por encima de la flor.
+  columnas: number;
+  filasArriba: number;
+}
+
+const ESCRITORIO: Escena = { columnas: 15, filasArriba: 6 };
+const CELULAR: Escena = { columnas: 10, filasArriba: 4 };
+
+const medidas = (e: Escena) => ({
+  ancho: ORIGEN_X + e.columnas * PASO,
+  alto: e.filasArriba * PASO + ISO_ALTO,
+  florY: e.filasArriba * PASO,
+});
+
+const M_ESC = medidas(ESCRITORIO);
+const M_CEL = medidas(CELULAR);
+
+// Una celda (c, r) de la retícula: c desde la primera columna de la corola,
+// r desde la primera fila (r negativa = por encima de la flor).
+interface Lugar {
+  c: number;
+  r: number;
+  w: number;
+  h: number;
+}
 
 interface Tesela {
   slug: string;
-  col: number;
-  fila: number;
-  n: number;
-  // Qué parte de la captura se ve en el cuadro.
   foco: string;
+  escritorio?: Lugar;
+  celular?: Lugar;
 }
 
+// Escritorio: los proyectos crecen hacia arriba y a la derecha (el más grande,
+// arriba del todo). Celular: dos proyectos grandes junto a la corola.
 const TESELAS: Tesela[] = [
-  { slug: "floristeria-alheli", col: 312, fila: -80, n: 2, foco: "56% 90%" },
-  { slug: "movo", col: 232, fila: -160, n: 2, foco: "40% 60%" },
-  { slug: "ceiba-psicologia", col: 392, fila: -200, n: 3, foco: "90% 60%" },
-  { slug: "arrayan-veterinaria", col: 512, fila: -80, n: 4, foco: "82% 62%" },
-  { slug: "piston-motoservicio", col: 432, fila: -280, n: 2, foco: "16% 64%" },
-  { slug: "techverse", col: 632, fila: -240, n: 3, foco: "72% 88%" },
-  { slug: "reno-motriz", col: 432, fila: 40, n: 2, foco: "28% 42%" },
-  { slug: "bunker-force", col: 192, fila: -240, n: 2, foco: "92% 70%" },
+  { slug: "arrayan-veterinaria", foco: "84% 60%", escritorio: { c: 9, r: -6, w: 6, h: 4 }, celular: { c: 4, r: -4, w: 6, h: 4 } },
+  { slug: "ceiba-psicologia", foco: "88% 56%", escritorio: { c: 5, r: -6, w: 3, h: 4 } },
+  { slug: "techverse", foco: "70% 86%", escritorio: { c: 10, r: -1, w: 5, h: 3 }, celular: { c: 4, r: 1, w: 6, h: 4 } },
+  { slug: "movo", foco: "40% 58%", escritorio: { c: 5, r: -1, w: 4, h: 3 } },
+  { slug: "floristeria-alheli", foco: "55% 92%", escritorio: { c: 5, r: 3, w: 3, h: 3 } },
+  { slug: "reno-motriz", foco: "30% 40%", escritorio: { c: 9, r: 3, w: 4, h: 3 } },
 ];
 
-// Píxeles sueltos del tamaño de los del logo, entre la flor y los proyectos.
-const PIXELES_SUELTOS = [
-  { col: 352, fila: -120 },
-  { col: 472, fila: -40 },
-  { col: 552, fila: -160 },
-  { col: 312, fila: -200 },
+// Píxeles sueltos del tamaño de los del logo, entre la corola y los proyectos.
+const PIXELES: { escritorio?: [number, number]; celular?: [number, number]; lila: boolean }[] = [
+  { escritorio: [4, -1], celular: [3, -1], lila: true },
+  { escritorio: [3, -2], celular: [2, -2], lila: false },
+  { escritorio: [4, -3], celular: [3, -3], lila: false },
+  { escritorio: [8, -2], lila: true },
+  { escritorio: [4, 1], lila: false },
+  { escritorio: [9, 2], lila: false },
 ];
 
-const pct = (valor: number) => `${(valor / ESCENA) * 100}%`;
+const pct = (valor: number, total: number) => `${((valor / total) * 100).toFixed(3)}%`;
+
+// Variables CSS con la posición en cada composición.
+const posicion = (esc?: Lugar, cel?: Lugar): CSSProperties => {
+  const estilo: Record<string, string> = {};
+  if (esc) {
+    estilo["--x"] = pct(ORIGEN_X + esc.c * PASO, M_ESC.ancho);
+    estilo["--y"] = pct(M_ESC.florY + esc.r * PASO, M_ESC.alto);
+    estilo["--w"] = pct(esc.w * PASO - HUECO, M_ESC.ancho);
+    estilo["--ar"] = `${esc.w * PASO - HUECO} / ${esc.h * PASO - HUECO}`;
+  }
+  if (cel) {
+    estilo["--xm"] = pct(ORIGEN_X + cel.c * PASO, M_CEL.ancho);
+    estilo["--ym"] = pct(M_CEL.florY + cel.r * PASO, M_CEL.alto);
+    estilo["--wm"] = pct(cel.w * PASO - HUECO, M_CEL.ancho);
+    estilo["--arm"] = `${cel.w * PASO - HUECO} / ${cel.h * PASO - HUECO}`;
+  }
+  return estilo as CSSProperties;
+};
+
+const clasesDe = (base: string, esc?: Lugar | [number, number], cel?: Lugar | [number, number]) =>
+  [base, esc ? "" : "flor-no-escritorio", cel ? "" : "flor-no-celular"].filter(Boolean).join(" ");
+
 const proyectoDe = (slug: string) =>
   PROYECTOS.find((p) => p.slug === slug) as ProyectoPortafolio;
 
-// El isotipo, redibujado en vector a partir del PNG del manual (348 x 527):
-// hoja superior, capullo lila recortado en damero y los píxeles que suben.
-const Isotipo = () => (
-  <svg
-    className="flor-isotipo"
-    viewBox="0 0 348 527"
-    aria-hidden="true"
-    style={{
-      left: pct(FLOR_X),
-      top: pct(FLOR_Y),
-      width: pct(348),
-    }}
-  >
-    <defs>
-      <clipPath id="flor-capullo">
-        {/* Todo menos el cuadrante que se deshace en píxeles, y los tres
-            cuadros del damero que siguen siendo capullo. */}
-        <path d="M0 200 H188 V0 H0 Z" />
-        <path d="M0 200 H348 V527 H0 Z" />
-        <rect x="188" y="160" width="44" height="40" />
-        <rect x="232" y="120" width="36" height="40" />
-        <rect x="272" y="160" width="40" height="40" />
-      </clipPath>
-    </defs>
-    <circle cx="202" cy="228" r="106" className="flor-lila" clipPath="url(#flor-capullo)" />
-    <rect x="312" y="120" width="36" height="36" className="flor-lila" />
-    <rect x="272" y="160" width="36" height="36" className="flor-lila" />
-    <rect x="232" y="120" width="36" height="36" className="flor-lila" />
-    <rect x="272" y="0" width="36" height="36" className="flor-bruma" />
-    <rect x="232" y="40" width="36" height="36" className="flor-bruma" />
-    <rect x="312" y="40" width="36" height="36" className="flor-bruma" />
-    <rect x="192" y="80" width="36" height="36" className="flor-bruma" />
-    <rect x="272" y="80" width="36" height="36" className="flor-bruma" />
-    <path className="flor-bruma" d="M36 158 C 120 168, 182 236, 186 324 C 108 318, 42 262, 36 158 Z" />
-    <path className="flor-bruma" d="M4 328 C 92 330, 166 384, 182 466 C 98 470, 18 422, 4 328 Z" />
-    <path className="flor-bruma" d="M344 328 C 256 330, 182 384, 166 466 C 250 470, 330 422, 344 328 Z" />
-    <rect x="160" y="318" width="28" height="209" className="flor-bruma" />
-  </svg>
-);
+const estiloEscena: CSSProperties = {
+  ["--ancho" as string]: M_ESC.ancho,
+  ["--alto" as string]: M_ESC.alto,
+  ["--flor-x" as string]: "0%",
+  ["--flor-y" as string]: pct(M_ESC.florY, M_ESC.alto),
+  ["--flor-w" as string]: pct(ISO_ANCHO, M_ESC.ancho),
+  ["--ancho-m" as string]: M_CEL.ancho,
+  ["--alto-m" as string]: M_CEL.alto,
+  ["--flor-y-m" as string]: pct(M_CEL.florY, M_CEL.alto),
+  ["--flor-w-m" as string]: pct(ISO_ANCHO, M_CEL.ancho),
+};
 
-const HeroFlor = () => {
-  const escenaRef = useRef<HTMLDivElement>(null);
+const HeroFlor = () => (
+  <section id="hero" className="hero hero--flor" aria-labelledby="hero-titulo">
+    <div className="flor-texto">
+      <h1 id="hero-titulo" className="hero-titulo flor-titulo">
+        Tu negocio ya creció en el barrio. Ahora, en internet.
+      </h1>
+      <p className="hero-texto flor-parrafo">
+        Hacemos <ListaServicios /> para que te encuentre quien ya te está buscando en
+        Medellín.
+      </p>
+      <AccionesHero />
+    </div>
 
-  // Con mouse, los proyectos se corren unos píxeles según la profundidad
-  // (los grandes, más), como si estuvieran por delante de la flor.
-  useEffect(() => {
-    const escena = escenaRef.current;
-    if (!escena) return;
-    const conMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const sinMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!conMouse || sinMovimiento) return;
+    <div className="flor-marco">
+      <div className="flor-escena" style={estiloEscena}>
+        <img
+          className="flor-isotipo"
+          src="/marca/isotipo-color.webp"
+          width={ISO_ANCHO}
+          height={ISO_ALTO}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+        />
 
-    let cuadro = 0;
-    const alMover = (evento: PointerEvent) => {
-      cancelAnimationFrame(cuadro);
-      cuadro = requestAnimationFrame(() => {
-        const x = evento.clientX / window.innerWidth - 0.5;
-        const y = evento.clientY / window.innerHeight - 0.5;
-        escena.style.setProperty("--mx", x.toFixed(3));
-        escena.style.setProperty("--my", y.toFixed(3));
-      });
-    };
-    window.addEventListener("pointermove", alMover, { passive: true });
-    return () => {
-      window.removeEventListener("pointermove", alMover);
-      cancelAnimationFrame(cuadro);
-    };
-  }, []);
-
-  return (
-    <section id="hero" className="hero hero--flor" aria-labelledby="hero-titulo">
-      <div className="flor-texto">
-        <h1 id="hero-titulo" className="hero-titulo flor-titulo">
-          Hacemos crecer negocios de Medellín en internet.
-        </h1>
-        <QueHacemos className="hero-texto flor-parrafo">
-          <span className="solo-escritorio">
-            Empieza con un diagnóstico gratuito: te decimos qué te conviene y qué no.
-          </span>
-        </QueHacemos>
-        <AccionesHero />
-      </div>
-
-      <div className="flor-marco">
-        <div className="flor-escena" ref={escenaRef}>
-          <Isotipo />
-
-          {PIXELES_SUELTOS.map((p, i) => (
+        {PIXELES.map((p, i) => {
+          const lugar = (x?: [number, number]) => (x ? { c: x[0], r: x[1], w: 1, h: 1 } : undefined);
+          return (
             <span
               key={i}
-              className="flor-pixel"
+              className={clasesDe(`flor-pixel${p.lila ? " flor-pixel--lila" : ""}`, p.escritorio, p.celular)}
               aria-hidden="true"
-              style={{
-                left: pct(FLOR_X + p.col),
-                top: pct(FLOR_Y + p.fila),
-                width: pct(cuadros(1)),
-                ["--orden" as string]: i,
-              }}
+              style={{ ...posicion(lugar(p.escritorio), lugar(p.celular)), ["--orden" as string]: i }}
             />
-          ))}
+          );
+        })}
 
-          <ul className="flor-teselas" aria-label="Algunos proyectos nuestros">
-            {TESELAS.map((t, i) => {
-              const proyecto = proyectoDe(t.slug);
-              const base = `/portafolio/${proyecto.imagen}`;
-              return (
-                <li
-                  key={t.slug}
-                  className="flor-tesela"
-                  style={{
-                    left: pct(FLOR_X + t.col),
-                    top: pct(FLOR_Y + t.fila),
-                    width: pct(cuadros(t.n)),
-                    ["--orden" as string]: i + 2,
-                    ["--hondo" as string]: (t.n / 4).toFixed(2),
-                  }}
-                >
-                  <img
-                    src={`${base}-escritorio-640.webp`}
-                    width={640}
-                    height={400}
-                    alt={proyecto.alt}
-                    style={{ objectPosition: t.foco }}
-                    loading={t.n > 2 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                  <span className="flor-tesela-nombre" aria-hidden="true">
-                    {proyecto.nombre}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
+        <ul className="flor-teselas" aria-label="Algunos proyectos nuestros">
+          {TESELAS.map((t, i) => {
+            const proyecto = proyectoDe(t.slug);
+            return (
+              <li
+                key={t.slug}
+                className={clasesDe("flor-tesela", t.escritorio, t.celular)}
+                style={{ ...posicion(t.escritorio, t.celular), ["--orden" as string]: i + 3 }}
+              >
+                <img
+                  src={`/portafolio/${proyecto.imagen}-escritorio-640.webp`}
+                  width={640}
+                  height={400}
+                  alt={proyecto.alt}
+                  style={{ objectPosition: t.foco }}
+                  decoding="async"
+                />
+                <span className="flor-tesela-nombre" aria-hidden="true">
+                  {proyecto.nombre}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
 
-          <div className="flor-nota" aria-hidden="true">
-            <span>cada píxel es un proyecto real</span>
-            <svg viewBox="0 0 90 60" className="trazo">
-              <path d="M4 8 C 30 50, 62 50, 84 22" />
-              <path d="M70 20 L 85 20 L 84 36" />
-            </svg>
-          </div>
+        <div className="flor-nota" aria-hidden="true">
+          <span>cada píxel es un proyecto real</span>
+          <svg viewBox="0 0 90 60" className="trazo">
+            <path d="M4 8 C 30 50, 62 50, 84 22" pathLength={1} />
+            <path d="M70 20 L 85 20 L 84 36" pathLength={1} />
+          </svg>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default HeroFlor;

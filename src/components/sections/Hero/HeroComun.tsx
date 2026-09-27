@@ -1,20 +1,18 @@
-import type { ReactNode } from "react";
 import { PORTAFOLIO_PATH } from "../../../data/portafolio";
 import { scrollToSection } from "../../../utils/helpers";
 
-// Lo que hace Eternal, dicho en una frase y con cada servicio enlazado a su
-// página (Google sigue esos enlaces desde la primera pantalla). Va como texto
-// corrido, no como fila de etiquetas.
-export const QueHacemos = ({ className, children }: { className: string; children?: ReactNode }) => (
-  <p className={className}>
-    Hacemos <a href="/servicios/desarrollo-web-medellin">páginas web</a>,{" "}
+// Los cinco servicios, cada uno enlazado a su página (Google sigue esos
+// enlaces desde la primera pantalla). Va dentro de una frase, no como fila de
+// etiquetas: "... páginas web, software a medida, tu ficha de Google Business,
+// automatizaciones y campañas en Meta Ads ...".
+export const ListaServicios = () => (
+  <>
+    <a href="/servicios/desarrollo-web-medellin">páginas web</a>,{" "}
     <a href="/servicios/transformacion-digital-medellin">software a medida</a>, tu ficha de{" "}
     <a href="/servicios/marketing-digital-medellin">Google Business</a>,{" "}
     <a href="/servicios/automatizacion-procesos-medellin">automatizaciones</a> y campañas en{" "}
-    <a href="/servicios/marketing-digital-medellin">Meta Ads</a> para negocios locales de
-    Medellín.{children ? " " : ""}
-    {children}
-  </p>
+    <a href="/servicios/marketing-digital-medellin">Meta Ads</a>
+  </>
 );
 
 // Una sola acción principal (el diagnóstico) y el portafolio como enlace al
@@ -32,4 +30,11 @@ export const AccionesHero = ({ className = "" }: { className?: string }) => (
       Ver el portafolio
     </a>
   </div>
+);
+
+// Subrayado hecho a mano, en neón, bajo una frase del titular.
+export const Subrayado = () => (
+  <svg className="trazo subrayado" viewBox="0 0 300 18" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M3 12 C 60 5, 130 4, 200 8 S 280 13, 297 6" />
+  </svg>
 );
