@@ -185,9 +185,12 @@
   color: rgba(245, 239, 255, 0.78);
 }
 
+/* Viñetas de las etiquetas: puntos redondos (Daniel prefiere puntos a
+   cuadros, guiones o rombos en un listado). */
 .proyecto-etiquetas .pixel {
   width: 6px;
   height: 6px;
+  border-radius: 50%;
   background: rgba(139, 92, 246, 0.8);
 }
 
