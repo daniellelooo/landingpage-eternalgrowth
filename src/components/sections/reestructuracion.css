@@ -69,62 +69,11 @@
   margin: 0 0 2rem;
 }
 
-/* --- Hero: fila de servicios y flor que sigue al puntero --------------------- */
+/* --- Flor de fondo: sigue al puntero unos píxeles --------------------------- */
 
 .eternal-growth-container .background-logo {
-  transform: translate(
-    calc(-50% + var(--px, 0px)),
-    calc(-50% + var(--sy, 0px) + var(--py, 0px))
-  );
+  transform: translate(calc(-50% + var(--px, 0px)), calc(-50% + var(--py, 0px)));
   transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.hero-servicios {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.4rem 1.6rem;
-  max-width: 980px;
-  margin-top: 0.5rem;
-  position: relative;
-  z-index: 10;
-}
-
-.hero-servicios a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.35rem 0;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.72);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.hero-servicios .pixel {
-  width: 6px;
-  height: 6px;
-  background: rgba(139, 92, 246, 0.75);
-  transition: box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.hero-servicios a:hover,
-.hero-servicios a:focus-visible {
-  color: #fff;
-}
-
-.hero-servicios a:hover .pixel,
-.hero-servicios a:focus-visible .pixel {
-  background: var(--lila);
-  box-shadow: var(--neon);
-}
-
-.hero-servicios a:focus-visible {
-  outline: 2px solid var(--lila);
-  outline-offset: 4px;
-  border-radius: 2px;
 }
 
 /* --- ¿Por qué elegirnos?: dos columnas, razones en filas ------------------- */
@@ -689,11 +638,6 @@
     left: 0;
     top: 0;
     margin: 0;
-  }
-
-  .hero-servicios {
-    gap: 0.2rem 1.1rem;
-    padding: 0 1rem;
   }
 }
 

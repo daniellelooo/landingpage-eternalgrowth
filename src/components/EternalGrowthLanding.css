@@ -23,35 +23,6 @@
   font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Global Effects Layer - Constrain to hero only */
-.global-effects {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
-  animation: efectos-entrada 0.6s ease-out both;
-}
-
-@keyframes efectos-entrada {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Hero Section */
-.hero-section {
-  position: relative;
-  width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #1a0e28 0%, #120a1a 100%);
-  padding-top: 50px; /* Space for fixed header (reduced) */
-  padding-bottom: 6rem; /* Keep space for scroll indicator */
-  scroll-margin-top: 70px;
-  overflow: hidden;
-}
-
 /* Background Logo - Centrado y prominente con parallax */
 .background-logo {
   position: fixed;
@@ -79,323 +50,6 @@
 @keyframes subtle-pulse-scale {
   0% { opacity: 0.08; transform: scale(0.98); }
   100% { opacity: 0.15; transform: scale(1.02); }
-}
-
-/* CRT Effects Layer - Now global */
-.global-effects .tv-static {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Scanlines Effect - Más sutil */
-.scanlines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 2px,
-    rgba(139, 92, 246, 0.02) 2px,
-    rgba(139, 92, 246, 0.02) 4px
-  );
-  animation: scanlines-move 0.1s linear infinite;
-  opacity: 0.6;
-}
-
-@keyframes scanlines-move {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(4px); }
-}
-
-/* Horizontal Sweep */
-/* El barrido se mueve con transform, no con left: mismo recorrido, pero sin
-   recalcular la maqueta en cada fotograma. Con left, Google lo contaba como
-   "la página se mueve al cargar" (CLS de 0,5-0,6, cuando el límite bueno es 0,1). */
-.horizontal-sweep {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translateX(-100%);
-  will-change: transform;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(139, 92, 246, 0.1) 50%,
-    transparent 100%
-  );
-  animation: horizontal-sweep 3s ease-in-out infinite;
-}
-
-@keyframes horizontal-sweep {
-  0% { transform: translateX(-100%); }
-  50% { transform: translateX(100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* CRT Glow Effect - More subtle */
-.crt-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle at center,
-    rgba(139, 92, 246, 0.03) 0%,
-    transparent 70%
-  );
-  animation: crt-glow 3s ease-in-out infinite alternate;
-  opacity: 0.6;
-}
-
-@keyframes crt-glow {
-  0% { 
-    filter: blur(1px);
-    opacity: 0.5;
-  }
-  100% { 
-    filter: blur(2px);
-    opacity: 0.3;
-  }
-}
-
-/* Noise Layer - Now global and more subtle */
-.global-effects .noise-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 3;
-  mix-blend-mode: screen;
-  animation: noise-flicker 4s infinite;
-  opacity: 0.25;
-}
-
-@keyframes noise-flicker {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.3; }
-}
-
-/* Main Content */
-.content-container {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  margin-top: 5.5rem;
-}
-
-/* Logo Styling */
-.logo-container {
-  position: relative;
-}
-
-.logo {
-  font-size: clamp(3.5rem, 10vw, 6rem);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  margin: 0;
-  margin-bottom: 0;
-  color: #fff;
-  text-shadow: 
-    0 0 6px rgba(139, 92, 246, 0.7),
-    0 0 12px rgba(139, 92, 246, 0.5),
-    0 0 18px rgba(139, 92, 246, 0.3),
-    0 0 24px rgba(139, 92, 246, 0.2);
-  animation: logo-glow 3s ease-in-out infinite alternate;
-  transition: all 0.3s ease;
-  font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
-}
-
-@keyframes logo-glow {
-  0% {
-    text-shadow: 
-      0 0 5px rgba(139, 92, 246, 0.6),
-      0 0 10px rgba(139, 92, 246, 0.4),
-      0 0 15px rgba(139, 92, 246, 0.3),
-      0 0 20px rgba(139, 92, 246, 0.2);
-  }
-  100% {
-    text-shadow: 
-      0 0 8px rgba(192, 132, 252, 0.6),
-      0 0 14px rgba(192, 132, 252, 0.4),
-      0 0 20px rgba(192, 132, 252, 0.3),
-      0 0 26px rgba(192, 132, 252, 0.2);
-  }
-}
-
-/* Hover Effect */
-.logo.hovered {
-  transform: scale(1.05);
-  text-shadow: 
-    0 0 10px rgba(139, 92, 246, 0.8),
-    0 0 18px rgba(139, 92, 246, 0.5),
-    0 0 26px rgba(139, 92, 246, 0.35),
-    0 0 34px rgba(192, 132, 252, 0.25);
-  transition: all 0.3s ease;
-}
-
-/* Glitch Effect */
-.logo.glitch {
-  animation: glitch 0.3s ease-in-out;
-}
-
-@keyframes glitch {
-  0%, 100% {
-    transform: translate(0);
-    text-shadow: 
-      0 0 10px #8B5CF6,
-      0 0 20px #8B5CF6,
-      0 0 30px #8B5CF6;
-  }
-  10% {
-    transform: translate(-2px, 2px);
-    text-shadow: 
-      0 0 10px #C084FC,
-      0 0 20px #C084FC,
-      0 0 30px #C084FC;
-  }
-  20% {
-    transform: translate(-1px, -1px);
-    text-shadow: 
-      0 0 10px #A855F7,
-      0 0 20px #A855F7,
-      0 0 30px #A855F7;
-  }
-  30% {
-    transform: translate(1px, 2px);
-    text-shadow: 
-      0 0 10px #7C3AED,
-      0 0 20px #7C3AED,
-      0 0 30px #7C3AED;
-  }
-  40% {
-    transform: translate(1px, -1px);
-    text-shadow: 
-      0 0 10px #8B5CF6,
-      0 0 20px #8B5CF6,
-      0 0 30px #8B5CF6;
-  }
-  50% {
-    transform: translate(-1px, 2px);
-    text-shadow: 
-      0 0 10px #C084FC,
-      0 0 20px #C084FC,
-      0 0 30px #C084FC;
-  }
-  60% {
-    transform: translate(-1px, 1px);
-    text-shadow: 
-      0 0 10px #A855F7,
-      0 0 20px #A855F7,
-      0 0 30px #A855F7;
-  }
-  70% {
-    transform: translate(0px, 1px);
-    text-shadow: 
-      0 0 10px #8B5CF6,
-      0 0 20px #8B5CF6,
-      0 0 30px #8B5CF6;
-  }
-  80% {
-    transform: translate(1px, 0px);
-    text-shadow: 
-      0 0 10px #C084FC,
-      0 0 20px #C084FC,
-      0 0 30px #C084FC;
-  }
-  90% {
-    transform: translate(1px, 2px);
-    text-shadow: 
-      0 0 10px #A855F7,
-      0 0 20px #A855F7,
-      0 0 30px #A855F7;
-  }
-}
-
-/* Typewriter Section */
-.message-container {
-  position: relative;
-  min-height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
-  margin-top: 0.2rem;
-}
-
-.typewriter-wrapper {
-  display: flex;
-  align-items: center;
-  font-size: clamp(1.2rem, 4vw, 2rem);
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  
-  /* FRASES TIPO CÓDIGO - Estética futurista de programación */
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  
-  /* Efecto de terminal/consola */
-  text-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
-}
-
-.typewriter-text {
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 
-    0 0 8px rgba(139, 92, 246, 0.6),
-    0 0 3px rgba(139, 92, 246, 0.8);
-  animation: fade-in 2s ease-out 1s both;
-  
-  /* Efecto de código futurista */
-  background: linear-gradient(45deg, transparent 30%, rgba(139, 92, 246, 0.1) 50%, transparent 70%);
-  background-size: 200% 100%;
-  animation: fade-in 2s ease-out 1s both, code-shimmer 3s ease-in-out infinite;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes code-shimmer {
-  0%, 100% { background-position: 200% 0; }
-  50% { background-position: -200% 0; }
-}
-
-/* Cursor tipo terminal */
-.cursor {
-  color: #8B5CF6;
-  font-weight: 400;
-  margin-left: 3px;
-  animation: blink 1s infinite;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  text-shadow: 0 0 8px #8B5CF6;
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
 }
 
 /* Medellin Clock - neon style */
@@ -435,19 +89,6 @@
 }
 
 @media (max-width: 640px) {
-  .hero-section {
-    padding-top: 3.75rem;
-    padding-bottom: 3.25rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-
-  .content-container {
-    margin-top: 2.4rem;
-    gap: 1rem;
-    padding: 0 1.75rem;
-  }
-
   .background-logo img {
     width: 110vmin;
   }
@@ -455,57 +96,15 @@
   .medellin-clock { top: 10px; right: 16px; padding: 6px 10px; min-width: 96px; }
   .medellin-clock .clock-time { font-size: 0.9rem; }
   .medellin-clock .clock-label { font-size: 0.62rem; }
-
-  .logo {
-    margin-bottom: 0 !important;
-    padding: 0 0.6rem;
-    line-height: 1.08;
-    max-width: 92vw;
-    white-space: nowrap;
-    word-break: break-word;
-  }
-
-  .typewriter-wrapper {
-    margin-bottom: 0 !important;
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1.1rem, 3.6vw, 1.5rem);
-    margin: 1.6rem 0;
-  }
-
-  .hero-description {
-    font-size: clamp(0.9rem, 3.1vw, 1.05rem);
-    margin: 0.4rem 0 1.3rem 0;
-    max-width: 86vw;
-  }
-
-  .hero-cta-buttons {
-    margin-bottom: 1.4rem;
-  }
 }
 
 /* Responsive Design */
 /* Responsive improvements */
 @media (max-width: 768px) {
-  .content-container {
-    padding: 2rem 1.5rem;
-    gap: 1.8rem;
-  }
-  
   .background-logo img {
     width: 85vmin;
   }
   
-  .logo {
-    margin-bottom: 1.5rem;
-    font-size: clamp(2rem, 7vw, 3.5rem);
-  }
-
-  .typewriter-wrapper {
-    font-size: clamp(1rem, 3.5vw, 1.8rem);
-  }
-
   .about-paragraph {
     font-size: 1.1rem;
     line-height: 1.75;
@@ -517,131 +116,19 @@
 }
 
 @media (max-width: 480px) {
-  .content-container {
-    padding: 1.1rem 1.6rem;
-    gap: 1rem;
-    margin-top: 1.8rem;
-  }
-
-  .logo {
-    font-size: clamp(2.4rem, 10.6vw, 3.25rem);
-    padding: 0 0.8rem;
-    line-height: 1.08;
-    max-width: 90vw;
-    white-space: nowrap;
-  }
-
-  .typewriter-wrapper {
-    font-size: clamp(0.95rem, 4.2vw, 1.35rem);
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1.15rem, 4.2vw, 1.6rem);
-  }
-
-  .hero-description {
-    font-size: clamp(0.9rem, 3.8vw, 1.1rem);
-    margin-bottom: 1.1rem;
-    max-width: 84vw;
-  }
-
   .hero-cta-primary,
   .hero-cta-secondary {
     font-size: 0.92rem;
     padding: 0.8rem 1.2rem;
   }
 
-  .hero-cta-buttons {
-    margin-bottom: 1.6rem;
-  }
-
   .about-paragraph {
     font-size: 1.03rem;
     line-height: 1.7;
   }
-
-  .scroll-indicator {
-    bottom: 0.9rem;
-  }
 }
 
-@media (max-width: 480px) and (max-height: 700px) {
-  .scroll-indicator {
-    display: none;
-  }
-}
-
-/* High DPI / Retina Display Optimization */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .logo {
-    text-rendering: optimizeLegibility;
-  }
-  
-  .scanlines {
-    background-size: 100% 2px;
-  }
-}
-
-/* Scroll Indicator - Más sutil y desaparece al hacer scroll */
-.scroll-indicator {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  z-index: 10;
-  animation: scroll-bounce 2.5s ease-in-out infinite;
-  opacity: 0.7;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.scroll-indicator.hidden {
-  opacity: 0;
-  transform: translateX(-50%) translateY(20px);
-  pointer-events: none;
-}
-
-/* Hero CTA Styles */
-.hero-subtitle {
-  font-size: clamp(1rem, 2.2vw, 1.4rem);
-  color: rgba(255, 255, 255, 0.9);
-  text-align: center;
-  margin: 2rem 0;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  max-width: 700px;
-  line-height: 1.7;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  text-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
-  padding: 0 1rem;
-}
-
-/* Hero Description */
-.hero-description {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  font-size: clamp(0.85rem, 1.8vw, 1rem);
-  color: rgba(255, 255, 255, 0.75);
-  text-align: center;
-  margin: 0.5rem 0 2rem 0;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-  max-width: 650px;
-  line-height: 1.6;
-  text-shadow: 0 0 6px rgba(139, 92, 246, 0.2);
-}
-
-.hero-cta-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0;
-  justify-content: center;
-  flex-wrap: wrap;
-  z-index: 10;
-}
-
+/* Botón con borde neón: lo usan el hero y "¿Por qué elegirnos?". */
 .hero-cta-primary,
 .hero-cta-secondary {
   padding: 0.9rem 2.2rem;
@@ -712,31 +199,12 @@
 }
 
 @media (max-width: 640px) {
-  .hero-cta-buttons {
-    flex-direction: column;
-    width: 100%;
-    padding: 0 1rem;
-  }
-  
   .hero-cta-primary,
   .hero-cta-secondary {
     width: 100%;
   }
 }
 
-.scroll-arrow {
-  font-size: 1.8rem;
-  color: #8B5CF6;
-  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4));
-}
-
-.scroll-text {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 300;
-}
 
 @keyframes scroll-bounce {
   0%, 20%, 50%, 80%, 100% {
@@ -1363,10 +831,6 @@
   .stat-label {
     font-size: 0.8rem;
   }
-  
-  .scroll-indicator {
-    bottom: 1rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -1399,18 +863,6 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  
-  .scanlines {
-    animation: none;
-  }
-  
-  .horizontal-sweep {
-    animation: none;
-  }
-  
-  .crt-glow {
-    animation: none;
   }
 }
 
