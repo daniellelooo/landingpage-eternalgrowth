@@ -98,6 +98,9 @@ const EternalGrowthLanding = () => {
     if (window.location.hash) {
       const sectionId = window.location.hash.slice(1);
       window.setTimeout(() => scrollToSection(sectionId), 100);
+      // El salto por enlace (#beneficios) no siempre dispara scroll: se vuelve
+      // a marcar cuando termina, para que el menú no se quede en Inicio.
+      window.setTimeout(marcarSeccion, 900);
     }
 
     return () => {
