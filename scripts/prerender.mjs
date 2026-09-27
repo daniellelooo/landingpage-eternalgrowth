@@ -9,7 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const ssrEntry = path.join(root, "dist-ssr", "entry-server.js");
 
-const { renderPage, getAllPaths, getSitemapEntries, SITE, RUTAS_CONCEPTOS } = await import(pathToFileURL(ssrEntry).href);
+const { renderPage, getAllPaths, getSitemapEntries, SITE } = await import(pathToFileURL(ssrEntry).href);
 
 let template = await readFile(path.join(dist, "index.html"), "utf8");
 
@@ -43,8 +43,8 @@ if (!HEAD_BLOCK.test(template) || !template.includes(ROOT_BLOCK)) {
   );
 }
 
-const buildHtml = (pathname, metaDe = pathname) => {
-  const { head, html } = renderPage(pathname, metaDe);
+const buildHtml = (pathname) => {
+  const { head, html } = renderPage(pathname);
   return template
     .replace(HEAD_BLOCK, () => head)
     .replace(ROOT_BLOCK, () => `<div id="root">${html}</div>`);
@@ -59,14 +59,6 @@ for (const pathname of paths) {
       : path.join(dist, pathname, "index.html");
   await mkdir(path.dirname(file), { recursive: true });
   await writeFile(file, buildHtml(pathname), "utf8");
-}
-
-// Rama diseno/hero: la home con cada concepto de hero, en /hero/<letra>. No van
-// al sitemap y su canonical es la home.
-for (const pathname of RUTAS_CONCEPTOS ?? []) {
-  const file = path.join(dist, pathname, "index.html");
-  await mkdir(path.dirname(file), { recursive: true });
-  await writeFile(file, buildHtml(pathname, "/"), "utf8");
 }
 
 // Vercel sirve dist/404.html con estado 404 para cualquier ruta que no exista.

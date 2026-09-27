@@ -41,42 +41,6 @@
       "source": "/news/:slug",
       "destination": "/blog/:slug",
       "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "query",
-          "key": "hero",
-          "value": "a"
-        }
-      ],
-      "destination": "/hero/a",
-      "permanent": false
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "query",
-          "key": "hero",
-          "value": "b"
-        }
-      ],
-      "destination": "/hero/b",
-      "permanent": false
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "query",
-          "key": "hero",
-          "value": "c"
-        }
-      ],
-      "destination": "/hero/c",
-      "permanent": false
     }
   ]
 }

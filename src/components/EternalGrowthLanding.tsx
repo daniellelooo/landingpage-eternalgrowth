@@ -11,12 +11,11 @@ import Contact from "./sections/Contact";
 import DelBlog from "./sections/DelBlog";
 import Proceso from "./sections/Proceso";
 import Portafolio from "./sections/Portafolio";
-import type { ConceptoHero } from "./sections/Hero/conceptos";
 import "./EternalGrowthLanding.css";
 // Va después: la estructura nueva de la home sobreescribe reglas de la hoja base.
 import "./sections/reestructuracion.css";
 
-const EternalGrowthLanding = ({ concepto }: { concepto?: ConceptoHero }) => {
+const EternalGrowthLanding = () => {
   const [activeSection, setActiveSection] = useState<SectionId>("hero");
 
   const handleNavigate = (sectionId: SectionId) => {
@@ -87,7 +86,7 @@ const EternalGrowthLanding = ({ concepto }: { concepto?: ConceptoHero }) => {
     <div className="eternal-growth-container">
       <FlorDeFondo />
       <Header activeSection={activeSection} onNavigate={handleNavigate} />
-      <Hero concepto={concepto} />
+      <Hero />
       <Benefits />
       <Services />
       <Portafolio />

@@ -9,7 +9,6 @@ import ServicioPage from "./pages/ServicioPage";
 import PortafolioPage from "./pages/PortafolioPage";
 import { PORTAFOLIO_PATH } from "./data/portafolio";
 import { normalizePath } from "./seo/meta";
-import { conceptoDeRuta } from "./components/sections/Hero/conceptos";
 
 interface AppProps {
   // El build le pasa la ruta al generar el HTML de cada página; en el
@@ -19,9 +18,6 @@ interface AppProps {
 
 const renderPage = (path: string) => {
   if (path === "/") return <EternalGrowthLanding />;
-  // Rama diseno/hero: la home con un concepto de hero fijo (ver conceptos.ts).
-  const concepto = conceptoDeRuta(path);
-  if (concepto) return <EternalGrowthLanding concepto={concepto} />;
   if (path === "/eternalgrowth") return <AboutPage />;
   if (path === NEWS_BASE_PATH) return <NewsPage />;
   if (path === PORTAFOLIO_PATH) return <PortafolioPage />;
