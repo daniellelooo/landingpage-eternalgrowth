@@ -39,8 +39,29 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
     return () => document.removeEventListener("scroll", leer, { capture: true });
   }, []);
 
+  // Con el menú de celular abierto, la página de atrás no se desplaza: el
+  // panel la tapa entera y el scroll no debe moverla por debajo.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const cerrarConEscape = (evento: KeyboardEvent) => {
+      if (evento.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    const anterior = [document.documentElement.style.overflow, document.body.style.overflow];
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", cerrarConEscape);
+    return () => {
+      [document.documentElement.style.overflow, document.body.style.overflow] = anterior;
+      document.removeEventListener("keydown", cerrarConEscape);
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <header className={`main-header${conScroll ? " con-scroll" : ""}`}>
+    <header
+      className={`main-header${conScroll ? " con-scroll" : ""}${
+        isMobileMenuOpen ? " menu-abierto" : ""
+      }`}
+    >
       <div className="header-container">
         {/* Logo/Brand */}
         <button

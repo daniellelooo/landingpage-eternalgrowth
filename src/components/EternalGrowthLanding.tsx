@@ -57,9 +57,10 @@ const EternalGrowthLanding = () => {
 
     // Scroll-spy. Cada sección de la home marca una opción del menú; las que
     // no tienen opción propia marcan la más cercana ("Del blog" enciende Blog y
-    // "Cómo empezamos" ya es parte de Contacto). Se mira una sola línea a media
-    // pantalla: como las secciones van seguidas, siempre la cruza una y solo
-    // una, y el orden sale igual al bajar y al subir.
+    // "Cómo empezamos" ya es parte de Contacto). Manda la última sección cuyo
+    // inicio ya pasó una línea a media pantalla: así el orden sale igual al
+    // bajar y al subir, y al saltar al final (donde la línea cae en el footer)
+    // queda Contacto y no la opción de antes.
     const SECCION_A_MENU: Record<string, SectionId> = {
       hero: "hero",
       beneficios: "beneficios",
@@ -74,15 +75,24 @@ const EternalGrowthLanding = () => {
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const cruzando = entries.find((entry) => entry.isIntersecting);
-        if (cruzando) setActiveSection(SECCION_A_MENU[cruzando.target.id]);
-      },
-      { rootMargin: "-45% 0px -54% 0px", threshold: 0 },
-    );
+    let cuadro = 0;
+    const marcarSeccion = () => {
+      cancelAnimationFrame(cuadro);
+      cuadro = requestAnimationFrame(() => {
+        const linea = window.innerHeight * 0.45;
+        let actual = sections[0];
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= linea) actual = section;
+        }
+        if (actual) setActiveSection(SECCION_A_MENU[actual.id]);
+      });
+    };
 
-    sections.forEach((section) => observer.observe(section));
+    // En la home quien desplaza es el <body>: se escucha el scroll de
+    // cualquier elemento, en fase de captura.
+    document.addEventListener("scroll", marcarSeccion, { passive: true, capture: true });
+    window.addEventListener("resize", marcarSeccion);
+    marcarSeccion();
     handleScroll();
 
     if (window.location.hash) {
@@ -92,7 +102,9 @@ const EternalGrowthLanding = () => {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
+      document.removeEventListener("scroll", marcarSeccion, { capture: true });
+      window.removeEventListener("resize", marcarSeccion);
+      cancelAnimationFrame(cuadro);
     };
   }, []);
 
