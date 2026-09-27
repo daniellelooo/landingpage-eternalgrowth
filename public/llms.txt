@@ -23,9 +23,10 @@ operación por etapas. El primer paso siempre es un diagnóstico gratuito de 30 
 
 ## Portafolio
 
-- [Portafolio de páginas web en Medellín](https://www.eternalgrowth.xyz/portafolio): webs desarrolladas por EternalGrowth y demos por sector.
-- En producción: Reno Motriz (https://www.renomotriz.com), taller de latonería y pintura en Medellín, con agenda de citas en línea; Techverse (https://techversemed.com), tienda de tecnología en el C.C. Monterrey con configurador de PC y cotización por WhatsApp; Bunker Force (https://bunkerforcebello.com), tienda en línea de ropa y equipo táctico en Bello.
-- Demos (negocios ficticios, para mostrar cómo quedaría una web en cada sector): floristería con pedidos por WhatsApp, veterinaria con agenda de citas y recordatorios, consultorio de psicología con página informativa.
+- [Portafolio de páginas web en Medellín](https://www.eternalgrowth.xyz/portafolio): webs desarrolladas por EternalGrowth, un software hecho por su equipo y demos por sector.
+- En producción: Reno Motriz (https://www.renomotriz.com), taller de latonería y pintura en Medellín, con agenda de citas en línea; Techverse (https://techversemed.com), tienda de tecnología en el C.C. Monterrey con catálogo, configurador de PC y cotización por WhatsApp; Bunker Force (https://bunkerforcebello.com), tienda en línea de ropa y equipo táctico en Bello.
+- movo (https://www.movo.software): software de gestión para talleres de latonería y pintura, desarrollado por el equipo. Es un producto de sus dueños, no de EternalGrowth.
+- Demos (negocios ficticios, para mostrar cómo quedaría una web en cada sector): veterinaria con agenda de citas y recordatorios, floristería con pedidos por WhatsApp, consultorio de psicología y taller de motos con página informativa.
 
 ## Guías
 

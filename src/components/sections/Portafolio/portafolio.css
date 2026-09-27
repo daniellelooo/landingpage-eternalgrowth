@@ -268,6 +268,7 @@
 }
 
 .portafolio-home-lista,
+.portafolio-compacta,
 .portafolio-demos {
   list-style: none;
   margin: 0;
@@ -372,14 +373,8 @@
   margin: 0;
 }
 
-.portafolio-produccion {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 5.5rem;
-}
-
+/* Destacados: la pieza principal en fila grande y las otras dos debajo,
+   a dos columnas. */
 .proyecto--fila {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -387,13 +382,14 @@
   align-items: center;
 }
 
-/* Filas alternas: la captura cambia de lado para dar ritmo. */
-.proyecto--fila:nth-child(even) .mockup {
-  order: 2;
+/* La pieza principal se lleva más ancho que las de debajo. */
+.proyecto--principal {
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: 3.5rem;
 }
 
 .proyecto--fila .proyecto-nombre {
-  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
   margin-top: 0;
 }
 
@@ -405,13 +401,58 @@
   font-size: 1.02rem;
 }
 
+.portafolio-destacados {
+  list-style: none;
+  margin: 5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.5rem 3.5rem;
+}
+
+.proyecto--mediana .proyecto-nombre {
+  font-size: 1.5rem;
+}
+
+/* Tarjetas compactas: En producción y Más demos por sector. */
+.proyecto--compacta .proyecto-nombre {
+  font-size: 1.2rem;
+}
+
+.proyecto--compacta .proyecto-tipo {
+  font-size: 0.95rem;
+}
+
+.proyecto--compacta .proyecto-resultado {
+  font-size: 0.93rem;
+  line-height: 1.65;
+}
+
 .portafolio-cierre {
   margin-top: 5.5rem;
+}
+
+/* "Más demos por sector" con una o dos demos: cada una va en fila, con la
+   captura del mismo tamaño que las tarjetas de arriba y el texto al lado, en
+   vez de dejar columnas vacías. Desde tres, vuelve a la cuadrícula normal. */
+@media (min-width: 1025px) {
+  .portafolio-demos:not(:has(> :nth-child(3))) > .proyecto--tarjeta {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    column-gap: 2.25rem;
+    align-items: center;
+  }
+
+  .portafolio-demos:not(:has(> :nth-child(3))) .proyecto-nombre {
+    margin-top: 0;
+  }
 }
 
 /* --- Tablet y celular ----------------------------------------------------- */
 
 @media (max-width: 1024px) {
+  .portafolio-compacta,
   .portafolio-demos {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -432,9 +473,10 @@
   }
 }
 
-/* A dos columnas, si la última demo queda sola ocupa la fila entera con la
+/* A dos columnas, si la última tarjeta queda sola ocupa la fila entera con la
    captura a un lado y el texto al otro, en vez de dejar media fila vacía. */
 @media (min-width: 641px) and (max-width: 1024px) {
+  .portafolio-compacta > .proyecto--tarjeta:last-child:nth-child(odd),
   .portafolio-demos > .proyecto--tarjeta:last-child:nth-child(odd) {
     grid-column: 1 / -1;
     display: grid;
@@ -443,6 +485,7 @@
     align-items: center;
   }
 
+  .portafolio-compacta > .proyecto--tarjeta:last-child:nth-child(odd) .proyecto-nombre,
   .portafolio-demos > .proyecto--tarjeta:last-child:nth-child(odd) .proyecto-nombre {
     margin-top: 0;
   }
@@ -472,20 +515,19 @@
     gap: 0;
   }
 
-  .proyecto--fila:nth-child(even) .mockup {
-    order: 0;
-  }
-
   .proyecto--fila .proyecto-nombre {
     margin-top: 1.4rem;
   }
 
-  .portafolio-produccion {
+  .portafolio-destacados {
+    margin-top: 3.75rem;
     gap: 3.75rem;
   }
 }
 
 @media (max-width: 640px) {
+  .portafolio-destacados,
+  .portafolio-compacta,
   .portafolio-demos {
     grid-template-columns: 1fr;
     gap: 3.25rem;

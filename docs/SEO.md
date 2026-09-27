@@ -78,26 +78,32 @@ pero Google la considera menos importante.
 
 ## Portafolio
 
-`/portafolio` ("Portafolio de páginas web en Medellín") y el bloque "Webs que ya están en
-línea" de la home salen de `src/data/portafolio.ts`. Dos grupos: proyectos en producción
-(clientes reales) y demos por sector (negocios ficticios, y así se dice en la página y en los
-datos estructurados).
+`/portafolio` ("Portafolio de páginas web en Medellín") y el bloque "Parte de nuestro trabajo"
+de la home salen de `src/data/portafolio.ts`. Cada proyecto tiene dos datos aparte:
+
+- `naturaleza`: qué es. `cliente` (web que hicimos para un negocio real), `producto` (software
+  de otros dueños que desarrolló el equipo, como movo: nunca se presenta como de EternalGrowth
+  ni se le pone a EternalGrowth como creador en los datos estructurados) o `demo` (negocio
+  ficticio; la página y los datos estructurados lo dicen).
+- `seccion`: dónde va. `destacados` (lo más fuerte a la vista, con una pieza `principal` más
+  grande), `produccion` (clientes, en tarjetas compactas) o `demos` ("Más demos por sector").
 
 Para agregar un proyecto o una demo:
 
-1. Capturas de la primera pantalla en escritorio (1440) y celular (390), ya en WebP:
+1. Capturas de escritorio (1440) y celular (390), ya en WebP. Mejor la pantalla más fuerte
+   del sitio (catálogo, agenda) que la portada:
    ```bash
    npm i --no-save playwright-core sharp
-   node scripts/capturar-portafolio.mjs <slug> <url>
+   node scripts/capturar-portafolio.mjs <imagen> <url>
    ```
    Usa el Chrome instalado. Mirar las imágenes antes de publicarlas: sin avisos tapando, con
    las fotos cargadas y sin pantallas negras.
-2. Agregar el objeto a `PROYECTOS` con su `grupo` (`"produccion"` o `"demo"`). El texto de
-   `resultado` dice qué gana el negocio con la web, sin cifras que no se puedan demostrar.
+2. Agregar el objeto a `PROYECTOS`. El texto de `resultado` dice qué gana el negocio con la
+   web, sin cifras que no se puedan demostrar.
 3. Cambiar `PORTAFOLIO_ACTUALIZADO` a la fecha del cambio: es el `lastmod` del sitemap.
 
-La home muestra los tres primeros proyectos en producción. La imagen al compartir la página
-es `public/og-portafolio.jpg`.
+Los tres de la home se eligen por slug en `PROYECTOS_DESTACADOS`. La imagen al compartir la
+página es `public/og-portafolio.jpg`.
 
 ## Cómo nos encuentran los asistentes de IA
 

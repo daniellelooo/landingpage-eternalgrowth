@@ -3,10 +3,12 @@ import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
 import MockupProyecto from "../components/sections/Portafolio/MockupProyecto";
 import {
-  GRUPOS_PORTAFOLIO,
-  GrupoPortafolio,
   ProyectoPortafolio,
-  getProyectosPorGrupo,
+  SECCIONES_PORTAFOLIO,
+  SeccionPortafolio,
+  getProyectosPorSeccion,
+  lineaDe,
+  textoEnlaceDe,
 } from "../data/portafolio";
 import { SITE } from "../seo/site";
 import "../components/EternalGrowthLanding.css";
@@ -15,7 +17,7 @@ import "../components/sections/Portafolio/portafolio.css";
 
 const EnlaceSitio = ({ proyecto }: { proyecto: ProyectoPortafolio }) => (
   <a className="proyecto-enlace" href={proyecto.url} target="_blank" rel="noopener">
-    {proyecto.grupo === "demo" ? "Ver demo" : "Ver sitio"}
+    {textoEnlaceDe(proyecto)}
     <span className="sr-only"> de {proyecto.nombre} (abre en una pestaña nueva)</span>
     <span className="proyecto-flecha" aria-hidden="true">
       ↗
@@ -34,12 +36,31 @@ const Etiquetas = ({ etiquetas }: { etiquetas: string[] }) => (
   </ul>
 );
 
-const CabeceraGrupo = ({ grupo }: { grupo: GrupoPortafolio }) => (
+const CabeceraSeccion = ({ seccion }: { seccion: SeccionPortafolio }) => (
   <div className="portafolio-grupo-cabecera">
-    <h2 id={`grupo-${grupo}`} className="portafolio-grupo-titulo">
-      {GRUPOS_PORTAFOLIO[grupo].titulo}
+    <h2 id={`seccion-${seccion}`} className="portafolio-grupo-titulo">
+      {SECCIONES_PORTAFOLIO[seccion].titulo}
     </h2>
-    <p className="portafolio-grupo-descripcion">{GRUPOS_PORTAFOLIO[grupo].descripcion}</p>
+    <p className="portafolio-grupo-descripcion">{SECCIONES_PORTAFOLIO[seccion].descripcion}</p>
+  </div>
+);
+
+// Nombre, qué es, tipo de web, resultado y enlace. `conEtiquetas` solo en las
+// piezas grandes: en las tarjetas compactas sobra.
+const TextoProyecto = ({
+  proyecto,
+  conEtiquetas = false,
+}: {
+  proyecto: ProyectoPortafolio;
+  conEtiquetas?: boolean;
+}) => (
+  <div className="proyecto-texto">
+    <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
+    <p className="proyecto-meta">{lineaDe(proyecto)}</p>
+    <p className="proyecto-tipo">{proyecto.tipo}</p>
+    <p className="proyecto-resultado">{proyecto.resultado}</p>
+    {conEtiquetas && <Etiquetas etiquetas={proyecto.etiquetas} />}
+    <EnlaceSitio proyecto={proyecto} />
   </div>
 );
 
@@ -48,8 +69,11 @@ const PortafolioPage = () => {
     window.location.href = sectionId === "blog" ? "/blog" : `/#${sectionId}`;
   };
 
-  const enProduccion = getProyectosPorGrupo("produccion");
-  const demos = getProyectosPorGrupo("demo");
+  const destacados = getProyectosPorSeccion("destacados");
+  const principal = destacados.find((p) => p.principal) ?? destacados[0];
+  const secundarios = destacados.filter((p) => p !== principal);
+  const enProduccion = getProyectosPorSeccion("produccion");
+  const masDemos = getProyectosPorSeccion("demos");
 
   return (
     <div className="eternal-growth-container servicio-page portafolio-page">
@@ -65,59 +89,74 @@ const PortafolioPage = () => {
         <header className="portafolio-cabecera">
           <h1>Portafolio de páginas web en Medellín</h1>
           <p className="portafolio-entradilla">
-            Webs que desarrollamos para negocios de Medellín y el Valle de Aburrá, y demos
-            por sector para que veas cómo podría quedar la tuya. Cada una abre el sitio
-            real, para que la pruebes en tu celular.
+            Webs que desarrollamos para negocios de Medellín y el Valle de Aburrá, un
+            software hecho por nuestro equipo y demos por sector para que veas cómo podría
+            quedar la tuya. Cada una abre el sitio real, para que la pruebes en tu celular.
           </p>
         </header>
 
-        <section className="portafolio-grupo" aria-labelledby="grupo-produccion">
-          <CabeceraGrupo grupo="produccion" />
-          <ul className="portafolio-produccion">
-            {enProduccion.map((proyecto, i) => (
-              <li className="proyecto proyecto--fila" key={proyecto.slug}>
-                <MockupProyecto
-                  proyecto={proyecto}
-                  tamanoEscritorio="(min-width: 1240px) 640px, (min-width: 901px) 52vw, 88vw"
-                  tamanoCelular="(min-width: 901px) 160px, 24vw"
-                  prioritaria={i === 0}
-                />
-                <div className="proyecto-texto">
-                  <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
-                  <p className="proyecto-meta">
-                    {proyecto.sector}, {proyecto.ciudad}
-                  </p>
-                  <p className="proyecto-tipo">{proyecto.tipo}</p>
-                  <p className="proyecto-resultado">{proyecto.resultado}</p>
-                  <Etiquetas etiquetas={proyecto.etiquetas} />
-                  <EnlaceSitio proyecto={proyecto} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {principal && (
+          <section className="portafolio-grupo" aria-labelledby="seccion-destacados">
+            <CabeceraSeccion seccion="destacados" />
 
-        <section className="portafolio-grupo" aria-labelledby="grupo-demo">
-          <CabeceraGrupo grupo="demo" />
-          <ul className="portafolio-demos">
-            {demos.map((proyecto) => (
-              <li className="proyecto proyecto--tarjeta" key={proyecto.slug}>
+            <div className="proyecto proyecto--fila proyecto--principal">
+              <MockupProyecto
+                proyecto={principal}
+                tamanoEscritorio="(min-width: 1240px) 740px, (min-width: 901px) 62vw, 88vw"
+                tamanoCelular="(min-width: 901px) 170px, 24vw"
+                prioritaria
+              />
+              <TextoProyecto proyecto={principal} conEtiquetas />
+            </div>
+
+            <ul className="portafolio-destacados">
+              {secundarios.map((proyecto) => (
+                <li className="proyecto proyecto--tarjeta proyecto--mediana" key={proyecto.slug}>
+                  <MockupProyecto
+                    proyecto={proyecto}
+                    tamanoEscritorio="(min-width: 1240px) 530px, (min-width: 901px) 43vw, 88vw"
+                    tamanoCelular="(min-width: 901px) 130px, 24vw"
+                  />
+                  <TextoProyecto proyecto={proyecto} conEtiquetas />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section className="portafolio-grupo" aria-labelledby="seccion-produccion">
+          <CabeceraSeccion seccion="produccion" />
+          <ul className="portafolio-compacta">
+            {enProduccion.map((proyecto) => (
+              <li className="proyecto proyecto--tarjeta proyecto--compacta" key={proyecto.slug}>
                 <MockupProyecto
                   proyecto={proyecto}
                   tamanoEscritorio="(min-width: 1240px) 350px, (min-width: 1025px) 28vw, (min-width: 641px) 44vw, 88vw"
                   tamanoCelular="(min-width: 641px) 90px, 24vw"
                 />
-                <div className="proyecto-texto">
-                  <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
-                  <p className="proyecto-meta">Demo de {proyecto.sector.toLowerCase()}</p>
-                  <p className="proyecto-tipo">{proyecto.tipo}</p>
-                  <p className="proyecto-resultado">{proyecto.resultado}</p>
-                  <EnlaceSitio proyecto={proyecto} />
-                </div>
+                <TextoProyecto proyecto={proyecto} />
               </li>
             ))}
           </ul>
         </section>
+
+        {masDemos.length > 0 && (
+          <section className="portafolio-grupo" aria-labelledby="seccion-demos">
+            <CabeceraSeccion seccion="demos" />
+            <ul className="portafolio-demos">
+              {masDemos.map((proyecto) => (
+                <li className="proyecto proyecto--tarjeta proyecto--compacta" key={proyecto.slug}>
+                  <MockupProyecto
+                    proyecto={proyecto}
+                    tamanoEscritorio="(min-width: 1240px) 350px, (min-width: 1025px) 28vw, (min-width: 641px) 44vw, 88vw"
+                    tamanoCelular="(min-width: 641px) 90px, 24vw"
+                  />
+                  <TextoProyecto proyecto={proyecto} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section className="servicio-cierre portafolio-cierre">
           <h2>¿Quieres una web así para tu negocio?</h2>

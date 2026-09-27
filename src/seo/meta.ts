@@ -151,7 +151,7 @@ const BLOG_META: PageMeta = {
 };
 
 const PORTAFOLIO_DESCRIPTION =
-  "Webs que EternalGrowth desarrolló para negocios de Medellín y Bello: un taller, una tienda de tecnología y una tienda táctica, más demos por sector.";
+  "Webs que EternalGrowth desarrolló para negocios de Medellín y Bello, demos por sector y un software para talleres hecho por nuestro equipo.";
 
 const PORTAFOLIO_META: PageMeta = {
   path: PORTAFOLIO_PATH,
@@ -181,13 +181,16 @@ const PORTAFOLIO_META: PageMeta = {
             "@type": "WebSite",
             // Las demos lo dicen también aquí: no son negocios reales.
             name:
-              proyecto.grupo === "demo"
+              proyecto.naturaleza === "demo"
                 ? `${proyecto.nombre} (sitio de demostración)`
                 : proyecto.nombre,
             url: proyecto.url,
             description: proyecto.resultado,
             image: absoluteUrl(imagenesDe(proyecto).escritorio.grande),
-            creator: { "@id": ORGANIZATION_ID },
+            // Un producto de otros dueños no se atribuye a EternalGrowth.
+            ...(proyecto.naturaleza === "producto"
+              ? {}
+              : { creator: { "@id": ORGANIZATION_ID } }),
           },
         })),
       },

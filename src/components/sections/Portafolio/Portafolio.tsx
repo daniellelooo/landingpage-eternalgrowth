@@ -1,9 +1,14 @@
-import { PORTAFOLIO_PATH, PROYECTOS_DESTACADOS } from "../../../data/portafolio";
+import {
+  PORTAFOLIO_PATH,
+  PROYECTOS_DESTACADOS,
+  lineaDe,
+  textoEnlaceDe,
+} from "../../../data/portafolio";
 import MockupProyecto from "./MockupProyecto";
 import "./portafolio.css";
 
-// Bloque corto de la home: tres webs en producción y el enlace a la página
-// completa. Las capturas son lo principal; el texto se queda en nombre, qué
+// Bloque corto de la home: tres proyectos (los más fuertes a la vista, cada uno
+// diciendo qué es: demo, producto o cliente) y el enlace a la página completa. Las capturas son lo principal; el texto se queda en nombre, qué
 // negocio es y el enlace al sitio.
 const Portafolio = () => {
   return (
@@ -11,7 +16,7 @@ const Portafolio = () => {
       <div className="portafolio-home-contenedor">
         <div className="portafolio-home-cabecera">
           <h2 id="portafolio-home-titulo" className="portafolio-home-titulo">
-            Webs que ya están en línea
+            Parte de nuestro trabajo
           </h2>
           <a className="portafolio-enlace" href={PORTAFOLIO_PATH}>
             Ver el portafolio completo
@@ -28,16 +33,14 @@ const Portafolio = () => {
               />
               <div className="proyecto-texto">
                 <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
-                <p className="proyecto-meta">
-                  {proyecto.sector}, {proyecto.ciudad}
-                </p>
+                <p className="proyecto-meta">{lineaDe(proyecto)}</p>
                 <a
                   className="proyecto-enlace"
                   href={proyecto.url}
                   target="_blank"
                   rel="noopener"
                 >
-                  Ver sitio
+                  {textoEnlaceDe(proyecto)}
                   <span className="sr-only"> de {proyecto.nombre} (abre en una pestaña nueva)</span>
                   <span className="proyecto-flecha" aria-hidden="true">
                     ↗
