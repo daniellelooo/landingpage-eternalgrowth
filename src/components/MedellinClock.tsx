@@ -11,14 +11,15 @@ const MedellinClock: React.FC = () => {
         timeZone: "America/Bogota",
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
         hour12: false,
       });
       setTimeStr(t);
     };
 
+    // Sin segundos: un número cambiando cada segundo en el header era
+    // movimiento constante sin aportar nada.
     update();
-    const id = setInterval(update, 1000);
+    const id = setInterval(update, 15000);
     return () => clearInterval(id);
   }, []);
 

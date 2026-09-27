@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavItem, SectionId } from "../../../types";
 import MedellinClock from "../../MedellinClock";
 import logoImage from "../../../assets/logocorregido-removebg-preview.png";
 import { PORTAFOLIO_PATH } from "../../../data/portafolio";
+import "./header.css";
 
 interface HeaderProps {
   activeSection: SectionId;
@@ -19,9 +20,27 @@ const NAV_ITEMS: NavItem[] = [
 
 const Header = ({ activeSection, onNavigate }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // Al bajar, el header se vuelve un poco más opaco y gana un borde: es el
+  // único cambio de estado que tiene. En la home quien desplaza es el <body>,
+  // no la ventana, así que se escucha el scroll de cualquier elemento.
+  const [conScroll, setConScroll] = useState(false);
+
+  useEffect(() => {
+    const leer = () => {
+      const y = Math.max(
+        window.scrollY,
+        document.documentElement.scrollTop,
+        document.body.scrollTop,
+      );
+      setConScroll(y > 8);
+    };
+    leer();
+    document.addEventListener("scroll", leer, { passive: true, capture: true });
+    return () => document.removeEventListener("scroll", leer, { capture: true });
+  }, []);
 
   return (
-    <header className="main-header">
+    <header className={`main-header${conScroll ? " con-scroll" : ""}`}>
       <div className="header-container">
         {/* Logo/Brand */}
         <button

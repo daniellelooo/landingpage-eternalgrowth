@@ -6,7 +6,7 @@ const DelBlog = () => {
   const recientes = NEWS_ITEMS.slice(0, 3);
 
   return (
-    <section className="del-blog" aria-labelledby="del-blog-titulo">
+    <section id="del-blog" className="del-blog" aria-labelledby="del-blog-titulo">
       <div className="del-blog-contenedor">
         <div className="del-blog-cabecera">
           <h2 id="del-blog-titulo" className="del-blog-titulo">

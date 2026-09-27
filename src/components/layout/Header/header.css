@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Header sobrio (2026-09-26)
+
+   Antes: al pasar el mouse los enlaces subían 1 px, se desplegaba un
+   subrayado con degradado y subía un fondo; el nombre de la marca subía y se
+   subrayaba, el logo crecía, el botón del blog subía y el reloj brillaba y
+   cambiaba cada segundo. La opción activa era una píldora con borde.
+
+   Ahora: nada se mueve. El hover solo aclara el texto, la opción activa va en
+   blanco con un subrayado fijo, y al bajar el header se vuelve más opaco y
+   gana un borde con una transición suave. Colores y tipografías, los mismos.
+   ========================================================================== */
+
+.main-header {
+  background: rgba(10, 5, 20, 0.62);
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.main-header.con-scroll {
+  background: rgba(10, 5, 20, 0.9);
+  border-bottom-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Marca: sin subir, sin subrayado y sin logo que crece. */
+.header-brand,
+.header-brand:hover {
+  transform: none;
+  transition: color 0.2s ease;
+}
+
+.header-brand:hover {
+  color: #e9ddff;
+}
+
+.header-brand::after {
+  display: none;
+}
+
+.header-brand:hover .brand-logo {
+  transform: none;
+  filter: brightness(1.1);
+}
+
+/* Opciones del menú. */
+.nav-link {
+  color: rgba(255, 255, 255, 0.74);
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-link::before,
+.nav-link::after {
+  display: none;
+}
+
+.nav-link:hover {
+  color: #fff;
+  transform: none;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid #c4b5fd;
+  outline-offset: 2px;
+}
+
+.nav-link.active {
+  color: #fff;
+  font-weight: 600;
+  background: none;
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-color: #8b5cf6;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 9px;
+}
+
+/* En el menú de celular la opción activa lleva una barra a la izquierda. */
+.mobile-nav .nav-link.active {
+  text-decoration: none;
+  background: rgba(139, 92, 246, 0.12);
+  box-shadow: inset 2px 0 0 #8b5cf6;
+  border-radius: 4px;
+}
+
+/* Botón del blog y reloj: quietos. */
+.header-news-icon,
+.header-news-icon:hover {
+  transform: none;
+}
+
+.header-news-icon {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.header-clock .medellin-clock,
+.header-clock .medellin-clock:hover {
+  transform: none;
+}
+
+.header-clock .medellin-clock .clock-time,
+.header-clock .medellin-clock:hover .clock-time {
+  text-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-header,
+  .header-brand,
+  .nav-link,
+  .header-news-icon {
+    transition: none;
+  }
+}

@@ -55,31 +55,31 @@ const EternalGrowthLanding = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    const sectionIds: SectionId[] = [
-      "hero",
-      "beneficios",
-      "servicios",
-      "contacto",
-    ];
+    // Scroll-spy. Cada sección de la home marca una opción del menú; las que
+    // no tienen opción propia marcan la más cercana ("Del blog" enciende Blog y
+    // "Cómo empezamos" ya es parte de Contacto). Se mira una sola línea a media
+    // pantalla: como las secciones van seguidas, siempre la cruza una y solo
+    // una, y el orden sale igual al bajar y al subir.
+    const SECCION_A_MENU: Record<string, SectionId> = {
+      hero: "hero",
+      beneficios: "beneficios",
+      servicios: "servicios",
+      portafolio: "portafolio",
+      "del-blog": "blog",
+      "como-trabajamos": "contacto",
+      contacto: "contacto",
+    };
 
-    const sections = sectionIds
+    const sections = Object.keys(SECCION_A_MENU)
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visibleSections.length > 0) {
-          setActiveSection(visibleSections[0].target.id as SectionId);
-        }
+        const cruzando = entries.find((entry) => entry.isIntersecting);
+        if (cruzando) setActiveSection(SECCION_A_MENU[cruzando.target.id]);
       },
-      {
-        rootMargin: "-40% 0px -40% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      },
+      { rootMargin: "-45% 0px -54% 0px", threshold: 0 },
     );
 
     sections.forEach((section) => observer.observe(section));
