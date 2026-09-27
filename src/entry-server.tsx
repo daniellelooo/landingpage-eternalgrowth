@@ -12,8 +12,10 @@ import { SITE } from "./seo/site";
 
 // Lo usa scripts/prerender.mjs durante el build para escribir el HTML real de
 // cada página. No se ejecuta en el navegador.
-export const renderPage = (pathname: string) => {
-  const meta = getPageMeta(pathname) ?? NOT_FOUND_META;
+// metaDe: de qué ruta salen el título y los datos (las páginas /hero/<letra>
+// de la rama diseno/hero son la home con otro hero y llevan su metadata).
+export const renderPage = (pathname: string, metaDe: string = pathname) => {
+  const meta = getPageMeta(metaDe) ?? NOT_FOUND_META;
 
   return {
     head: renderHeadTags(meta),
@@ -26,3 +28,4 @@ export const renderPage = (pathname: string) => {
 };
 
 export { getAllPaths, getSitemapEntries, SITE };
+export { RUTAS_CONCEPTOS } from "./components/sections/Hero/conceptos";
