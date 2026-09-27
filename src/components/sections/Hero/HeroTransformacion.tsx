@@ -60,7 +60,11 @@ const CUADERNO = [
 ];
 
 const VETERINARIA = "/portafolio/arrayan-veterinaria";
-const INICIO = 90;
+// El HTML sale con el corte a la mitad: así la web se ve desde el primer
+// pintado (si arranca tapada, Google cuenta la carga hasta que se destapa).
+const INICIO = 50;
+// Al cargar, el corte hace un solo vaivén para mostrar que se puede mover.
+const VAIVEN = 66;
 // En escritorio la web ocupa el 60 % derecho de la escena: el corte se queda
 // justo donde empieza, para que se vea entera.
 const destino = () => (window.matchMedia("(max-width: 900px)").matches ? 50 : 40);
@@ -78,7 +82,7 @@ const HeroTransformacion = () => {
     if (controlRef.current) controlRef.current.value = String(Math.round(valor));
   }, []);
 
-  // Al cargar, el corte recorre la escena una vez y deja ver la web.
+  // Al cargar, el corte va hacia el "antes" y vuelve: una sola vez.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       mover(destino());
@@ -86,14 +90,17 @@ const HeroTransformacion = () => {
     }
     let cuadro = 0;
     let inicio = 0;
-    const duracion = 1500;
+    const duracion = 1800;
     const final = destino();
     const paso = (t: number) => {
       if (tocado.current) return;
       if (!inicio) inicio = t;
       const avance = Math.min(1, (t - inicio) / duracion);
-      const suave = 1 - Math.pow(1 - avance, 3);
-      mover(INICIO + (final - INICIO) * suave);
+      const ida = Math.min(1, avance / 0.45);
+      const vuelta = Math.max(0, (avance - 0.45) / 0.55);
+      const salir = 1 - Math.pow(1 - ida, 3);
+      const volver = vuelta < 0.5 ? 4 * vuelta ** 3 : 1 - Math.pow(-2 * vuelta + 2, 3) / 2;
+      mover(avance < 0.45 ? INICIO + (VAIVEN - INICIO) * salir : VAIVEN + (final - VAIVEN) * volver);
       if (avance < 1) cuadro = requestAnimationFrame(paso);
     };
     const espera = window.setTimeout(() => {
