@@ -32,7 +32,8 @@ const Captura = ({ pieza, primera }: { pieza: Pieza; primera: boolean }) => {
   const base = `/portafolio/${proyecto.imagen}`;
   const esCelular = pieza.formato === "celular";
   return (
-    <figure className={`vitrina-pieza vitrina-pieza--${pieza.formato}`}>
+    // Nombres de clase completos: PurgeCSS borra los que se arman por partes.
+    <figure className={esCelular ? "vitrina-pieza vitrina-pieza--celular" : "vitrina-pieza vitrina-pieza--escritorio"}>
       <div className="vitrina-marco">
         <img
           src={esCelular ? `${base}-celular-200.webp` : `${base}-escritorio-640.webp`}
