@@ -638,12 +638,13 @@
   left: 1rem;
 }
 
+/* El borde se mueve con transform (no con left): así seguir el corte no cuenta
+   como "la página se movió" (CLS). La capa mide lo mismo que la escena, por
+   eso el porcentaje del translate es el de la escena. */
 .cambio-borde {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(var(--corte) - 78px);
-  width: 208px;
+  inset: 0;
+  transform: translateX(calc(var(--corte) - 78px));
   pointer-events: none;
 }
 
