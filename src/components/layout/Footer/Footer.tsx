@@ -1,64 +1,92 @@
+import logoImage from "../../../assets/logocorregido-removebg-preview.png";
+import { NEWS_BASE_PATH } from "../../../data/news";
+import { PORTAFOLIO_PATH } from "../../../data/portafolio";
+import { SERVICIOS, SERVICIOS_BASE_PATH } from "../../../data/servicios";
+import { SITE } from "../../../seo/site";
+import "./footer.css";
+
+// Footer tradicional: columnas alineadas a la izquierda y una franja abajo.
+// Todo son enlaces reales (<a href>), que Google sigue. Las secciones de la
+// home van con /#id para que funcionen también desde las otras páginas.
+const NAVEGACION = [
+  { href: "/", texto: "Inicio" },
+  { href: "/#beneficios", texto: "¿Por qué elegirnos?" },
+  { href: "/#servicios", texto: "Servicios" },
+  { href: PORTAFOLIO_PATH, texto: "Portafolio" },
+  { href: NEWS_BASE_PATH, texto: "Blog" },
+  { href: "/eternalgrowth", texto: "Nuestra historia" },
+  { href: "/#contacto", texto: "Contacto" },
+];
+
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        <div className="footer-brand">
-          <h2 className="footer-logo">EternalGrowth</h2>
-          <p className="footer-tagline">
-            Transformación digital para tu negocio
+    <footer className="pie">
+      <div className="pie-contenedor">
+        <div className="pie-marca">
+          <a className="pie-logo" href="/" aria-label="EternalGrowth, ir al inicio">
+            <img src={logoImage} alt="" width={36} height={36} />
+            <span>EternalGrowth</span>
+          </a>
+          <p className="pie-lema">Transformación digital para tu negocio</p>
+          <p className="pie-descripcion">
+            Agencia de software en Medellín: desarrollo web, automatización y
+            WhatsApp para micro y pequeñas empresas.
           </p>
-          <button
-            className="footer-about-link"
-            onClick={() => { window.location.href = "/eternalgrowth"; }}
-          >
-            Nuestra historia →
-          </button>
         </div>
 
-        <div className="footer-contact">
-          <h3 className="footer-title">Contacto</h3>
-          <div className="footer-links">
-            <a className="footer-link" href="mailto:gerencia@eternalgrowth.xyz">
-              <svg
-                className="footer-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                aria-hidden="true"
-              >
-                <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
-                <polyline points="22,8 12,13 2,8" />
-              </svg>
-              gerencia@eternalgrowth.xyz
-            </a>
-            <a
-              className="footer-link"
-              href="https://www.instagram.com/eternalgrowth__/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <svg
-                className="footer-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                aria-hidden="true"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37a4 4 0 1 1-2.34-2.34" />
-                <circle cx="17.5" cy="6.5" r="1" />
-              </svg>
-              @eternalgrowth__
-            </a>
-          </div>
-        </div>
+        <nav className="pie-columna" aria-labelledby="pie-navegacion">
+          <h2 id="pie-navegacion" className="pie-titulo">
+            Navegación
+          </h2>
+          <ul>
+            {NAVEGACION.map((enlace) => (
+              <li key={enlace.href}>
+                <a href={enlace.href}>{enlace.texto}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        <div className="footer-bottom">
-          <p className="footer-copyright">
-            © 2026 EternalGrowth. Todos los derechos reservados.
-          </p>
+        <nav className="pie-columna" aria-labelledby="pie-servicios">
+          <h2 id="pie-servicios" className="pie-titulo">
+            Servicios
+          </h2>
+          <ul>
+            {SERVICIOS.map((servicio) => (
+              <li key={servicio.slug}>
+                <a href={`${SERVICIOS_BASE_PATH}/${servicio.slug}`}>{servicio.nombre}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="pie-columna">
+          <h2 className="pie-titulo">Contacto</h2>
+          <ul>
+            <li>
+              <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            </li>
+            <li>
+              {SITE.city}, {SITE.region}, Colombia
+            </li>
+            <li>Respondemos en menos de 24 horas hábiles</li>
+          </ul>
+
+          <h2 className="pie-titulo pie-titulo--redes">Redes</h2>
+          <ul>
+            <li>
+              <a href={SITE.instagram} target="_blank" rel="noreferrer">
+                Instagram @eternalgrowth__
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="pie-franja">
+        <div className="pie-franja-contenedor">
+          <p>© 2026 EternalGrowth. Todos los derechos reservados.</p>
+          <p>Medellín, Colombia</p>
         </div>
       </div>
     </footer>

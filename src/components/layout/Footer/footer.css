@@ -1,0 +1,168 @@
+/* Footer tradicional (2026-09-26). Antes iba todo centrado en una columna;
+   Daniel: "tal vez me gustan más los footers tradicionales". Columnas a la
+   izquierda y una franja con los derechos. Mismos colores y tipografías:
+   Space Grotesk para los enlaces, JetBrains Mono para los títulos de columna. */
+
+.pie {
+  background: linear-gradient(180deg, #120a1a 0%, #0a0514 100%);
+  border-top: 1px solid rgba(139, 92, 246, 0.25);
+  position: relative;
+  z-index: 2;
+}
+
+.pie-contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 2.5rem 3rem;
+}
+
+.pie-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: #fff;
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pie-logo img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.pie-lema {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin: 1.1rem 0 0.75rem;
+}
+
+.pie-descripcion {
+  font-family: "Inter", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(245, 239, 255, 0.72);
+  margin: 0;
+  max-width: 38ch;
+}
+
+.pie-titulo {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(196, 181, 253, 0.95);
+  margin: 0 0 1.1rem;
+}
+
+.pie-titulo--redes {
+  margin-top: 1.9rem;
+}
+
+.pie-columna ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.pie-columna li {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: rgba(245, 239, 255, 0.72);
+}
+
+.pie-columna a {
+  color: rgba(245, 239, 255, 0.86);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  overflow-wrap: break-word;
+}
+
+.pie-columna a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: #8b5cf6;
+  text-underline-offset: 4px;
+}
+
+.pie a:focus-visible {
+  outline: 2px solid #c4b5fd;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.pie-franja {
+  border-top: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.pie-franja-contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+}
+
+.pie-franja p {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(245, 239, 255, 0.6);
+  margin: 0;
+}
+
+/* Tablet: la marca arriba a todo el ancho y las tres columnas debajo. */
+@media (max-width: 900px) {
+  .pie-contenedor {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.35fr);
+    gap: 2.5rem 2rem;
+    padding: 3.25rem 1.25rem 2.5rem;
+  }
+
+  .pie-marca {
+    grid-column: 1 / -1;
+  }
+
+  .pie-franja-contenedor {
+    padding: 1.1rem 1.25rem;
+  }
+}
+
+/* Celular: navegación y servicios lado a lado, contacto debajo. */
+@media (max-width: 640px) {
+  .pie-contenedor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem 1.5rem;
+  }
+
+  .pie-columna:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .pie-franja-contenedor {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pie-columna a {
+    transition: none;
+  }
+}
