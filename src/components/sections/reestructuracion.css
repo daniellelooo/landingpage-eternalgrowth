@@ -704,3 +704,162 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   Menos espacio vacío (2026-09-26)
+
+   Daniel: "no me gustan tanto los espacios vacíos en la web, por ejemplo
+   debajo de por qué elegirnos hay un espacio grande [...] lo mismo pasa en
+   nuestros servicios". Medido en 1440: 225 px vacíos entre "¿Por qué
+   elegirnos?" y "Nuestros servicios", ~500 px vacíos bajo el título de las
+   razones (la columna izquierda acababa a un tercio) y una fila entera solo
+   para el botón de servicios.
+   ========================================================================== */
+
+/* Entre secciones: 5 rem por lado en vez de 6-7. */
+.benefits-section.razones,
+.services-section.indice-seccion,
+.portafolio-home,
+.del-blog,
+.proceso {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* ¿Por qué elegirnos?: título y texto en una fila de cabecera, y las cuatro
+   razones a todo el ancho en 2 x 2, más grandes. */
+.razones-contenedor {
+  display: block;
+}
+
+.razones-cabecera {
+  position: static;
+  display: grid;
+  grid-template-columns: minmax(280px, 5fr) 7fr;
+  gap: 1.5rem 4.5rem;
+  align-items: end;
+  margin-bottom: 3rem;
+}
+
+.razones-cabecera .razones-titulo {
+  margin: 0;
+}
+
+.razones-cabecera .razones-bajada {
+  font-size: 1.12rem;
+  max-width: 58ch;
+  margin: 0 0 1.5rem;
+}
+
+.razones-lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 4.5rem;
+  border-top: 0;
+}
+
+.razon {
+  border-top: 1px solid var(--linea);
+  border-bottom: 0;
+  padding: 2.25rem 0 2.5rem;
+  /* Las dos razones de una fila miden lo mismo; sin esto la más corta
+     repartía el alto sobrante entre el título y el texto. */
+  align-content: start;
+}
+
+.razon-titulo {
+  font-size: 1.5rem;
+}
+
+.razon-texto {
+  font-size: 1.06rem;
+  line-height: 1.7;
+}
+
+/* Nuestros servicios: el botón sube a la cabecera y el detalle gana peso con
+   un lema grande y la entradilla de la página del servicio. */
+.indice-cabecera {
+  max-width: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+}
+
+.indice-cabecera .indice-bajada {
+  margin-bottom: 0;
+}
+
+.indice-cabecera .indice-cta.section-cta {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.indice-cabecera .indice-cta .section-cta-note {
+  margin: 0;
+}
+
+.indice-lema {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.9rem;
+}
+
+.indice-entradilla {
+  font-family: "Inter", sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.7;
+  color: var(--texto-2);
+  margin: 0 0 1.6rem;
+  max-width: 58ch;
+}
+
+.indice-incluye li {
+  font-size: 1.04rem;
+}
+
+@media (max-width: 900px) {
+  .benefits-section.razones,
+  .services-section.indice-seccion,
+  .portafolio-home,
+  .del-blog,
+  .proceso {
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
+  }
+
+  .razones-cabecera {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .razones-lista {
+    column-gap: 2.5rem;
+  }
+
+  .razon-titulo {
+    font-size: 1.3rem;
+  }
+
+  .indice-lema {
+    margin-top: 0.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .razones-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .razon {
+    padding: 1.75rem 0 1.9rem;
+  }
+}

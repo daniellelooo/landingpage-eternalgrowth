@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState } from "react";
 import type { CSSProperties, PointerEvent } from "react";
 import { scrollToSection } from "../../../utils/helpers";
+import { getServicioBySlug } from "../../../data/servicios";
 
 interface ServicioIndice {
   nombre: string;
@@ -71,6 +72,11 @@ const SERVICIOS: ServicioIndice[] = [
   },
 ];
 
+// La entradilla de la página propia del servicio: da peso al detalle con el
+// mismo texto que ya está publicado, sin escribir otro.
+const entradillaDe = (href: string) =>
+  getServicioBySlug(href.split("/").pop() ?? "")?.entradilla;
+
 // Pasar el mouse cambia el servicio solo si la persona lo movió de verdad y se
 // quedó un momento. Sin esto, al hacer scroll con el cursor encima de la lista
 // el detalle iba cambiando solo, servicio por servicio.
@@ -92,12 +98,26 @@ const Services = () => {
   return (
     <section id="servicios" className="services-section indice-seccion">
       <div className="indice-contenedor">
+        {/* El botón va en la cabecera: abajo, solo, dejaba media fila vacía. */}
         <header className="indice-cabecera">
-          <h2 className="indice-titulo">Nuestros servicios</h2>
-          <p className="indice-bajada">
-            Desarrollo, automatización y marketing conectados entre sí, para que
-            tu negocio crezca sin depender de ti las 24 horas.
-          </p>
+          <div>
+            <h2 className="indice-titulo">Nuestros servicios</h2>
+            <p className="indice-bajada">
+              Desarrollo, automatización y marketing conectados entre sí, para
+              que tu negocio crezca sin depender de ti las 24 horas.
+            </p>
+          </div>
+          <div className="section-cta indice-cta">
+            <button
+              className="hero-cta-primary"
+              onClick={() => scrollToSection("contacto")}
+            >
+              Agenda tu diagnóstico gratuito
+            </button>
+            <p className="section-cta-note">
+              Te respondemos en menos de 24 horas hábiles.
+            </p>
+          </div>
         </header>
 
         <div className="indice">
@@ -135,6 +155,9 @@ const Services = () => {
                   data-abierto={abierto}
                 >
                   <p className="indice-lema">{servicio.lema}</p>
+                  {entradillaDe(servicio.href) && (
+                    <p className="indice-entradilla">{entradillaDe(servicio.href)}</p>
+                  )}
                   <ul className="indice-incluye">
                     {servicio.incluye.map((item) => (
                       <li key={item}>{item}</li>
@@ -153,17 +176,6 @@ const Services = () => {
           })}
         </div>
 
-        <div className="section-cta indice-cta">
-          <button
-            className="hero-cta-primary"
-            onClick={() => scrollToSection("contacto")}
-          >
-            Agenda tu diagnóstico gratuito
-          </button>
-          <p className="section-cta-note">
-            Te respondemos en menos de 24 horas hábiles.
-          </p>
-        </div>
       </div>
     </section>
   );
