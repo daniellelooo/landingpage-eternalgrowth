@@ -36,20 +36,18 @@ const Benefits = () => {
       <div className="razones-contenedor">
         <header className="razones-cabecera">
           <h2 className="razones-titulo">¿Por qué elegirnos?</h2>
-          <div className="razones-cabecera-texto">
-            <p className="razones-bajada">
-              La digitalización completa que tu negocio necesita, en un solo
-              equipo. No somos una agencia que entrega archivos: conectamos tu
-              web, tus automatizaciones y tu marketing en un solo sistema, y te
-              acompañamos hasta que funcione.
-            </p>
-            <button
-              className="hero-cta-primary razones-cta"
-              onClick={() => scrollToSection("contacto")}
-            >
-              Agenda tu diagnóstico gratuito
-            </button>
-          </div>
+          <p className="razones-bajada">
+            La digitalización completa que tu negocio necesita, en un solo
+            equipo. No somos una agencia que entrega archivos: conectamos tu web,
+            tus automatizaciones y tu marketing en un solo sistema, y te
+            acompañamos hasta que funcione.
+          </p>
+          <button
+            className="hero-cta-primary razones-cta"
+            onClick={() => scrollToSection("contacto")}
+          >
+            Agenda tu diagnóstico gratuito
+          </button>
         </header>
 
         <ul className="razones-lista">
