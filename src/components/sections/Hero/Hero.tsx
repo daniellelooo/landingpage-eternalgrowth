@@ -14,7 +14,7 @@ import "./hero.css";
 export type ConceptoHero = "a" | "b" | "c";
 
 const CONCEPTOS: ConceptoHero[] = ["a", "b", "c"];
-const HERO_POR_DEFECTO: ConceptoHero = "c";
+const HERO_POR_DEFECTO: ConceptoHero = "b";
 
 const esConcepto = (valor: unknown): valor is ConceptoHero =>
   typeof valor === "string" && CONCEPTOS.includes(valor as ConceptoHero);

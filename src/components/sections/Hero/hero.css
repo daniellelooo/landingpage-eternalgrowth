@@ -688,6 +688,24 @@
   color: #fff;
 }
 
+.cambio-pista-mouse {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cambio-pista-mouse {
+    display: inline;
+  }
+
+  .cambio-pista-tactil {
+    display: none;
+  }
+}
+
+.cambio-pista {
+  white-space: nowrap;
+}
+
 .cambio-pista svg {
   width: 26px;
   height: 10px;

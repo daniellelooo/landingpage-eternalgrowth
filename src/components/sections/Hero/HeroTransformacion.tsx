@@ -36,10 +36,10 @@ const BORDE = (() => {
 
 // Píxeles que se desprenden del corte hacia el lado de la web.
 const DESPRENDIDOS = [
-  { dx: 2, fila: 2 },
-  { dx: 4, fila: 7 },
-  { dx: 3, fila: 13 },
-  { dx: 5, fila: 17 },
+  { dx: 2, fila: 3 },
+  { dx: 3, fila: 8 },
+  { dx: 2, fila: 12 },
+  { dx: 3, fila: 18 },
 ];
 
 const CHATS = [
@@ -171,8 +171,8 @@ const HeroTransformacion = () => {
           <img
             className="cambio-web"
             src={`${VETERINARIA}-escritorio-1080.webp`}
-            srcSet={`${VETERINARIA}-escritorio-1080.webp 1080w, ${VETERINARIA}-escritorio-1600.webp 1600w`}
-            sizes="(min-width: 901px) 60vw, 1px"
+            srcSet={`${VETERINARIA}-escritorio-640.webp 640w, ${VETERINARIA}-escritorio-1080.webp 1080w, ${VETERINARIA}-escritorio-1600.webp 1600w`}
+            sizes="(min-width: 901px) 60vw, (min-width: 641px) 94vw, 1px"
             width={1440}
             height={900}
             alt="La misma veterinaria con su web: horas libres a la vista y la cita se agenda en línea"
@@ -233,7 +233,8 @@ const HeroTransformacion = () => {
             <svg viewBox="0 0 64 20" className="trazo">
               <path d="M4 10 H60 M12 3 L4 10 L12 17 M52 3 L60 10 L52 17" />
             </svg>
-            desliza
+            <span className="cambio-pista-tactil">desliza</span>
+            <span className="cambio-pista-mouse">mueve el cursor</span>
           </span>
         </div>
 
