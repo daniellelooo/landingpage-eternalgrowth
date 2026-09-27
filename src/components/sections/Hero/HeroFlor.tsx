@@ -138,6 +138,7 @@ const HeroFlor = () => (
           alt=""
           aria-hidden="true"
           decoding="async"
+          fetchPriority="high"
         />
 
         {PIXELES.map((p, i) => {

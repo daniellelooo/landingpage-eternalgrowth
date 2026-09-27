@@ -137,7 +137,7 @@ const HeroTransformacion = () => {
     } else {
       espera = window.setTimeout(() => {
         if (!tocado.current) elegir("web", false);
-      }, 1100);
+      }, 800);
     }
     return () => {
       window.clearTimeout(espera);
@@ -205,6 +205,7 @@ const HeroTransformacion = () => {
               height={844}
               alt="La web de la misma veterinaria en el celular: agenda la cita en línea"
               decoding="async"
+              fetchPriority="high"
             />
             <svg className="trazo trazo-tinta" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" style={{ left: "2%", top: "55%", width: "56%", height: "8.5%" }}>
               <path d="M52 3 C 20 2, 3 14, 4 30 C 5 48, 30 58, 56 57 C 82 56, 98 44, 97 28 C 96 12, 74 3, 44 6" pathLength={1} />
@@ -222,7 +223,6 @@ const HeroTransformacion = () => {
               height={900}
               alt="La misma veterinaria con su web: horas libres a la vista y la cita se agenda en línea"
               decoding="async"
-              fetchPriority="high"
             />
             <svg className="trazo trazo-tinta" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" style={{ left: "8%", top: "76%", width: "34%", height: "20%" }}>
               <path d="M52 3 C 20 2, 3 14, 4 30 C 5 48, 30 58, 56 57 C 82 56, 98 44, 97 28 C 96 12, 74 3, 44 6" pathLength={1} />
