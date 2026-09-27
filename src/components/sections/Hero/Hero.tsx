@@ -191,6 +191,16 @@ const Hero = () => (
       </div>
 
       <div className="vitrina-nota" aria-hidden="true">
+        {/* La flor de la marca firma la nota: el isotipo tal cual (348 x 527),
+            sin redibujar. */}
+        <img
+          className="vitrina-flor"
+          src="/marca/isotipo-color.webp"
+          width={348}
+          height={527}
+          alt=""
+          decoding="async"
+        />
         <span>todas estas las hicimos nosotros</span>
         <svg viewBox="0 0 100 130" className="trazo">
           <path d="M6 10 C 52 4, 86 34, 82 118" pathLength={1} />
