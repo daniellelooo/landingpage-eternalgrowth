@@ -167,6 +167,7 @@ const HeroTransformacion = () => {
             height={844}
             alt="La web de la misma veterinaria en el celular"
             decoding="async"
+            fetchPriority="high"
           />
           <img
             className="cambio-web"
