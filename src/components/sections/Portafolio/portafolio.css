@@ -101,8 +101,10 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 24%;
-  padding: 3.5% 3% 3%;
+  width: 26%;
+  /* Borde fino y fijo: un padding en % se mide sobre el ancho de toda la
+     ventana, no del celular, y dejaba un marco negro que tapaba la pantalla. */
+  padding: 3px;
   /* Radios en porcentaje: la esquina se ve igual de redonda en cualquier tamaño. */
   border-radius: 16% / 7.5%;
   background: #05030a;
@@ -113,7 +115,7 @@
 
 .mockup-celular .mockup-captura {
   aspect-ratio: 390 / 844;
-  border-radius: 12% / 5.5%;
+  border-radius: 14% / 6.5%;
 }
 
 .proyecto:hover .mockup-pixeles .pixel,

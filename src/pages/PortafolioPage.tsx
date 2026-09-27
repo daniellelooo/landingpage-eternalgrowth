@@ -87,7 +87,7 @@ const PortafolioPage = () => {
         </nav>
 
         <header className="portafolio-cabecera">
-          <h1>Portafolio de páginas web en Medellín</h1>
+          <h1>Portafolio de páginas web</h1>
           <p className="portafolio-entradilla">
             Webs que desarrollamos para negocios de Medellín y el Valle de Aburrá, un
             software hecho por nuestro equipo y demos por sector para que veas cómo podría
