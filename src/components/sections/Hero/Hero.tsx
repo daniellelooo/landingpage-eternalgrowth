@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { PORTAFOLIO_PATH, PROYECTOS, ProyectoPortafolio } from "../../../data/portafolio";
 import { scrollToSection } from "../../../utils/helpers";
 import "./hero.css";
@@ -46,13 +47,15 @@ const Subrayado = () => (
   </svg>
 );
 
-// Marca a mano sobre una zona de la captura, en % de la captura.
+// Marca a mano sobre un elemento de la captura. Las coordenadas son píxeles de
+// la captura de escritorio (1440 x 900), medidos sobre la imagen: el SVG usa
+// ese mismo lienzo y el mismo recorte que la foto (cubre y arranca arriba),
+// así que el trazo queda encima del elemento en cualquier ancho.
 interface Marca {
-  forma: "circulo" | "ovalo";
-  x: number;
-  y: number;
-  ancho: number;
-  alto: number;
+  cx: number;
+  cy: number;
+  rx: number;
+  ry: number;
   nota: string;
 }
 
@@ -60,6 +63,9 @@ interface Pieza {
   slug: string;
   formato: "escritorio" | "celular";
   que: string;
+  // Color de la captura (arriba, medio, abajo) mientras carga: el marco nunca
+  // se ve vacío.
+  tono: [string, string, string];
   marca?: Marca;
 }
 
@@ -70,75 +76,132 @@ const PIEZAS: Pieza[] = [
     slug: "arrayan-veterinaria",
     formato: "escritorio",
     que: "Agenda de citas",
-    marca: { forma: "ovalo", x: 8, y: 72, ancho: 36, alto: 24, nota: "agenda en línea" },
+    tono: ["#bfd0c6", "#c3d9cb", "#d0ddcd"],
+    // Las horas libres para agendar (etiqueta y las cuatro horas).
+    marca: { cx: 355, cy: 752, rx: 272, ry: 96, nota: "agenda en línea" },
   },
-  { slug: "ceiba-psicologia", formato: "celular", que: "Consultorio" },
-  { slug: "techverse", formato: "escritorio", que: "Tienda con configurador" },
-  { slug: "piston-motoservicio", formato: "celular", que: "Taller de motos" },
+  { slug: "ceiba-psicologia", formato: "celular", que: "Consultorio", tono: ["#7d85d4", "#414ec4", "#626dd2"] },
+  { slug: "techverse", formato: "escritorio", que: "Tienda con configurador", tono: ["#151313", "#696a69", "#444444"] },
+  { slug: "piston-motoservicio", formato: "celular", que: "Taller de motos", tono: ["#5e6056", "#403c29", "#a78c25"] },
   {
     slug: "floristeria-alheli",
     formato: "escritorio",
     que: "Catálogo",
-    marca: { forma: "circulo", x: 89.5, y: 86, ancho: 11, alto: 17, nota: "pedidos por WhatsApp" },
+    tono: ["#d9d6d1", "#f0ede6", "#d7ccc0"],
+    // El botón flotante de WhatsApp (1360-1415 x 820-875).
+    marca: { cx: 1388, cy: 848, rx: 47, ry: 46, nota: "pedidos por WhatsApp" },
   },
   {
     slug: "movo",
     formato: "escritorio",
     que: "Software para talleres",
-    marca: { forma: "ovalo", x: 18, y: 74, ancho: 78, alto: 30, nota: "software a medida" },
+    tono: ["#ccdeea", "#cbdeeb", "#e7eff4"],
+    // El panel: título "Dashboard" y los filtros del reporte.
+    marca: { cx: 578, cy: 798, rx: 305, ry: 74, nota: "software a medida" },
   },
-  { slug: "reno-motriz", formato: "escritorio", que: "Agenda del taller" },
-  { slug: "bunker-force", formato: "escritorio", que: "Tienda en línea" },
+  { slug: "reno-motriz", formato: "escritorio", que: "Agenda del taller", tono: ["#cbcac9", "#fcfcfc", "#fdfdfd"] },
+  { slug: "bunker-force", formato: "escritorio", que: "Tienda en línea", tono: ["#1d1d1c", "#2e3025", "#2f3027"] },
 ];
 
 const proyectoDe = (slug: string) =>
   PROYECTOS.find((p) => p.slug === slug) as ProyectoPortafolio;
 
-// Trazos a mano: un óvalo que no cierra del todo y un círculo apretado.
-const TRAZO_MARCA = {
-  ovalo: "M52 3 C 20 2, 3 14, 4 30 C 5 48, 30 58, 56 57 C 82 56, 98 44, 97 28 C 96 12, 74 3, 44 6",
-  circulo: "M50 4 C 22 3, 4 20, 5 36 C 6 54, 28 58, 52 57 C 78 56, 96 42, 95 26 C 94 10, 70 1, 38 8",
+// Óvalo a mano: da una vuelta y un poco más, arrancando arriba a la izquierda,
+// y el radio crece apenas al final, de modo que el remate pasa por fuera del
+// comienzo en vez de cerrar exacto, como cuando se encierra algo con un
+// marcador. Mismo pulso que el subrayado del titular.
+const ovaloAMano = ({ cx, cy, rx, ry }: Marca) => {
+  const pasos = 14;
+  const inicio = (-115 * Math.PI) / 180;
+  const vuelta = (372 * Math.PI) / 180;
+  const puntos = Array.from({ length: pasos + 1 }, (_, i) => {
+    const t = i / pasos;
+    const a = inicio + vuelta * t;
+    const k = 0.97 + 0.08 * t + 0.015 * Math.sin(t * 9);
+    return [cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k];
+  });
+  // Catmull-Rom a curvas de Bézier: trazo continuo que pasa por cada punto.
+  const f = (n: number) => n.toFixed(1);
+  let d = `M${f(puntos[0][0])} ${f(puntos[0][1])}`;
+  for (let i = 0; i < pasos; i++) {
+    const p0 = puntos[Math.max(0, i - 1)];
+    const p1 = puntos[i];
+    const p2 = puntos[i + 1];
+    const p3 = puntos[Math.min(pasos, i + 2)];
+    d += ` C${f(p1[0] + (p2[0] - p0[0]) / 6)} ${f(p1[1] + (p2[1] - p0[1]) / 6)}, ${f(
+      p2[0] - (p3[0] - p1[0]) / 6,
+    )} ${f(p2[1] - (p3[1] - p1[1]) / 6)}, ${f(p2[0])} ${f(p2[1])}`;
+  }
+  return d;
 };
 
-const Captura = ({ pieza, primera }: { pieza: Pieza; primera: boolean }) => {
+// Qué archivo baja cada pieza. En celular se declara menos ancho del real a
+// propósito: con 266 px un teléfono de 3x baja la de 800 (no la de 1080) y uno
+// de 2x la de 640. En una cinta que se mueve no se nota y pesa la mitad.
+const SIZES_ESCRITORIO = "(max-width: 640px) 266px, (max-width: 900px) min(50vh, 544px), min(45vh, 496px)";
+const SIZES_CELULAR = "(max-width: 640px) 140px, (max-width: 900px) 170px, 160px";
+
+// Las dos últimas (Reno y Bunker) no se ven al abrir en ningún ancho: se
+// piden cuando la página terminó de cargar, para que no le quiten ancho de
+// banda a las primeras. Mientras tanto el marco muestra su color.
+const PIEZAS_AL_ABRIR = 6;
+
+const Captura = ({
+  pieza,
+  orden,
+  copia,
+  resto,
+}: {
+  pieza: Pieza;
+  orden: number;
+  copia: boolean;
+  resto: boolean;
+}) => {
   const proyecto = proyectoDe(pieza.slug);
   const base = `/portafolio/${proyecto.imagen}`;
   const esCelular = pieza.formato === "celular";
   const { marca } = pieza;
+  // Nada de loading="lazy": la cinta se mueve con transform dentro de un
+  // recorte y el navegador pedía las diferidas cuando ya estaban entrando, así
+  // que se veían vacías un rato. La primera va con prioridad alta (es el LCP
+  // en el celular); el resto, baja, para no quitarle ancho de banda. Con
+  // alta en las tres primeras el LCP de Lighthouse empeoraba ~250 ms. La
+  // copia de la vuelta usa las mismas URL y sale de la caché.
+  const prioridad = !copia && orden === 0 ? "high" : "low";
+  const conImagen = orden < PIEZAS_AL_ABRIR || resto;
   return (
     // Nombres de clase completos: PurgeCSS borra los que se arman por partes.
     <figure className={esCelular ? "vitrina-pieza vitrina-pieza--celular" : "vitrina-pieza vitrina-pieza--escritorio"}>
       <div className="vitrina-lienzo">
-        <div className="vitrina-marco">
-          <img
-            src={esCelular ? `${base}-celular-200.webp` : `${base}-escritorio-640.webp`}
-            srcSet={
-              esCelular
-                ? `${base}-celular-200.webp 200w, ${base}-celular-400.webp 400w`
-                : `${base}-escritorio-640.webp 640w, ${base}-escritorio-1080.webp 1080w`
-            }
-            sizes={esCelular ? "(min-width: 900px) 170px, 118px" : "(min-width: 900px) 460px, 320px"}
-            width={esCelular ? 390 : 1440}
-            height={esCelular ? 844 : 900}
-            alt={primera ? proyecto.alt : ""}
-            loading={primera ? "eager" : "lazy"}
-            decoding="async"
-          />
+        <div
+          className="vitrina-marco"
+          style={{ background: `linear-gradient(${pieza.tono[0]}, ${pieza.tono[1]} 45%, ${pieza.tono[2]})` }}
+        >
+          {conImagen && (
+            <img
+              src={esCelular ? `${base}-celular-200.webp` : `${base}-escritorio-640.webp`}
+              srcSet={
+                esCelular
+                  ? `${base}-celular-200.webp 200w, ${base}-celular-400.webp 400w`
+                  : `${base}-escritorio-640.webp 640w, ${base}-escritorio-800.webp 800w, ${base}-escritorio-1080.webp 1080w`
+              }
+              sizes={esCelular ? SIZES_CELULAR : SIZES_ESCRITORIO}
+              width={esCelular ? 390 : 1440}
+              height={esCelular ? 844 : 900}
+              alt={copia ? "" : proyecto.alt}
+              fetchPriority={prioridad}
+              decoding="async"
+            />
+          )}
         </div>
         {marca && (
           <svg
             className="trazo vitrina-marca"
-            viewBox="0 0 100 60"
-            preserveAspectRatio="none"
+            viewBox="0 0 1440 900"
+            preserveAspectRatio="xMidYMin slice"
             aria-hidden="true"
-            style={{
-              left: `${marca.x}%`,
-              top: `${marca.y}%`,
-              width: `${marca.ancho}%`,
-              height: `${marca.alto}%`,
-            }}
           >
-            <path d={TRAZO_MARCA[marca.forma]} pathLength={1} />
+            <path d={ovaloAMano(marca)} pathLength={1} />
           </svg>
         )}
       </div>
@@ -162,61 +225,77 @@ const Captura = ({ pieza, primera }: { pieza: Pieza; primera: boolean }) => {
   );
 };
 
-const Hero = () => (
-  <section id="hero" className="hero hero--vitrina" aria-labelledby="hero-titulo">
-    <div className="vitrina-cabeza">
-      <h1 id="hero-titulo" className="hero-titulo vitrina-titulo">
-        Tu local cierra a las 7. Tu web{" "}
-        <span className="con-trazo">
-          sigue atendiendo.
-          <Subrayado />
-        </span>
-      </h1>
-    </div>
+const Hero = () => {
+  const [resto, setResto] = useState(false);
+  useEffect(() => {
+    const cargar = () => setResto(true);
+    if (document.readyState === "complete") cargar();
+    else window.addEventListener("load", cargar, { once: true });
+    return () => window.removeEventListener("load", cargar);
+  }, []);
 
-    <div className="vitrina-cinta" aria-label="Webs que hemos hecho">
-      {/* La lista va dos veces para que la vuelta no tenga corte; la copia no
-          la leen los lectores de pantalla. */}
-      <div className="vitrina-pista">
-        <div className="vitrina-tramo">
-          {PIEZAS.map((pieza, i) => (
-            <Captura key={pieza.slug} pieza={pieza} primera={i < 4} />
-          ))}
+  return (
+    <section id="hero" className="hero hero--vitrina" aria-labelledby="hero-titulo">
+      <div className="vitrina-cabeza">
+        <h1 id="hero-titulo" className="hero-titulo vitrina-titulo">
+          Tu local cierra a las 7. Tu web{" "}
+          <span className="con-trazo">
+            sigue atendiendo.
+            <Subrayado />
+          </span>
+        </h1>
+      </div>
+
+      <div className="vitrina-cinta" aria-label="Webs que hemos hecho">
+        {/* La lista va dos veces para que la vuelta no tenga corte; la copia no
+            la leen los lectores de pantalla. */}
+        <div className="vitrina-pista">
+          <div className="vitrina-tramo">
+            {PIEZAS.map((pieza, i) => (
+              <Captura key={pieza.slug} pieza={pieza} orden={i} copia={false} resto={resto} />
+            ))}
+          </div>
+          <div className="vitrina-tramo" aria-hidden="true">
+            {PIEZAS.map((pieza, i) => (
+              <Captura key={pieza.slug} pieza={pieza} orden={i} copia resto={resto} />
+            ))}
+          </div>
         </div>
-        <div className="vitrina-tramo" aria-hidden="true">
-          {PIEZAS.map((pieza) => (
-            <Captura key={pieza.slug} pieza={pieza} primera={false} />
-          ))}
+
+        <div className="vitrina-nota" aria-hidden="true">
+          {/* La flor de la marca firma la nota: el isotipo tal cual (348 x 527),
+              sin redibujar. */}
+          <img
+            className="vitrina-flor"
+            src="/marca/isotipo-color.webp"
+            width={348}
+            height={527}
+            alt=""
+            decoding="async"
+          />
+          <span>todas estas las hicimos nosotros</span>
+          <svg viewBox="0 0 100 130" className="trazo">
+            <path d="M6 10 C 52 4, 86 34, 82 118" pathLength={1} />
+            <path d="M70 104 L 82 120 L 94 102" pathLength={1} />
+          </svg>
         </div>
       </div>
 
-      <div className="vitrina-nota" aria-hidden="true">
-        {/* La flor de la marca firma la nota: el isotipo tal cual (348 x 527),
-            sin redibujar. */}
-        <img
-          className="vitrina-flor"
-          src="/marca/isotipo-color.webp"
-          width={348}
-          height={527}
-          alt=""
-          decoding="async"
-        />
-        <span>todas estas las hicimos nosotros</span>
-        <svg viewBox="0 0 100 130" className="trazo">
-          <path d="M6 10 C 52 4, 86 34, 82 118" pathLength={1} />
-          <path d="M70 104 L 82 120 L 94 102" pathLength={1} />
-        </svg>
+      <div className="vitrina-pie">
+        <p className="hero-texto vitrina-texto">
+          Te encuentran en Google, ven tus precios y agendan o piden sin esperar a que
+          contestes.{" "}
+          {/* En el celular el párrafo queda en esta primera frase; los servicios
+              siguen en el HTML (mismo texto para Google en todos los anchos) y
+              enlazados también desde la sección de servicios. */}
+          <span className="vitrina-texto-servicios">
+            Hacemos <ListaServicios /> para negocios de Medellín.
+          </span>
+        </p>
+        <AccionesHero />
       </div>
-    </div>
-
-    <div className="vitrina-pie">
-      <p className="hero-texto vitrina-texto">
-        Te encuentran en Google, ven tus precios y agendan o piden sin esperar a que
-        contestes. Hacemos <ListaServicios /> para negocios de Medellín.
-      </p>
-      <AccionesHero />
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Hero;

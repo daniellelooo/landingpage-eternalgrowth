@@ -43,7 +43,7 @@ const VISTAS = [
     tipo: "escritorio",
     viewport: { width: 1440, height: 900 },
     mobile: false,
-    anchos: [640, 1080, 1600],
+    anchos: [640, 800, 1080, 1600],
   },
   {
     tipo: "celular",
