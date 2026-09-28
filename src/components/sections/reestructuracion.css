@@ -303,7 +303,7 @@
   top: 0.6em;
   width: 6px;
   height: 6px;
-  border-radius: 1px;
+  border-radius: 50%;
   background: var(--violeta);
 }
 
@@ -549,6 +549,7 @@
 .contacto-vias .pixel {
   width: 6px;
   height: 6px;
+  border-radius: 50%;
   transform: translateY(-2px);
 }
 
