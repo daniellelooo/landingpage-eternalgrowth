@@ -222,9 +222,15 @@
   row-gap: clamp(0.25rem, 1.2vh, 1rem);
 }
 
+/* El texto del hero se alinea con el contenedor de 1200 px del resto de
+   secciones; en pantallas anchas (1920) quedaba pegado al borde izquierdo.
+   La cinta sigue a sangre. */
+.hero--vitrina {
+  --margen-texto: max(min(var(--margen), 2rem), calc((100% - 1200px) / 2));
+}
+
 .vitrina-cabeza {
-  padding: clamp(1.25rem, 4vh, 2.5rem) var(--margen) 0;
-  max-width: 1440px;
+  padding: clamp(1.25rem, 4vh, 2.5rem) var(--margen-texto) 0;
 }
 
 .vitrina-titulo {
@@ -432,7 +438,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem 3rem;
-  padding: 0 var(--margen) clamp(1.25rem, 4vh, 2.5rem);
+  padding: 0 var(--margen-texto) clamp(1.25rem, 4vh, 2.5rem);
 }
 
 .vitrina-texto {

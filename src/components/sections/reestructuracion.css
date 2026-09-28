@@ -834,3 +834,17 @@
     padding: 1.75rem 0 1.9rem;
   }
 }
+
+/* Formulario de contacto entre 901 y 1180 px: la columna del formulario es
+   angosta y el teléfono (prefijo + número) se montaba sobre "¿Qué te
+   interesa?". Ahí el teléfono ocupa la fila completa y nada se desborda. */
+.contact-phone > *,
+.contact-phone input {
+  min-width: 0;
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  .contact-grid .contact-field:has(.contact-phone) {
+    grid-column: 1 / -1;
+  }
+}
