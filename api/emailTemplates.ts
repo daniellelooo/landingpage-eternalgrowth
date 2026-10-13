@@ -10,8 +10,6 @@ export type ContactPayload = {
   descripcion_servicio?: string;
   descripcion_empresa?: string;
   website?: string;
-  // Constancia de la autorización de datos (Ley 1581): fecha, hora y versión.
-  autorizacion?: string;
 };
 
 const escapeHtml = (value: string) =>
@@ -38,8 +36,7 @@ export const buildOwnerEmail = (payload: ContactPayload) => {
     `Telefono: ${telefonoCompleto}\n` +
     `Empresa: ${payload.empresa ?? ""}\n` +
     `Servicio de interes: ${payload.servicio ?? ""}\n` +
-    `Metodo de contacto: ${payload.contacto_preferido ?? ""}\n` +
-    `Autorizacion de datos: ${payload.autorizacion ?? ""}\n\n` +
+    `Metodo de contacto: ${payload.contacto_preferido ?? ""}\n\n` +
     `Descripcion del servicio:\n${payload.descripcion_servicio ?? ""}\n\n` +
     `Descripcion de la empresa:\n${payload.descripcion_empresa ?? ""}`;
 };
@@ -82,7 +79,6 @@ export const buildOwnerEmailHtml = (payload: ContactPayload) => {
               <tr><td class="eg-label" style="padding:8px 0;color:#6b6278;-webkit-text-fill-color:#6b6278;">Email</td><td style="padding:8px 0;color:#1a1026;-webkit-text-fill-color:#1a1026;">${formatField(payload.email ?? "")}</td></tr>
               <tr><td class="eg-label" style="padding:8px 0;color:#6b6278;-webkit-text-fill-color:#6b6278;">Teléfono</td><td style="padding:8px 0;color:#1a1026;-webkit-text-fill-color:#1a1026;">${formatField(telefonoCompleto)}</td></tr>
               <tr><td class="eg-label" style="padding:8px 0;color:#6b6278;-webkit-text-fill-color:#6b6278;">Servicio</td><td style="padding:8px 0;color:#1a1026;-webkit-text-fill-color:#1a1026;">${formatField(payload.servicio ?? "")}</td></tr>
-              <tr><td class="eg-label" style="padding:8px 0;color:#6b6278;-webkit-text-fill-color:#6b6278;">Autorización de datos</td><td style="padding:8px 0;color:#1a1026;-webkit-text-fill-color:#1a1026;">${formatField(payload.autorizacion ?? "")}</td></tr>
             </table>
           </td>
         </tr>

@@ -32,21 +32,6 @@ const normalizeField = (value: unknown) => {
 const normalizeBoolean = (value: unknown) =>
   value === true || value === "true" || value === 1 || value === "1";
 
-// Autorización de tratamiento de datos (Ley 1581 de 2012). Los formularios
-// mandan "si" desde una casilla obligatoria; sin ella no se procesa nada.
-// La constancia (fecha, hora y versión de la política) va en el correo que
-// recibe EternalGrowth: es la prueba de la autorización que exige la ley.
-const autorizoDatos = (value: unknown) => value === "si" || value === true;
-
-const constanciaAutorizacion = (version: string) => {
-  const momento = new Intl.DateTimeFormat("es-CO", {
-    dateStyle: "long",
-    timeStyle: "short",
-    timeZone: "America/Bogota",
-  }).format(new Date());
-  return `Sí, el ${momento} (hora de Colombia), política versión ${version || "sin versión"}`;
-};
-
 const escapeHtml = (value: string) =>
   value
     .replace(/&/g, "&amp;")
@@ -120,7 +105,7 @@ export default async function handler(
     return;
   }
 
-  const payload = request.body as ContactPayload & { newsletter?: unknown; newsletter_source?: unknown; mensaje?: unknown; website?: unknown; autoriza_datos?: unknown; politica_version?: unknown };
+  const payload = request.body as ContactPayload & { newsletter?: unknown; newsletter_source?: unknown; mensaje?: unknown; website?: unknown };
   const isNewsletter = normalizeBoolean(payload?.newsletter);
   const newsletterSource = normalizeField(payload?.newsletter_source);
   const honeypot = normalizeField(payload?.website);
@@ -130,7 +115,6 @@ export default async function handler(
   const telefonoPais = normalizeField(payload?.telefono_pais);
   const servicio = normalizeField(payload?.servicio);
   const mensaje = normalizeField(payload?.mensaje);
-  const politicaVersion = normalizeField(payload?.politica_version).slice(0, 20);
 
   if (!EMAIL_REGEX.test(email)) {
     response.status(400).json({ error: "Email invalido" });
@@ -142,15 +126,6 @@ export default async function handler(
     response.status(200).json({ ok: true });
     return;
   }
-
-  if (!autorizoDatos(payload?.autoriza_datos)) {
-    response
-      .status(400)
-      .json({ error: "Falta la autorizacion de tratamiento de datos" });
-    return;
-  }
-
-  const autorizacion = constanciaAutorizacion(politicaVersion);
 
   const fromEmail = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
   const toEmail = process.env.CONTACT_TO_EMAIL ?? "gerencia@eternalgrowth.xyz";
@@ -179,7 +154,7 @@ export default async function handler(
         to: toEmail,
         replyTo: email,
         subject: "Nuevo suscriptor — Eternal News",
-        text: `Nuevo suscriptor en Eternal News\n\nEmail: ${email}\nOrigen: ${sourceLabel}\nAutorizacion de datos: ${autorizacion}`,
+        text: `Nuevo suscriptor en Eternal News\n\nEmail: ${email}\nOrigen: ${sourceLabel}`,
         html: `
 <style>
   @media (prefers-color-scheme:dark){
@@ -206,7 +181,6 @@ export default async function handler(
           <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;border-collapse:collapse;">
             <tr><td class="eg-label" style="padding:7px 0;width:36%;color:#6b6278;-webkit-text-fill-color:#6b6278;">Email</td><td style="padding:7px 0;font-weight:600;color:#1a1026;-webkit-text-fill-color:#1a1026;">${safeEmail}</td></tr>
             <tr><td class="eg-label" style="padding:7px 0;color:#6b6278;-webkit-text-fill-color:#6b6278;">Origen</td><td style="padding:7px 0;color:#1a1026;-webkit-text-fill-color:#1a1026;">${escapeHtml(sourceLabel)}</td></tr>
-            <tr><td class="eg-label" style="padding:7px 0;color:#6b6278;-webkit-text-fill-color:#6b6278;">Autorización de datos</td><td style="padding:7px 0;color:#1a1026;-webkit-text-fill-color:#1a1026;">${escapeHtml(autorizacion)}</td></tr>
           </table>
         </td>
       </tr>
@@ -316,7 +290,6 @@ export default async function handler(
         telefono_pais: telefonoPais,
         servicio,
         descripcion_servicio: mensaje,
-        autorizacion,
       }),
       html: buildOwnerEmailHtml({
         nombre,
@@ -325,7 +298,6 @@ export default async function handler(
         telefono_pais: telefonoPais,
         servicio,
         descripcion_servicio: mensaje,
-        autorizacion,
       }),
     });
 
