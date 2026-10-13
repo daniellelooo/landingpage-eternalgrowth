@@ -1,0 +1,29 @@
+# CI del equipo: corre las verificaciones del proyecto en cada PR y en develop.
+# El build no necesita variables de entorno (se comprobó sin ninguna).
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, main, master]
+  push:
+    branches: [develop]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Tipos
+        run: npm run lint
+      - name: Build
+        run: npm run build
