@@ -9,7 +9,6 @@ import {
   renderHeadTags,
 } from "./seo/meta";
 import { SITE } from "./seo/site";
-import { camposPendientesPrivacidad } from "./data/privacidad";
 
 // Lo usa scripts/prerender.mjs durante el build para escribir el HTML real de
 // cada página. No se ejecuta en el navegador.
@@ -26,4 +25,4 @@ export const renderPage = (pathname: string) => {
   };
 };
 
-export { getAllPaths, getSitemapEntries, SITE, camposPendientesPrivacidad };
+export { getAllPaths, getSitemapEntries, SITE };

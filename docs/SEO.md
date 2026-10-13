@@ -25,7 +25,6 @@ En el navegador React "hidrata" ese HTML: la página se ve y se comporta igual q
 | `src/data/portafolio.ts` | Los proyectos del portafolio (`/portafolio` y el bloque de la home). |
 | `scripts/capturar-portafolio.mjs` | Toma las capturas de un proyecto del portafolio (se corre a mano). |
 | `scripts/prerender.mjs` | Escribe los HTML, el 404 y el sitemap. |
-| `src/data/privacidad.ts` | Política de datos (`/privacidad`), aviso y casillas de autorización (Ley 1581). Los campos del responsable entre corchetes se llenan a mano; si queda alguno, el build de producción falla a propósito. |
 | `vercel.json` | `cleanUrls`, redirección de `/news` a `/blog`. Ya no hay rewrites a `index.html`. |
 | `public/og-image.png` | Imagen de previsualización (1200x630) al compartir por WhatsApp o LinkedIn. |
 
