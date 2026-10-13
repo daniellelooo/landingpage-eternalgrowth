@@ -57,3 +57,12 @@ jobs:
             --model ${{ (contains(github.event.pull_request.labels.*.name, 'dinero') || github.event.pull_request.base.ref != 'develop') && 'opus' || 'sonnet' }}
             --max-turns 40
             --allowedTools "Read,Grep,Glob,Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr comment:*),Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(npm audit:*),Bash(pnpm audit:*)"
+
+      - name: Motivo del fallo
+        if: failure() && steps.token.outputs.ok == 'true'
+        run: |
+          f="$RUNNER_TEMP/claude-execution-output.json"
+          if [ ! -f "$f" ]; then echo "No hay archivo de salida de Claude."; exit 0; fi
+          echo "Resultado reportado por Claude (sin el token):"
+          jq -r '.. | objects | select(.type? == "result") | (.result // .subtype // empty)' "$f" | tail -n 3 | cut -c1-600
+          jq -r '.. | objects | (.error? // empty) | tostring' "$f" | sort -u | head -n 5 | cut -c1-600
