@@ -14,15 +14,15 @@ export const PRIVACIDAD_PATH = "/privacidad";
 
 export const RESPONSABLE = {
   // Nombre completo de la persona natural que opera EternalGrowth.
-  nombre: "[NOMBRE COMPLETO DEL RESPONSABLE]",
+  nombre: "Samuel Roldan Laverde",
   // Documento de identidad, por ejemplo "C.C. 1.000.000.000".
-  identificacion: "C.C. [NÚMERO DE CÉDULA]",
+  identificacion: "C.C. 1.025.884.673",
   // Dirección física para notificaciones (la ley la pide aunque no haya local).
-  direccion: "[DIRECCIÓN DE NOTIFICACIONES]",
+  direccion: "Avenida 26 # 52-200",
   ciudad: "Medellín, Antioquia, Colombia",
   correo: SITE.email,
   // Teléfono de contacto del responsable (la ley lo pide en la política).
-  telefono: "[TELÉFONO DE CONTACTO]",
+  telefono: "+57 324 209 0985",
 } as const;
 
 // Fecha de esta versión (AAAA-MM-DD). Va en la página, en el sitemap y en el
