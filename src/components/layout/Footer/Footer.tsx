@@ -74,6 +74,9 @@ const Footer = () => {
             <li>
               <a href={PRIVACIDAD_PATH}>Política de tratamiento de datos</a>
             </li>
+            <li>
+              <a href={`${PRIVACIDAD_PATH}#aviso-privacidad`}>Aviso de privacidad</a>
+            </li>
           </ul>
 
           <h2 className="pie-titulo pie-titulo--redes">Redes</h2>
