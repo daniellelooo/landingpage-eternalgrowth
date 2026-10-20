@@ -15,8 +15,6 @@ export const PRIVACIDAD_PATH = "/privacidad";
 export const RESPONSABLE = {
   // Nombre completo de la persona natural que opera EternalGrowth.
   nombre: "Samuel Roldan Laverde",
-  // Documento de identidad, por ejemplo "C.C. 1.000.000.000".
-  identificacion: "C.C. 1.025.884.673",
   // Dirección física para notificaciones (la ley la pide aunque no haya local).
   direccion: "Avenida 26 # 52-200",
   ciudad: "Medellín, Antioquia, Colombia",
@@ -61,7 +59,7 @@ export type BloquePolitica = {
   cierre?: string[];
 };
 
-const responsableTexto = `${RESPONSABLE.nombre}, identificado con ${RESPONSABLE.identificacion}, quien opera la marca EternalGrowth`;
+const responsableTexto = `${RESPONSABLE.nombre}, quien opera la marca EternalGrowth`;
 
 export const AVISO_PRIVACIDAD = [
   `${responsableTexto}, con domicilio en ${RESPONSABLE.ciudad}, es el responsable del tratamiento de los datos personales que nos das en esta web. Contacto: ${RESPONSABLE.correo}, teléfono ${RESPONSABLE.telefono}.`,
@@ -75,7 +73,7 @@ export const POLITICA: BloquePolitica[] = [
     id: "responsable",
     titulo: "1. Quién es el responsable",
     parrafos: [
-      `EternalGrowth es una marca que todavía no está constituida como sociedad. Por eso el responsable del tratamiento es la persona natural que la opera: ${RESPONSABLE.nombre}, identificado con ${RESPONSABLE.identificacion}.`,
+      `EternalGrowth es una marca que todavía no está constituida como sociedad. Por eso el responsable del tratamiento es la persona natural que la opera: ${RESPONSABLE.nombre}.`,
     ],
     lista: [
       `Domicilio: ${RESPONSABLE.ciudad}.`,
