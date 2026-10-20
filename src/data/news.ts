@@ -20,6 +20,77 @@ export type NewsItem = {
 
 export const NEWS_ITEMS: NewsItem[] = [
   {
+    slug: "black-friday-2026-colombia-preparar-negocio",
+    category: "Ventas y comercio",
+    date: "20 Oct 2026",
+    displayDate: "Martes · 20 de octubre de 2026",
+    title: "Black Friday 2026 en Colombia: cómo preparar tu negocio",
+    deck:
+      "El Black Friday cae el viernes 27 de noviembre. Faltan cinco semanas, y lo que decide si vendes ese día no es el descuento: es si el cliente te encuentra, te entiende y te puede pagar sin fricción.",
+    summary:
+      "El Black Friday 2026 en Colombia es el 27 de noviembre. Qué pide la SIC a los comercios y qué preparar en tu negocio para vender más ese día.",
+    insight:
+      "Bloomberg Línea confirmó el 19 de octubre que el Black Friday en Colombia será el viernes 27 de noviembre de 2026, el día después de Acción de Gracias en Estados Unidos, y Semana reporta que varias marcas extenderán sus promociones durante el fin de semana. La fecha llega con el comercio en movimiento: según el DANE, las ventas reales del comercio minorista crecieron 5,3 % en julio de 2026. Pero el error más común de un negocio pequeño es creer que el Black Friday se gana con el descuento más grande. Las grandes cadenas siempre van a poder bajar más el precio. Donde una pyme de Medellín sí puede ganar es en lo que pasa alrededor de la oferta: que el cliente la encuentre, que entienda las condiciones a la primera, que alguien le responda rápido por WhatsApp y que pagar no sea una carrera de obstáculos. Y todo eso se prepara ahora, no el jueves 26 en la noche.",
+    signals: [
+      "La fecha: viernes 27 de noviembre de 2026, según Bloomberg Línea y Semana. Muchas marcas estiran las ofertas hasta el sábado 28 y el domingo 29, así que conviene planear un fin de semana completo y no un solo día.",
+      "La Superintendencia de Industria y Comercio (SIC) recuerda que toda promoción debe informar con claridad su vigencia, los productos incluidos y las condiciones para acceder al descuento, con el precio en pesos colombianos y el vendedor claramente identificado.",
+      "Las normas de protección al consumidor dicen que, si un mismo producto aparece con dos precios, el cliente paga el más bajo. Un banner viejo que nadie actualizó puede salirte caro.",
+      "En ventas por internet o por WhatsApp aplica el derecho de retracto de la Ley 1480 de 2011: el cliente tiene cinco días hábiles después de recibir el producto para arrepentirse. Si no lo tienes previsto en tu política de devoluciones, el Black Friday es cuando te lo van a pedir.",
+      "La SIC también le pide al consumidor desconfiar de las páginas que no identifican al vendedor y de las ofertas que presionan a pagar de inmediato. Si tu web o tu perfil no dicen quién eres, dónde estás y cómo contactarte, el cliente cuidadoso se va a ir.",
+      "Metropolitano, citando a EAE Business School, resume la tendencia: cuando los precios se parecen, decide la experiencia. Información fácil de encontrar, buena atención, entrega cumplida y devoluciones sencillas.",
+    ],
+    actions: [
+      "Esta semana: elige de tres a cinco productos o servicios para la promoción y anota su precio habitual de hoy. El precio de referencia tiene que ser real; inflarlo para mostrar un descuento mayor es justo lo que la SIC sanciona.",
+      "Escribe las condiciones en una sola frase que se pueda leer en el celular: qué incluye, hasta cuándo y si hay unidades limitadas. Ponla igual en la web, en Instagram y en el mensaje de WhatsApp.",
+      "Revisa que tu página cargue rápido desde el celular, tenga el botón de WhatsApp a la vista y muestre tu nombre, ciudad y medios de contacto. Es lo primero que el cliente mira antes de confiar en una oferta.",
+      "Deja listas en WhatsApp Business las respuestas rápidas a las preguntas que van a llegar en masa: precio, envío, tiempos de entrega, medios de pago y cambios. Así una sola persona atiende el triple sin contestar a la carrera.",
+      "Ofrece más de un medio de pago y pruébalos todos antes del 27: transferencia, pago con QR, tarjeta o link de pago. Un pago que falla en plena oferta es una venta perdida.",
+      "Define cuántos pedidos puedes despachar de verdad. Prometer una entrega que tu operación no aguanta convierte la venta del viernes en el reclamo del lunes.",
+      "El lunes 30 de noviembre, revisa cuántas ventas salieron, de qué canal y cuántos clientes nuevos llegaron. Ese número te dice si repetir la estrategia en diciembre.",
+    ],
+    source: "Bloomberg Línea / Metropolitano (DANE) / Semana",
+    url: "https://www.bloomberglinea.com/latinoamerica/colombia/cuando-es-el-black-friday-2026-en-colombia-cae-el-27-de-noviembre-y-asi-puede-preparar-sus-compras/",
+    image:
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80",
+    alt: "Bolsas de compras rojas y negras sobre fondo oscuro, temporada de Black Friday",
+    contactMessage:
+      "Hola, leí el artículo sobre el Black Friday 2026 y quiero preparar mi página web y mi WhatsApp para vender más el 27 de noviembre.",
+  },
+  {
+    slug: "como-automatizar-whatsapp-business-negocio",
+    tipo: "guia",
+    category: "Automatización",
+    date: "20 Oct 2026",
+    displayDate: "Martes · 20 de octubre de 2026",
+    title: "Cómo automatizar WhatsApp Business en un negocio pequeño",
+    deck:
+      "La mitad de lo que contestas en WhatsApp es lo mismo todos los días. Esta guía te muestra qué puedes automatizar gratis desde hoy, cuándo vale la pena un chatbot y qué no deberías automatizar nunca.",
+    summary:
+      "Guía para automatizar WhatsApp Business en un negocio pequeño: qué se hace gratis con la app, cuándo pasar a un chatbot y qué no conviene automatizar.",
+    insight:
+      "Automatizar WhatsApp no significa poner un robot a hablar con tus clientes. Significa que las preguntas de siempre (precio, horario, si hay domicilio, cómo se paga) se respondan solas y al instante, para que la persona de tu equipo use su tiempo en lo que sí necesita a alguien: cerrar la venta, resolver un problema o atender un cliente molesto. Hay dos niveles. El primero es gratis y está en la aplicación de WhatsApp Business que probablemente ya tienes en el celular. El segundo es la plataforma de WhatsApp Business conectada a un chatbot o a tu sistema, que tiene costo y solo se justifica cuando el volumen de mensajes ya no cabe en el primero. La mayoría de negocios pequeños de Medellín todavía no ha sacado provecho del nivel gratuito.",
+    signals: [
+      "Nivel 1, gratis: la aplicación de WhatsApp Business trae mensaje de bienvenida (sale solo cuando alguien te escribe por primera vez), mensaje de ausencia (fuera de tu horario), respuestas rápidas que se insertan escribiendo una barra y una palabra clave, etiquetas para ordenar a los clientes y un catálogo con fotos y precios.",
+      "La señal de que el nivel 1 se quedó corto: varias personas contestan desde el mismo número, los mensajes se pierden entre chats, necesitas respuestas automáticas también en horario laboral o quieres que el pedido quede guardado solo en una hoja de cálculo o en tu sistema.",
+      "Nivel 2, con costo: la plataforma de WhatsApp Business (la API) permite chatbots, varios agentes al mismo tiempo y conexiones con herramientas como n8n, tu CRM o tu agenda. Meta cobra por mensaje según el tipo y el país, y esas reglas cambiaron en octubre de 2026, así que antes de montar nada pide la tarifa vigente para Colombia.",
+      "Lo que vale la pena automatizar: preguntas frecuentes, confirmación y recordatorio de citas, estado de un pedido, envío del catálogo y la toma de datos básicos antes de pasarle la conversación a una persona.",
+      "Lo que no conviene automatizar: quejas, negociaciones de precio, clientes que ya repitieron la misma pregunta dos veces y cualquier tema delicado. Un bot que no deja hablar con una persona espanta más clientes de los que atiende.",
+      "Escribirle a un cliente que no te ha escrito tiene reglas: Meta exige que el cliente haya aceptado recibir tus mensajes, y en Colombia la Ley 1581 de 2012 te pide su autorización para usar sus datos con fines comerciales.",
+    ],
+    actions: [
+      "Revisa tus chats de la última semana y anota las diez preguntas que más se repiten. Esa lista es tu guion de automatización.",
+      "Convierte esas diez preguntas en respuestas rápidas dentro de WhatsApp Business. Escríbelas cortas, con el precio o el dato concreto, y terminando con una pregunta que mueva la venta.",
+      "Activa el mensaje de bienvenida con lo esencial (qué vendes, horario y cómo pedir) y el de ausencia con la hora en que vas a responder. Nadie se molesta por esperar si sabe hasta cuándo.",
+      "Usa etiquetas como nuevo, pidió precio, pagado y entregado. En un mes vas a saber cuántos clientes se te quedan en el camino y en qué paso.",
+      "Si después de eso sigues sin dar abasto, ahí sí evalúa un chatbot. Pide que siempre tenga la opción de hablar con una persona y que te muestren cuántos mensajes al mes vas a pagar antes de firmar.",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80",
+    alt: "Celular con el ícono de WhatsApp en la pantalla, listo para atender clientes de un negocio",
+    contactMessage:
+      "Hola, leí la guía para automatizar WhatsApp Business y quiero saber qué respuestas y procesos de mi negocio se pueden automatizar.",
+  },
+  {
     slug: "que-es-transformacion-digital-pyme",
     tipo: "guia",
     category: "Transformación digital",
