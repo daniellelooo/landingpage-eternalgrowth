@@ -3,6 +3,12 @@ import { SectionId } from "../../../types";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
 import News from "./News";
+import {
+  AUTORIZACION_BLOG,
+  POLITICA_VERSION,
+  PRIVACIDAD_PATH,
+  RESPONSABLE,
+} from "../../../data/privacidad";
 
 type SubscriptionStatus = "idle" | "loading" | "success" | "error";
 
@@ -82,6 +88,8 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
           email: subscriberEmail,
           newsletter: true,
           newsletter_source: "Eternal News",
+          autoriza_datos: "si",
+          politica_version: POLITICA_VERSION,
         }),
       });
 
@@ -136,6 +144,21 @@ const NewsPage = ({ initialSlug }: NewsPageProps) => {
                   autoComplete="email"
                   required
                 />
+                {/* Autorización previa, expresa e informada (Ley 1581). El
+                    navegador no deja enviar sin marcarla y el servidor la exige. */}
+                <label className="form-autoriza">
+                  <input type="checkbox" name="autoriza_datos" value="si" required />
+                  <span>
+                    {AUTORIZACION_BLOG}{" "}
+                    <a href={PRIVACIDAD_PATH} target="_blank" rel="noopener">
+                      política de tratamiento de datos
+                    </a>
+                    .
+                  </span>
+                </label>
+                <p className="form-aviso">
+                  Responsable: {RESPONSABLE.nombre}, quien opera EternalGrowth ({RESPONSABLE.correo}).
+                </p>
                 <button
                   type="submit"
                   className="news-subscribe-primary"

@@ -3,7 +3,7 @@
 ## Qué es
 La web pública de EternalGrowth, agencia de software y transformación digital de Medellín
 (https://www.eternalgrowth.xyz): inicio con formulario de contacto, blog "Sin filtro digital",
-páginas de servicio, portafolio y la historia de la empresa. React 19 +
+páginas de servicio, portafolio, política de datos y la historia de la empresa. React 19 +
 TypeScript + Vite 7 sin framework, con prerender propio, desplegada en Vercel. Los correos
 salen por Resend desde `api/`. No usa base de datos ni Supabase. ¿Mueve dinero? No.
 
@@ -33,10 +33,10 @@ salen por Resend desde `api/`. No usa base de datos ni Supabase. ¿Mueve dinero?
 - **`api/contact.ts`.** Formulario de contacto y boletín: manda correos con Resend a la dirección
   que escriba el visitante. Tiene tope de envíos por IP (5 cada 10 minutos, en memoria),
   honeypot y validación de largos; quitarlo o aflojarlo convierte el endpoint en un emisor de
-  correo con la marca de EternalGrowth. `api/send-news.ts` exige `x-admin-secret`.
-- **Política de datos (Ley 1581).** Está aparcada en la rama `feat/privacidad-ley-1581` (commit
-  1b1f9d7) y no existe en develop ni en producción. Para retomarla hay que llenar los cuatro datos
-  del responsable (nombre, cédula, dirección de notificaciones y teléfono) en `src/data/privacidad.ts`.
+  correo con la marca de EternalGrowth. Exige la autorización de datos (Ley 1581) y deja la
+  constancia en el correo que recibe la empresa. `api/send-news.ts` exige `x-admin-secret`.
+- **`src/data/privacidad.ts`.** Política de datos. Si quedan campos del responsable entre
+  corchetes, el build de producción (`VERCEL_ENV=production`) falla a propósito; en preview solo avisa.
 - **Scroll en la home.** Quien hace scroll es el `<body>`, no la ventana (`html, body` tienen
   `overflow-y: auto` en `src/index.css`). `window.scrollY` da 0; usar `document.scrollingElement`
   o `document.body.scrollTop`, como en `Header` y `FlorDeFondo`.

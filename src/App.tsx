@@ -9,6 +9,8 @@ import ServicioPage from "./pages/ServicioPage";
 import PortafolioPage from "./pages/PortafolioPage";
 import { PORTAFOLIO_PATH } from "./data/portafolio";
 import { normalizePath } from "./seo/meta";
+import PrivacidadPage from "./pages/PrivacidadPage";
+import { PRIVACIDAD_PATH } from "./data/privacidad";
 
 interface AppProps {
   // El build le pasa la ruta al generar el HTML de cada página; en el
@@ -21,6 +23,7 @@ const renderPage = (path: string) => {
   if (path === "/eternalgrowth") return <AboutPage />;
   if (path === NEWS_BASE_PATH) return <NewsPage />;
   if (path === PORTAFOLIO_PATH) return <PortafolioPage />;
+  if (path === PRIVACIDAD_PATH) return <PrivacidadPage />;
 
   if (path.startsWith(`${SERVICIOS_BASE_PATH}/`)) {
     const servicio = getServicioBySlug(path.slice(SERVICIOS_BASE_PATH.length + 1));

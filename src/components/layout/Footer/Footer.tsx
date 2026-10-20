@@ -1,6 +1,7 @@
 import logoImage from "../../../assets/logocorregido-removebg-preview.png";
 import { NEWS_BASE_PATH } from "../../../data/news";
 import { PORTAFOLIO_PATH } from "../../../data/portafolio";
+import { PRIVACIDAD_PATH } from "../../../data/privacidad";
 import { SERVICIOS, SERVICIOS_BASE_PATH } from "../../../data/servicios";
 import { SITE } from "../../../seo/site";
 import "./footer.css";
@@ -70,6 +71,9 @@ const Footer = () => {
               {SITE.city}, {SITE.region}, Colombia
             </li>
             <li>Respondemos en menos de 24 horas hábiles</li>
+            <li>
+              <a href={PRIVACIDAD_PATH}>Política de tratamiento de datos</a>
+            </li>
           </ul>
 
           <h2 className="pie-titulo pie-titulo--redes">Redes</h2>

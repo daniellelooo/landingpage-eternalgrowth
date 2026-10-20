@@ -6,7 +6,8 @@ import { PORTAFOLIO_PATH } from "../../../data/portafolio";
 import "./header.css";
 
 interface HeaderProps {
-  activeSection: SectionId;
+  // null en páginas que no están en el menú (por ejemplo /privacidad).
+  activeSection: SectionId | null;
   onNavigate: (sectionId: SectionId) => void;
 }
 
