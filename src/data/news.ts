@@ -20,6 +20,71 @@ export type NewsItem = {
 
 export const NEWS_ITEMS: NewsItem[] = [
   {
+    slug: "black-friday-2026-colombia-preparar-negocio",
+    category: "Ventas y comercio",
+    date: "20 Oct 2026",
+    displayDate: "Martes · 20 de octubre de 2026",
+    title: "Black Friday 2026 en Colombia: cómo preparar tu negocio",
+    deck:
+      "El Black Friday cae el viernes 27 de noviembre. Lo que decide si vendes ese día no es el descuento: es si el cliente te encuentra, te entiende y te puede pagar sin fricción.",
+    summary:
+      "El Black Friday 2026 en Colombia es el 27 de noviembre. Qué pide la SIC a los comercios y qué preparar en tu negocio para vender más ese día.",
+    insight:
+      "Las grandes cadenas siempre van a poder bajar más el precio. Una pyme gana en lo que rodea la oferta: condiciones claras, respuesta rápida y un pago sin enredos.",
+    signals: [
+      "La fecha: viernes 27 de noviembre de 2026, según Bloomberg Línea. La duración de las promociones depende de cada establecimiento, así que define tú hasta cuándo dura la tuya.",
+      "La SIC recuerda que toda promoción debe informar su vigencia, los productos incluidos y las condiciones, con el precio en pesos y el vendedor claramente identificado.",
+      "Según las normas de protección al consumidor que cita Bloomberg Línea, si un mismo producto aparece con dos precios, el cliente puede pagar el más bajo. Un banner viejo que nadie actualizó puede salirte caro.",
+      "Cuando los precios se parecen, decide la experiencia de compra: qué tan claro está todo y qué tan fácil es preguntar y pagar.",
+    ],
+    actions: [
+      "Elige de tres a cinco productos para la promoción y anota su precio habitual de hoy. Así el descuento que anuncies es real y puedes demostrarlo.",
+      "Escribe las condiciones en una sola frase (qué incluye, hasta cuándo, cuántas unidades) y repítela igual en la web, en Instagram y en WhatsApp.",
+      "Revisa que tu página cargue rápido en el celular, tenga el botón de WhatsApp a la vista y muestre tu nombre, ciudad y contacto.",
+      "Deja listas en WhatsApp Business las respuestas rápidas a lo que más van a preguntar: precio, envío, tiempos de entrega, medios de pago y cambios.",
+      "Prueba todos tus medios de pago antes del 27 y define cuántos pedidos puedes despachar de verdad. La venta del viernes no puede convertirse en el reclamo del lunes.",
+    ],
+    source: "Bloomberg Línea",
+    url: "https://www.bloomberglinea.com/latinoamerica/colombia/cuando-es-el-black-friday-2026-en-colombia-cae-el-27-de-noviembre-y-asi-puede-preparar-sus-compras/",
+    image:
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80",
+    alt: "Bolsas de compras rojas y negras sobre fondo oscuro, temporada de Black Friday",
+    contactMessage:
+      "Hola, leí el artículo sobre el Black Friday 2026 y quiero preparar mi página web y mi WhatsApp para vender más el 27 de noviembre.",
+  },
+  {
+    slug: "como-automatizar-whatsapp-business-negocio",
+    tipo: "guia",
+    category: "Automatización",
+    date: "20 Oct 2026",
+    displayDate: "Martes · 20 de octubre de 2026",
+    title: "Cómo automatizar WhatsApp Business en un negocio pequeño",
+    deck:
+      "La mitad de lo que contestas en WhatsApp es lo mismo todos los días. Qué puedes automatizar gratis desde hoy, cuándo vale la pena un chatbot y qué no deberías automatizar nunca.",
+    summary:
+      "Guía para automatizar WhatsApp Business en un negocio pequeño: qué se hace gratis con la app, cuándo pasar a un chatbot y qué no conviene automatizar.",
+    insight:
+      "Automatizar WhatsApp no es poner un robot a hablar con tus clientes: es que lo de siempre se responda solo, para que tu equipo dedique su tiempo a cerrar ventas.",
+    signals: [
+      "Gratis, en la app de WhatsApp Business: mensaje de bienvenida, mensaje de ausencia fuera de horario, respuestas rápidas con atajo, etiquetas para ordenar clientes y catálogo con fotos y precios.",
+      "La app se queda corta cuando varias personas contestan desde el mismo número, los mensajes se pierden o quieres que cada pedido quede guardado solo en una hoja de cálculo o en tu sistema.",
+      "Con costo, la plataforma de WhatsApp Business (la API) permite chatbots, varios agentes y conexiones con n8n, tu CRM o tu agenda. Meta cobra por mensaje según el tipo y el país: pide la tarifa vigente para Colombia antes de montar nada.",
+      "Vale la pena automatizar preguntas frecuentes, recordatorios de citas y estado de pedidos. No conviene automatizar quejas ni negociaciones: un bot que no deja hablar con una persona espanta clientes.",
+      "Escribirle a un cliente que no te ha escrito tiene reglas: Meta exige que haya aceptado tus mensajes, y la Ley 1581 de 2012 te pide su autorización para usar sus datos con fines comerciales.",
+    ],
+    actions: [
+      "Revisa tus chats de la última semana y anota las diez preguntas que más se repiten. Esa lista es tu guion de automatización.",
+      "Conviértelas en respuestas rápidas: cortas, con el dato concreto y terminando con una pregunta que mueva la venta.",
+      "Activa el mensaje de bienvenida (qué vendes, horario, cómo pedir) y el de ausencia con la hora en que vas a responder.",
+      "Si después de eso sigues sin dar abasto, evalúa un chatbot. Exige que siempre permita hablar con una persona y que te digan cuántos mensajes al mes vas a pagar.",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80",
+    alt: "Celular sobre una tela gris con una carpeta llamada Messages que reúne cinco aplicaciones de mensajería: WhatsApp, Telegram, WeChat, Line y Signal",
+    contactMessage:
+      "Hola, leí la guía para automatizar WhatsApp Business y quiero saber qué respuestas y procesos de mi negocio se pueden automatizar.",
+  },
+  {
     slug: "meta-ads-product-browsing-28-octubre",
     category: "Meta Ads y publicidad",
     date: "15 Oct 2026",
