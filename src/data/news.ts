@@ -32,20 +32,19 @@ export const NEWS_ITEMS: NewsItem[] = [
     insight:
       "Las grandes cadenas siempre van a poder bajar más el precio. Una pyme gana en lo que rodea la oferta: condiciones claras, respuesta rápida y un pago sin enredos.",
     signals: [
-      "La fecha: viernes 27 de noviembre de 2026, según Bloomberg Línea y Semana. Muchas marcas estiran las ofertas hasta el domingo 29, así que conviene planear el fin de semana completo.",
+      "La fecha: viernes 27 de noviembre de 2026, según Bloomberg Línea. La duración de las promociones depende de cada establecimiento, así que define tú hasta cuándo dura la tuya.",
       "La SIC recuerda que toda promoción debe informar su vigencia, los productos incluidos y las condiciones, con el precio en pesos y el vendedor claramente identificado.",
-      "Si un mismo producto aparece con dos precios, el cliente paga el más bajo. Un banner viejo que nadie actualizó puede salirte caro.",
-      "En ventas por internet o por WhatsApp aplica el derecho de retracto de la Ley 1480 de 2011: el cliente tiene cinco días hábiles para arrepentirse después de recibir el producto.",
-      "El comercio llega en movimiento: según el DANE, las ventas reales del comercio minorista crecieron 5,3 % en julio de 2026. Y cuando los precios se parecen, decide la experiencia de compra.",
+      "Según las normas de protección al consumidor que cita Bloomberg Línea, si un mismo producto aparece con dos precios, el cliente puede pagar el más bajo. Un banner viejo que nadie actualizó puede salirte caro.",
+      "Cuando los precios se parecen, decide la experiencia de compra: qué tan claro está todo y qué tan fácil es preguntar y pagar.",
     ],
     actions: [
-      "Elige de tres a cinco productos para la promoción y anota su precio habitual de hoy. Inflar el precio de referencia para mostrar más descuento es justo lo que la SIC sanciona.",
+      "Elige de tres a cinco productos para la promoción y anota su precio habitual de hoy. Así el descuento que anuncies es real y puedes demostrarlo.",
       "Escribe las condiciones en una sola frase (qué incluye, hasta cuándo, cuántas unidades) y repítela igual en la web, en Instagram y en WhatsApp.",
       "Revisa que tu página cargue rápido en el celular, tenga el botón de WhatsApp a la vista y muestre tu nombre, ciudad y contacto.",
       "Deja listas en WhatsApp Business las respuestas rápidas a lo que más van a preguntar: precio, envío, tiempos de entrega, medios de pago y cambios.",
       "Prueba todos tus medios de pago antes del 27 y define cuántos pedidos puedes despachar de verdad. La venta del viernes no puede convertirse en el reclamo del lunes.",
     ],
-    source: "Bloomberg Línea / Metropolitano (DANE) / Semana",
+    source: "Bloomberg Línea",
     url: "https://www.bloomberglinea.com/latinoamerica/colombia/cuando-es-el-black-friday-2026-en-colombia-cae-el-27-de-noviembre-y-asi-puede-preparar-sus-compras/",
     image:
       "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80",
@@ -81,7 +80,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     ],
     image:
       "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80",
-    alt: "Celular con el ícono de WhatsApp en la pantalla, listo para atender clientes de un negocio",
+    alt: "Celular sobre una tela gris con una carpeta llamada Messages que reúne cinco aplicaciones de mensajería: WhatsApp, Telegram, WeChat, Line y Signal",
     contactMessage:
       "Hola, leí la guía para automatizar WhatsApp Business y quiero saber qué respuestas y procesos de mi negocio se pueden automatizar.",
   },
