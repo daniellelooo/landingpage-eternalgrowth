@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import CustomSelect from "../../common/Select";
 import { SITE } from "../../../seo/site";
+import {
+  AUTORIZACION_CONTACTO,
+  POLITICA_VERSION,
+  PRIVACIDAD_PATH,
+  RESPONSABLE,
+} from "../../../data/privacidad";
 
 const COUNTRY_OPTIONS = [
   { label: "CO +57", value: "+57" },
@@ -185,6 +191,25 @@ const Contact = () => {
               required
             />
           </label>
+
+          {/* Autorización previa, expresa e informada (Ley 1581, art. 9).
+              Sin marcar por defecto; el servidor también la exige. */}
+          <input type="hidden" name="politica_version" value={POLITICA_VERSION} />
+          <label className="form-autoriza">
+            <input type="checkbox" name="autoriza_datos" value="si" required />
+            <span>
+              {AUTORIZACION_CONTACTO}{" "}
+              <a href={PRIVACIDAD_PATH} target="_blank" rel="noopener">
+                política de tratamiento de datos
+              </a>
+              .
+            </span>
+          </label>
+          <p className="form-aviso">
+            Responsable: {RESPONSABLE.nombre}, quien opera EternalGrowth. Puedes
+            conocer, corregir o pedir que borremos tus datos escribiendo a{" "}
+            <a href={`mailto:${RESPONSABLE.correo}`}>{RESPONSABLE.correo}</a>.
+          </p>
 
           <div className="contact-actions">
             <button

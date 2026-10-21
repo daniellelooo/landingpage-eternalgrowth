@@ -11,6 +11,7 @@ import {
   PROYECTOS,
   imagenesDe,
 } from "../data/portafolio";
+import { POLITICA_VERSION, PRIVACIDAD_PATH } from "../data/privacidad";
 import { SITE, absoluteUrl } from "./site";
 
 export type PageMeta = {
@@ -211,6 +212,44 @@ const PORTAFOLIO_META: PageMeta = {
   ],
 };
 
+const PRIVACIDAD_DESCRIPTION =
+  "Política de tratamiento de datos personales y aviso de privacidad de EternalGrowth, agencia de software en Medellín, según la Ley 1581 de 2012: finalidades, derechos y cómo ejercerlos.";
+
+const PRIVACIDAD_META: PageMeta = {
+  path: PRIVACIDAD_PATH,
+  title: "Política de tratamiento de datos | EternalGrowth Medellín",
+  description: PRIVACIDAD_DESCRIPTION,
+  ogType: "website",
+  image: SITE.ogImage,
+  imageAlt: DEFAULT_IMAGE_ALT,
+  jsonLd: [
+    organizationJsonLd,
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Política de tratamiento de datos personales",
+      description: PRIVACIDAD_DESCRIPTION,
+      url: absoluteUrl(PRIVACIDAD_PATH),
+      inLanguage: "es-CO",
+      dateModified: POLITICA_VERSION,
+      publisher: { "@id": ORGANIZATION_ID },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Política de tratamiento de datos",
+          item: absoluteUrl(PRIVACIDAD_PATH),
+        },
+      ],
+    },
+  ],
+};
+
 export const NOT_FOUND_META: PageMeta = {
   path: "/404",
   title: "Página no encontrada | EternalGrowth",
@@ -347,6 +386,7 @@ export const getPageMeta = (pathname: string): PageMeta | null => {
   if (path === "/eternalgrowth") return ABOUT_META;
   if (path === NEWS_BASE_PATH) return BLOG_META;
   if (path === PORTAFOLIO_PATH) return PORTAFOLIO_META;
+  if (path === PRIVACIDAD_PATH) return PRIVACIDAD_META;
   if (path.startsWith(`${SERVICIOS_BASE_PATH}/`)) {
     return getServicioMeta(path.slice(SERVICIOS_BASE_PATH.length + 1));
   }
@@ -366,6 +406,7 @@ export const getAllPaths = (): string[] => [
   ...SERVICIOS.map((servicio) => `${SERVICIOS_BASE_PATH}/${servicio.slug}`),
   NEWS_BASE_PATH,
   ...NEWS_ITEMS.map((item) => `${NEWS_BASE_PATH}/${item.slug}`),
+  PRIVACIDAD_PATH,
 ];
 
 // Entradas del sitemap. Solo llevan fecha las páginas que la tienen de verdad
@@ -387,6 +428,7 @@ export const getSitemapEntries = (): { path: string; lastmod?: string }[] => {
       path: `${NEWS_BASE_PATH}/${item.slug}`,
       lastmod: articleDates[index],
     })),
+    { path: PRIVACIDAD_PATH, lastmod: POLITICA_VERSION },
   ];
 };
 

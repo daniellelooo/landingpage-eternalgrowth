@@ -213,6 +213,19 @@
   max-width: 60ch;
 }
 
+/* Página de privacidad (/privacidad): misma maqueta, dos ajustes de ritmo. */
+.privacidad-aviso {
+  margin-top: 3rem;
+}
+
+.privacidad-aviso p:last-child {
+  margin-bottom: 0;
+}
+
+.servicio-vinetas + .privacidad-cierre {
+  margin-top: 1.6rem;
+}
+
 @media (max-width: 768px) {
   .servicio-main {
     padding: 6rem 1.25rem 3.5rem;

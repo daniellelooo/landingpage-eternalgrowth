@@ -9,7 +9,20 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const ssrEntry = path.join(root, "dist-ssr", "entry-server.js");
 
-const { renderPage, getAllPaths, getSitemapEntries, SITE } = await import(pathToFileURL(ssrEntry).href);
+const { renderPage, getAllPaths, getSitemapEntries, SITE, camposPendientesPrivacidad } = await import(
+  pathToFileURL(ssrEntry).href
+);
+
+// La política de datos (src/data/privacidad.ts) tiene campos del responsable
+// que se llenan a mano. En producción el build se detiene si falta alguno:
+// publicar /privacidad con "[NOMBRE ...]" sería peor que no tenerla. En los
+// previews solo avisa, para poder revisar el diseño antes de llenarlos.
+const pendientes = camposPendientesPrivacidad();
+if (pendientes.length) {
+  const aviso = `prerender: la política de datos tiene campos sin llenar en src/data/privacidad.ts (${pendientes.join(", ")})`;
+  if (process.env.VERCEL_ENV === "production") throw new Error(aviso);
+  console.warn(`AVISO ${aviso}. En producción esto detiene el build.`);
+}
 
 let template = await readFile(path.join(dist, "index.html"), "utf8");
 
