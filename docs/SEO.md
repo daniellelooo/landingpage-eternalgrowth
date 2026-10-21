@@ -56,6 +56,10 @@ el título, el Open Graph, los datos estructurados y la entrada del sitemap sale
 - `title`: es el título que aparece en Google. Con tildes y por debajo de ~65 caracteres si se puede.
 - `summary`: es la descripción que aparece en Google (se corta a 158 caracteres).
 - Textos con tildes. Sin emojis, tampoco en la categoría.
+- `image`: puede ser una URL de Unsplash o una miniatura propia en `public/blog-img/`. La propia
+  lleva dos archivos WebP: `<slug>.webp` (1200 x 630, artículo, Open Graph y home) y
+  `<slug>-vertical.webp` (480 x 1440, hueco alto de la tarjeta en computador). En `image` se
+  escribe la ruta del primero (`/blog-img/<slug>.webp`).
 
 **Cadencia:** un artículo cada dos semanas como mínimo. El blog estuvo parado de mayo a
 septiembre de 2026 y un blog parado le dice a Google y al cliente que la empresa también.

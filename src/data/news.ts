@@ -85,6 +85,173 @@ export const NEWS_ITEMS: NewsItem[] = [
       "Hola, leí la guía para automatizar WhatsApp Business y quiero saber qué respuestas y procesos de mi negocio se pueden automatizar.",
   },
   {
+    slug: "meta-ads-product-browsing-28-octubre",
+    category: "Meta Ads y publicidad",
+    date: "15 Oct 2026",
+    displayDate: "Jueves · 15 de octubre de 2026",
+    title: "Meta activará product browsing en tus anuncios el 28 de octubre",
+    deck:
+      "Meta avisó a los anunciantes que una función que antes se encendía anuncio por anuncio pasará a estar activa por defecto en los anuncios que ya están corriendo. Tienes hasta el 28 de octubre para decidir.",
+    summary:
+      "Meta activará por defecto el product browsing en los anuncios en marcha el 28 de octubre de 2026. Qué es, cómo desactivarlo y qué revisar.",
+    insight:
+      "Product browsing es una experiencia dentro de Facebook o Instagram: cuando alguien toca tu anuncio, puede ver información del producto y sugerencias personalizadas sin salir de la aplicación. Hasta ahora era una mejora de Advantage+ que cada anunciante encendía anuncio por anuncio. Con el cambio, se enciende sola en los anuncios que ya tienes publicados. Para un negocio de Medellín que vende por Instagram, esto significa que parte del recorrido del cliente puede pasar a ocurrir dentro de la plataforma y no en tu página web ni en tu WhatsApp. Puede sumar ventas, pero también cambia dónde ocurre la decisión de compra, y por eso conviene decidirlo tú y no que lo decida un valor por defecto.",
+    signals: [
+      "El cambio lo avisó Meta a los anunciantes alrededor del 14 de octubre de 2026 y entra en vigor el 28 de octubre. PPC Land, el medio que lo reportó el 15 de octubre, aclara que la fecha no está confirmada en una página oficial: se deduce de una publicación en LinkedIn con el aviso y de un registro de cambios de terceros.",
+      "Se puede desactivar antes de la fecha con el botón de salida del propio aviso, o en cualquier momento desde la configuración de Advantage+ Creative y Destination, anuncio por anuncio. No está claro si el botón del aviso afecta una sola cuenta publicitaria, todas o un portafolio de negocio.",
+      "No queda claro si los anuncios nuevos nacerán con la función encendida. El aviso habla de los anuncios que ya están en marcha.",
+      "Meta justifica el cambio con un promedio de 3 % más de conversiones por empresa, medido en un experimento del 6 al 21 de agosto de 2026 con unos 117.700 anunciantes en el mundo, con una confianza superior al 99 %. PPC Land señala que no se define qué cuenta como conversión ni cómo se hizo la comparación, y que no se informa el costo por conversión ni el retorno sobre la inversión publicitaria.",
+      "El calendario aprieta: el aviso llega con unas dos semanas de antelación y la función quedará activa justo antes de Black Friday, el 27 de noviembre, y Cyber Monday, el 30 de noviembre de 2026.",
+    ],
+    actions: [
+      "Entra a tu administrador de anuncios esta semana y revisa si te apareció el aviso. Si manejas varias cuentas, mira cada una por separado, porque no se sabe si el botón las cubre todas.",
+      "Decide con un criterio simple: si tu producto se vende bien con la información que Meta muestra dentro de la aplicación, déjalo encendido; si tu venta depende de que el cliente llegue a tu web o te escriba por WhatsApp, apágalo en esos anuncios.",
+      "Si lo dejas encendido, no lo evalúes a ojo: compara ventas reales, no solo clics ni conversiones del panel, durante las dos semanas antes y las dos semanas después del 28 de octubre.",
+      "Revisa que tus anuncios lleven a algo que puedas medir. Un anuncio que termina en un formulario o en un chat registrado te dice cuánto vendiste. Uno que termina en la nada, no.",
+      "Antes de Black Friday, deja listos los anuncios que mejor te han funcionado y no cambies la configuración en plena campaña.",
+    ],
+    source: "PPC Land",
+    url: "https://ppc.land/meta-will-turn-on-product-browsing-in-existing-ads-on-october-28/",
+    image: "/blog-img/meta-ads-product-browsing-28-octubre.webp",
+    alt: "Tarjeta de producto de un anuncio con un interruptor de activación al lado",
+    contactMessage:
+      "Hola, leí el artículo sobre el product browsing de Meta Ads y quiero revisar la configuración de mis anuncios antes del 28 de octubre.",
+  },
+  {
+    slug: "google-spam-update-septiembre-2026",
+    category: "SEO y Google",
+    date: "8 Oct 2026",
+    displayDate: "Jueves · 8 de octubre de 2026",
+    title: "Google cerró su actualización antispam: qué revisar en tu web",
+    deck:
+      "Google lanzó el 24 de septiembre una actualización contra el spam que tardó casi dos semanas en completarse. Ya terminó, y es buen momento para mirar cómo quedó tu página.",
+    summary:
+      "Google completó el 8 de octubre de 2026 su actualización antispam de septiembre. Qué dijo, qué no dijo y cómo revisar en Search Console si te afectó.",
+    insight:
+      "Una actualización de spam no es una penalización a una web en particular: es un cambio en los sistemas con los que Google decide qué resultados mostrar. La de septiembre de 2026 se aplica en todo el mundo y en todos los idiomas, así que también cuenta para una pyme de Medellín que compite por búsquedas como desarrollo web o servicios locales. Google no dijo qué prácticas apunta, y esa es justamente la razón para no entrar en pánico ni correr a cambiar la web. Lo sensato es mirar los datos con calma, comparar antes y después, y asegurarte de que tu sitio no hace nada de lo que Google ya ha dicho que no quiere ver.",
+    signals: [
+      "Según el Panel de Estado de Búsqueda de Google, la actualización se lanzó el 24 de septiembre de 2026 a las 9:15 a. m., hora del Pacífico de Estados Unidos. Google anunció que se aplica globalmente y a todos los idiomas, y que su despliegue podía tardar hasta dos semanas.",
+      "El mismo panel registra que el despliegue se completó el 8 de octubre de 2026. El encabezado de la página marca la 1:00 a. m. como cierre y la entrada final tiene las 1:37 a. m., hora del Pacífico, así que la hora exacta varía según qué línea se lea.",
+      "El aviso de Google no explica qué tácticas de spam apunta esta actualización. Cualquier lista de culpables que circule por ahí es una suposición, no un dato de Google.",
+      "Las políticas de spam de Google, que están publicadas en su documentación, incluyen prácticas como el contenido generado en masa sin valor, las páginas creadas solo para posicionar variaciones de una búsqueda y el relleno de palabras clave. Ninguna de estas es una novedad: ya estaban escritas.",
+      "Que la actualización haya terminado no significa que tus posiciones se hayan quedado quietas durante esas dos semanas. Si viste movimientos, tienes que compararlos con fechas, no con sensaciones.",
+    ],
+    actions: [
+      "Abre Google Search Console y compara el rendimiento de las dos semanas anteriores al 24 de septiembre con el de las dos semanas posteriores al 8 de octubre. Mira clics, impresiones y las páginas que más cambiaron.",
+      "Si no tienes Search Console conectado, hazlo esta semana. Sin ese dato no vas a saber si te afectó o si fue una semana floja por otra razón.",
+      "Revisa tu sitio contra las políticas de spam de Google. Una web con páginas casi idénticas donde solo cambia el nombre del barrio o de la ciudad, o con textos llenos de la misma palabra repetida, es la que debería preocuparte.",
+      "No cambies medio sitio de golpe por una caída de pocos días. Si encuentras un problema real, corrígelo y anota la fecha para poder medir el efecto.",
+      "Cada página debe responder algo que el cliente de verdad pregunta. Es la mejor protección contra cualquier actualización, la de septiembre y las que vienen.",
+    ],
+    source: "Google Search Status Dashboard",
+    url: "https://status.search.google.com/incidents/XhUDXP7A67iHCD2kmbVu",
+    image: "/blog-img/google-spam-update-septiembre-2026.webp",
+    alt: "Escudo con una marca de verificación sobre dos páginas web",
+    contactMessage:
+      "Hola, leí el artículo sobre la actualización antispam de Google y quiero que revisen cómo está mi página web y si cumple las políticas de Google.",
+  },
+  {
+    slug: "google-business-resenas-spam-pausa",
+    category: "SEO local y Google Maps",
+    date: "22 Sep 2026",
+    displayDate: "Martes · 22 de septiembre de 2026",
+    title: "Google pausa las reseñas de tu negocio si detecta spam: qué hacer",
+    deck:
+      "Google está avisando por correo a los dueños de fichas de negocio cuando sus sistemas detectan un pico de reseñas falsas: las elimina y pausa las nuevas. El problema es que el filtro puede confundir una buena semana con un ataque.",
+    summary:
+      "Google avisa por correo cuando detecta un pico de reseñas spam en tu ficha, las elimina y pausa las nuevas. Qué dice y cómo cuidar tus reseñas.",
+    insight:
+      "Para un negocio local, las reseñas de Google son parte del escaparate: son lo primero que mira un cliente nuevo antes de escribirte o de venir. Por eso importa lo que Search Engine Roundtable reportó el 22 de septiembre de 2026: Google ya está enviando un correo a los propietarios cuando sus sistemas antispam detectan un aumento repentino de reseñas falsas en la ficha. Google las elimina para que no afecten la calificación y, mientras tanto, pausa de forma temporal las nuevas calificaciones, reseñas y otras contribuciones de usuarios. En principio es una protección. En la práctica, abre una pregunta incómoda para quien pide reseñas de manera constante.",
+    signals: [
+      "El asunto del correo es Protecting your Business Profile from spam reviews. El texto dice que Google detectó un aumento de reseñas spam y las eliminó, y que las nuevas calificaciones y contribuciones quedaron temporalmente en pausa.",
+      "Según el aviso, Google levanta la pausa cuando el riesgo se controla, normalmente en unos pocos días. Es el texto del correo: Google no ha publicado una duración oficial.",
+      "El propietario no tiene que hacer nada, pero si cree que se eliminaron reseñas legítimas por error, el correo le permite pedir una revisión.",
+      "La captura del correo la compartió en LinkedIn Antoine Cameron. Search Engine Roundtable aclara que la página no incluye un anuncio oficial de Google: lo que se conoce del aviso viene de esa captura.",
+      "Amy Toman, que comenta en la nota, cuenta que un cliente recibió el aviso después de abrir una sucursal nueva y de recibir reseñas de forma constante. Ella considera que el filtro necesita ajustes, lo que sugiere que puede atrapar reseñas reales.",
+    ],
+    actions: [
+      "Revisa tu ficha de Google Business Profile y confirma que el correo de la cuenta es uno que de verdad lees. El aviso llega por correo a los propietarios y, si nadie lo ve, nadie se entera de que las reseñas están pausadas.",
+      "Si recibes el aviso, no pidas reseñas a toda tu base de clientes de golpe para compensar. Esperar a que la pausa se levante es mejor que parecer otro pico.",
+      "Cuando se levante la pausa, revisa si desaparecieron reseñas reales. Si es así, usa la opción de pedir una revisión que trae el correo.",
+      "Pide reseñas de forma pareja y natural, por ejemplo al entregar un trabajo o cerrar una venta, en lugar de lanzar una campaña masiva un solo día. Es una recomendación nuestra, no una regla de Google, y tiene sentido porque el filtro mira picos.",
+      "Nunca compres reseñas ni se las pidas a conocidos que no han sido clientes. Es justo el tipo de patrón que estos sistemas están diseñados para cortar.",
+    ],
+    source: "Search Engine Roundtable",
+    url: "https://www.seroundtable.com/google-business-profiles-spike-in-spam-reviews-42123.html",
+    image: "/blog-img/google-business-resenas-spam-pausa.webp",
+    alt: "Pin de ubicación con un símbolo de pausa sobre cinco estrellas de calificación",
+    contactMessage:
+      "Hola, leí el artículo sobre las reseñas de Google Business Profile y quiero ayuda para ordenar la ficha de mi negocio y conseguir reseñas de forma segura.",
+  },
+  {
+    slug: "whatsapp-business-cobro-mensajes-octubre-2026",
+    category: "Automatización y WhatsApp",
+    date: "22 Sep 2026",
+    displayDate: "Martes · 22 de septiembre de 2026",
+    title: "WhatsApp cobra respuestas a empresas desde octubre: ¿te afecta?",
+    deck:
+      "Desde el 1 de octubre de 2026, las empresas que usan WhatsApp Business Platform pagan por los mensajes de servicio que superen 1.000 al mes por número. Si solo usas la aplicación gratuita, no cambia nada.",
+    summary:
+      "Desde el 1 de octubre de 2026 WhatsApp cobra a empresas con API los mensajes de servicio sobre 1.000 al mes. A quién afecta y qué revisar.",
+    insight:
+      "El cambio se explica fácil y se confunde fácil. No es que WhatsApp deje de ser gratis para los negocios: es que Meta empezó a cobrar a las empresas que lo usan a través de la plataforma de pago, la que se conecta con un CRM, un chatbot o un sistema de atención con varios agentes. Si en tu negocio alguien contesta desde la aplicación de WhatsApp Business en un celular, sigues igual. Si montaste automatizaciones, o tu proveedor lo hizo por ti, estás en el grupo afectado, y vale la pena preguntarte hoy cuántos mensajes salen cada mes y quién paga la factura.",
+    signals: [
+      "Proceso, que lo publicó el 22 de septiembre de 2026, explica que desde el 1 de octubre Meta cobra por cada mensaje de servicio entregado por empresas que usan WhatsApp Business Platform. Hasta el 30 de septiembre, las respuestas dentro de la ventana de 24 horas eran gratis.",
+      "Cada número empresarial tiene 1.000 mensajes de servicio gratis al mes. El cobro empieza con el mensaje 1.001 del mismo mes, el cupo se reinicia mensualmente y lo que no se use no se acumula.",
+      "Los mensajes de utilidad, como confirmaciones de pedido, avisos de entrega, recibos o recordatorios de cita, se cobran incluso dentro de la ventana de 24 horas. Para un negocio que automatiza avisos, esta es la parte que más pesa.",
+      "El precio depende del país del cliente y de la categoría del mensaje. La nota no da una tarifa para Colombia ni un valor único: hay que consultar la tabla de tarifas vigente desde octubre. Además, el proveedor o el CRM pueden sumar su propio cobro.",
+      "El cobro es por mensaje entregado, no por conversación. Proceso pone un ejemplo: una respuesta sobre un pedido partida en saludo, petición del número de compra y estado del envío cuenta como tres cargos. Los mensajes que el cliente envía a la empresa siguen siendo gratis y los intentos de envío no entregados no se cobran.",
+      "Las conversaciones que empiezan desde un anuncio de clic a WhatsApp o desde un botón de una página de Facebook tienen una ventana gratuita que la nota describe, hoy, de 72 horas.",
+    ],
+    actions: [
+      "Averigua primero en cuál de los dos mundos estás: aplicación de WhatsApp Business en el celular, o plataforma conectada a un sistema. Es la pregunta que decide si esto te importa.",
+      "Si tienes la plataforma, pídele a tu proveedor el número de mensajes de servicio y de utilidad que enviaste el último mes y cuánto de eso habría quedado fuera del cupo de 1.000.",
+      "Revisa tus flujos automáticos y junta en un solo mensaje lo que hoy sale en tres. Responder de forma completa y corta no solo cuesta menos: también se lee mejor.",
+      "Antes de presupuestar, confirma con tu proveedor y en la documentación de Meta las condiciones vigentes y la tarifa para Colombia, que no aparece en la nota. Pregunta también quién tiene registrado el método de pago.",
+      "Si tu negocio depende de WhatsApp para vender, no pongas todo en un solo canal: ten también el formulario de tu página y el correo funcionando.",
+    ],
+    source: "Proceso",
+    url: "https://www.proceso.com.mx/ciencia-tecnologia/2026/9/22/whatsapp-cobrara-por-mensaje-desde-octubre-quienes-deberan-pagar-380407.html",
+    image: "/blog-img/whatsapp-business-cobro-mensajes-octubre-2026.webp",
+    alt: "Dos burbujas de conversación y un contador de 1.000 mensajes gratuitos",
+    contactMessage:
+      "Hola, leí el artículo sobre el cobro de mensajes de WhatsApp Business y quiero saber cómo me afecta y si conviene ajustar mis automatizaciones.",
+  },
+  {
+    slug: "ia-empresas-colombianas-adopcion-escalar",
+    category: "IA Práctica",
+    date: "21 Sep 2026",
+    displayDate: "Lunes · 21 de septiembre de 2026",
+    title: "IA en Colombia: 61 % la prioriza, 37,7 % la integra",
+    deck:
+      "Un estudio de Endeavor Data Unit con Xertica.ai encuestó a 493 profesionales de empresas colombianas y encontró una brecha clara entre querer usar IA y lograr que funcione en el día a día.",
+    summary:
+      "Estudio de Endeavor y Xertica.ai: 61 % de las empresas colombianas ve la IA como prioridad y 37,7 % la integró de forma significativa. Qué aprender.",
+    insight:
+      "El estudio se llama Colombia AI Pulse: Adoptar ya no basta y lo reportó Infobae el 21 de septiembre de 2026. Ojo con la muestra: son 493 profesionales de organizaciones colombianas con al menos 50 empleados, de siete industrias. Eso deja por fuera a las microempresas y a los negocios pequeños, así que no mide a tu tienda de barrio ni a tu consultorio. Pero sí funciona como espejo: si empresas más grandes se estancan entre la intención y el resultado, una pyme tiene aún más razones para empezar por algo pequeño, concreto y medible.",
+    signals: [
+      "El 61 % considera la IA una prioridad estratégica o un pilar central del negocio, pero solo el 37,7 % dice haberla integrado de manera significativa en sus operaciones.",
+      "Colombia saca 45,6 puntos sobre 100 en el Índice de Sofisticación de IA del estudio, frente a 45,1 de México. El 93,5 % de las organizaciones está en etapas intermedias de madurez y solo el 0,2 % llega a la categoría Liderando.",
+      "El tamaño pesa: las empresas de más de 500 empleados promedian 49,6 puntos y las de 50 a 99 trabajadores, 42,1.",
+      "Las tres barreras que más se repiten son ciberseguridad y privacidad, citada por el 50 %, infraestructura o integración de sistemas, por el 40 %, y talento especializado o calidad de los datos, por cerca del 33 %.",
+      "El 63,7 % de los usos opera con asistencia o control humano directo y el 36,3 % tiene algún grado de delegación o funcionamiento autónomo. El estudio advierte que más autonomía no equivale a más madurez: en procesos sensibles, mantener a una persona al mando puede ser una decisión deliberada.",
+      "El 62 % tiene políticas de IA documentadas y aplicadas de forma consistente, y cerca del 20 % no tiene ninguna. Además, el 71,9 % aumentó su presupuesto de IA en los últimos 12 meses.",
+    ],
+    actions: [
+      "Antes de comprar una herramienta, escribe qué proceso concreto quieres mejorar y cómo vas a medir si mejoró. Si no puedes medirlo, todavía no es un proyecto.",
+      "Empieza por un caso que se pueda repetir, como responder preguntas frecuentes, ordenar pedidos o resumir reuniones. Según Saúl Chrem, de Xertica.ai, que cita Infobae, casi todas las organizaciones tienen al menos un caso funcionando, pero solo cuatro de cada diez logran que sea reutilizable.",
+      "Define una regla corta sobre qué información de clientes se puede subir a una herramienta de IA y cuál no. La seguridad y la privacidad son la barrera más citada.",
+      "Deja a una persona revisando lo que la IA hace con clientes. Controlar no es falta de ambición, es parte de hacerlo bien.",
+      "Asegúrate de que tus datos estén ordenados: una lista de clientes duplicada o un inventario desactualizado no se arreglan con IA, se vuelven un error más rápido.",
+    ],
+    source: "Infobae",
+    url: "https://www.infobae.com/tecno/2026/09/21/la-ia-ya-es-prioridad-para-las-empresas-colombianas-pero-solo-4-de-cada-10-la-integran/",
+    image: "/blog-img/ia-empresas-colombianas-adopcion-escalar.webp",
+    alt: "Gráfico de barras ascendentes con un punto de conexión que representa la adopción de inteligencia artificial",
+    contactMessage:
+      "Hola, leí el artículo sobre el estudio de IA en empresas colombianas y quiero identificar un primer proceso de mi negocio donde la IA sirva de verdad.",
+  },
+  {
     slug: "que-es-transformacion-digital-pyme",
     tipo: "guia",
     category: "Transformación digital",
@@ -379,6 +546,10 @@ export const getIsoDateFromNewsDate = (rawDate: string) => {
 // foto ya recortada a esa forma: pesa una fracción y se ve nítida. Con una foto
 // apaisada pequeña, el recorte la estiraba y quedaba borrosa.
 export const imagenRecortada = (url: string, ancho: number, alto: number) => {
+  // Las miniaturas propias (public/blog-img) vienen en dos formas ya recortadas:
+  // apaisada (1200 x 630) y vertical (480 x 1440, para el hueco alto del
+  // computador). No llevan parámetros de tamaño: es un archivo estático.
+  if (url.startsWith("/")) return alto > ancho ? url.replace(/\.webp$/, "-vertical.webp") : url;
   const base = url.replace(/([?&])(w|h)=[^&]*/g, "$1").replace(/[?&]+$/, "").replace(/&&+/g, "&");
   const separador = base.includes("?") ? "&" : "?";
   // Recorte centrado, igual que el object-fit: cover de antes: mismo encuadre.

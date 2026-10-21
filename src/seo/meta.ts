@@ -303,7 +303,7 @@ const getArticleMeta = (slug: string): PageMeta | null => {
         "@type": "BlogPosting",
         headline: item.title,
         description: item.deck,
-        image: [item.image],
+        image: [absoluteUrl(item.image)],
         datePublished: isoDate,
         dateModified: isoDate,
         inLanguage: "es-CO",
